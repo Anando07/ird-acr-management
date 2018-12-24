@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sf="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ACR List</title>
+
+    <link rel="stylesheet" th:href="@{/css/common.css}" href="../static/css/css/common.css" type="text/css" />
+
+</head>
+<body>
+<div class="container">
+    <h2>ACR Information</h2>
+    <hr />
+
+    <form class="example" action="#">
+        <input type="text" placeholder="Search.." name="search">
+        <button type="submit">Search<!--<i class="fa fa-search">--></i></button>
+    </form>
+
+    <h2>RECEIVED ACR</h2>
+
+    <table class="acr">
+        <tr>
+            <th>S/N</th>
+            <th>Govt. ID</th>
+            <th>Year</th>
+            <th>From</th>
+            <th>To</th>
+        </tr>
+
+        <tr th:each="acr : ${acrRecent}">
+            <td th:text="${acr.govtId}"></td>
+            <td th:text="${acr.year}"></td>
+            <td th:text="${acr.assigned_from}"></td>
+            <td th:text="${acr.assigned_to}"></td>
+        </tr>
+
+    </table>
+
+    <h2>ENTERED ACR</h2>
+
+    <table class="acr">
+        <tr>
+            <th>S/N</th>
+            <th>Govt. ID</th>
+            <th>Year</th>
+            <th>From</th>
+            <th>To</th>
+        </tr>
+        <tr th:each="acr : ${acrOld}">
+            <td th:text="${acr.govtId}"></td>
+            <td th:text="${acr.year}"></td>
+            <td th:text="${acr.assigned_from}"></td>
+            <td th:text="${acr.assigned_to}"></td>
+        </tr>
+
+    </table>
+
+
+</div>
+</body>
+</html>

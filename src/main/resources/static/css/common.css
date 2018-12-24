@@ -1,0 +1,39 @@
+.container{
+
+}
+
+
+.acr {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.acr td, .acr th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.acr tr:nth-child(even){background-color: #f2f2f2;}
+
+.acr tr:hover {background-color: #ddd;}
+
+.acr th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4CAF50;
+    color: white;
+}
+
+h2{
+    display: block;
+    font-size: 2em;
+    margin-top: 0.67em;
+    margin-bottom: 0.67em;
+    margin-left: 0;
+    margin-right: 0;
+    font-weight: bold;
+    text-align: center;
+    color: green;
+}
