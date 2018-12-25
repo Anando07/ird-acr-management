@@ -1,6 +1,6 @@
 package com.sweetitech.ird.common.Security;
 
-import com.sweetitech.ird.Domain.User;
+import com.sweetitech.ird.domain.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 

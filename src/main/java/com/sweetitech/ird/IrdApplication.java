@@ -1,7 +1,7 @@
 package com.sweetitech.ird;
 
-import com.sweetitech.ird.Configuration.StorageProperties;
-import com.sweetitech.ird.Service.StorageService;
+import com.sweetitech.ird.configuration.StorageProperties;
+import com.sweetitech.ird.service.StorageService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
