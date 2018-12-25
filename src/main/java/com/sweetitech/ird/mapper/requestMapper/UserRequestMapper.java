@@ -24,9 +24,6 @@ public class UserRequestMapper {
      * @return entity
      */
     public User map(UserDTO dto) throws Exception {
-        System.out.println(dto.toString());
-
-
         Role role = roleService.findRoleById(dto.getRoleId());
         if (role == null) {
             throw new EntityNotFoundException("Role does not exist");

@@ -5,12 +5,14 @@ import com.sweetitech.ird.domain.User;
 import com.sweetitech.ird.domain.dto.responseDto.UserResponseDto;
 import com.sweetitech.ird.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * @author Avijit Barua
  * @created_on 12/25/18 at 11:42 AM
  * @project ird
  */
+@Service
 public class UserResponseMapper {
 
     @Autowired

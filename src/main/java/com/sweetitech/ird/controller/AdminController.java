@@ -1,15 +1,14 @@
 package com.sweetitech.ird.controller;
 
 import com.sweetitech.ird.domain.dto.requestDto.UserDTO;
+import com.sweetitech.ird.domain.dto.responseDto.UserResponseDto;
+import com.sweetitech.ird.pageable.UserResponsePage;
 import com.sweetitech.ird.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -41,6 +40,13 @@ public class AdminController {
             return "addUser";
         }
         userService.addUser(userDto);
-        return "";
+        return "redirect:/admin/getUserList";
+    }
+    @GetMapping(value = "/getUserList")
+    public String getUserList(@RequestParam(value = "page", defaultValue = "0") Integer page, Model model)
+    {
+        UserResponsePage userpage = userService.getAllUsers(page);
+        model.addAttribute("userpage", userpage);
+        return "userList";
     }
 }

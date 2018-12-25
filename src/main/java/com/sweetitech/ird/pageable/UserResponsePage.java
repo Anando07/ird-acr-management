@@ -26,9 +26,8 @@ public class UserResponsePage implements Page {
     private Integer numberOfElements;
     private boolean first;
     private Sort sort;
-    private Integer activeUser;
 
-    public UserResponsePage(List<UserResponseDto> content, Page page, Integer activeUser) {
+    public UserResponsePage(List<UserResponseDto> content, Page page) {
         this.content = content;
         this.pageable = page.getPageable();
         this.last = page.isLast();
@@ -39,20 +38,12 @@ public class UserResponsePage implements Page {
         this.numberOfElements = page.getNumberOfElements();
         this.first = page.isFirst();
         this.sort = page.getSort();
-        this.activeUser = activeUser;
     }
 
     public void setContent(List<UserResponseDto> content) {
         this.content = content;
     }
 
-    public Integer getActiveUser() {
-        return activeUser;
-    }
-
-    public void setActiveUser(Integer activeUser) {
-        this.activeUser = activeUser;
-    }
 
     @Override
     public Pageable getPageable() {

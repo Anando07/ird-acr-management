@@ -1,10 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>User List</title>
 </head>
 <body>
-
+<table>
+    <tr>
+        <th>Name</th>
+        <th>User Id</th>
+        <th>Designation</th>
+        <th>Phone</th>
+        <th>Role</th>
+    </tr>
+    <tr th:each="user : ${userpage.content}">
+        <td th:text="${user.name}"></td>
+        <td th:text="${user.userId}"></td>
+        <td th:text="${user.designation}"></td>
+        <td th:text="${user.phone}"></td>
+        <td th:text="${user.roleType}"></td>
+    </tr>
+</table>
 </body>
 </html>
