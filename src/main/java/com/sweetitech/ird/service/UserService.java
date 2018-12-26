@@ -17,4 +17,7 @@ public interface UserService {
 
     UserResponsePage getAllUsers(Integer page);
 
+    User deleteUser(String userId);
+
+    User findByUserId(String userID);
 }

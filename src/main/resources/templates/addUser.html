@@ -1,5 +1,7 @@
+<!--
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml"  xmlns:sf="http://www.w3.org/1999/xhtml">
+-->
+<html xmlns:th="http://www.w3.org/1999/xhtml" lang="en" >
 <head>
     <meta charset="UTF-8">
     <title>Add User</title>
@@ -7,7 +9,7 @@
 <body>
 <div class ="container">
     <h2>Add user</h2>
-    <form class="form-horizontal"  action="#" th:action="@{/admin/addUser}" method="post" th:object="${userDto}" >
+    <form class="form-horizontal"  action="#" th:action="@{/admin/addUser}" method="post" th:object="${acrDto}" >
         <fieldset>
 
             <!-- Form Name -->
@@ -19,13 +21,15 @@
                 <div class="col-md-4">
                     <input id="userId" name="userId" type="text" placeholder="userId" class="form-control input-md" required="">
                 </div>
+                <span th:if="${existRoll !=null}"
+                      style="color:Red;"> Already Exist !</span>
             </div>
 
             <!-- Text input-->
             <div class="form-group">
                 <label class="col-md-4 control-label" for="name">Name </label>
                 <div class="col-md-4">
-                    <input id="name" name="name" type="text" placeholder="name" class="form-control input-md">
+                    <input id="name" name="name" type="text" placeholder="name" class="form-control input-md" />
                 </div>
             </div>
 
@@ -33,7 +37,7 @@
             <div class="form-group">
                 <label class="col-md-4 control-label" for="designation">Designation</label>
                 <div class="col-md-4">
-                    <input id="designation" name="designation" type="text" placeholder="designation" class="form-control input-md">
+                    <input id="designation" name="designation" type="text" placeholder="designation" class="form-control input-md" >
                 </div>
             </div>
 

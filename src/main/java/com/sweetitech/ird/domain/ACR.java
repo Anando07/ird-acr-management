@@ -1,8 +1,8 @@
 package com.sweetitech.ird.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
-import java.util.Set;
 
 /**
  * @author Avijit Barua
@@ -25,11 +25,9 @@ public class ACR {
 
     private Date assigned_to;
 
-    private String userId;
-
-    @OneToMany(mappedBy = "acr", cascade = CascadeType.ALL)
-    private Set<File> files;
-
+    @NotNull
+    @OneToOne
+    User user;
 
     public ACR() {
     }
@@ -74,19 +72,5 @@ public class ACR {
         this.assigned_to = assigned_to;
     }
 
-    public String getUserId() {
-        return userId;
-    }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    public Set<File> getFiles() {
-        return files;
-    }
-
-    public void setFiles(Set<File> files) {
-        this.files = files;
-    }
 }

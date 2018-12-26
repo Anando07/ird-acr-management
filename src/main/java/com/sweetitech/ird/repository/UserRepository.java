@@ -13,7 +13,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     Page<User> findAll(Pageable page);
 
-
-
+    User findByUserId(String userId);
 
 }

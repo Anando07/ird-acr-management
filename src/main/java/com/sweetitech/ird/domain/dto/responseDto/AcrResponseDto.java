@@ -7,7 +7,7 @@ import java.util.List;
  * @created_on 12/24/18 at 6:00 PM
  * @project InternalResourcesDivision
  */
-public class AcrDto {
+public class AcrResponseDto {
 
     private Long id;
 
@@ -21,7 +21,7 @@ public class AcrDto {
 
     private List<String> fileUrl;
 
-    public AcrDto() {
+    public AcrResponseDto() {
     }
 
     public Long getId() {

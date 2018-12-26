@@ -1,5 +1,7 @@
 package com.sweetitech.ird.domain;
 
+import com.sweetitech.ird.domain.dto.AcrFileRelation;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -10,8 +12,8 @@ import java.util.Date;
  */
 
 @Entity
-@Table(name="files")
-public class File {
+@Table(name="acr_files")
+public class AcrFile {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,11 +24,8 @@ public class File {
     @Column(columnDefinition = "LONGTEXT")
     private String url;
 
-    @ManyToOne
-    @JoinColumn(name = "acr_id")
-    private ACR acr;
-
-    public File() {
+    public AcrFile(String filename) {
+        this.url = filename;
     }
 
     public Long getId() {
@@ -53,17 +52,10 @@ public class File {
         this.url = url;
     }
 
-    public ACR getAcr() {
-        return acr;
-    }
-
-    public void setAcr(ACR acr) {
-        this.acr = acr;
-    }
 
     @Override
     public String toString() {
-        return "File{" +
+        return "AcrFile{" +
                 "id=" + id +
                 ", created_on=" + created_on +
                 ", url='" + url + '\'' +

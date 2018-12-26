@@ -66,9 +66,22 @@ public class UserServiceImpl implements UserService {
         List<UserResponseDto> userDtoList = new ArrayList<>();
         for(User user : userList.getContent())
         {
-            userDtoList.add(responseMapper.map(user));
+            if(user.isDeleted() == false) {
+                userDtoList.add(responseMapper.map(user));
+            }
         }
         return new UserResponsePage(userDtoList,userList);
     }
 
+    @Override
+    public User deleteUser(String userId) {
+        User user = userRepository.findByUserId(userId);
+        user.setDeleted(true);
+        return userRepository.save(user);
+    }
+
+    @Override
+    public User findByUserId(String userID) {
+        return userRepository.findByUserId(userID);
+    }
 }

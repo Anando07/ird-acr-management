@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Acr</title>
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+</head>
+<body>
+
+<form id="upload-file-form">
+    <label style="margin-top: 4%; margin-left: 6%;">Attachment
+        File Upload (PDF)</label> <input id="upload-file-input" type="file"
+                                         name="file" style="margin-top: 1%; margin-left: 5%;"
+                                         data-max-file-size="1000K" multiple>
+</form>
+
+<!--<form id="acrForm" class="form-horizontal" action="#" th:action="@{/admin/createAcr}" method="post" th:object="${acrDto}">-->
+<form id="acrForm" class="form-horizontal" method="post" th:object="${acrDto}">
+    <fieldset>
+
+        <legend>Form Name</legend>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="govtId">Govt. ID</label>
+            <div class="col-md-4">
+                <input id="govtId" name="govtId" type="text" placeholder="govt. Id" class="form-control input-md" required="" th:field="*{govtId}">
+
+            </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="year">Year</label>
+            <div class="col-md-4">
+                <input id="year" name="year" type="text" placeholder="year" class="form-control input-md" required="" th:field="*{year}">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="assigned_from"> Date From: </label>
+            <div class="col-md-4">
+                <input name="assigned_from" type="date" id="assigned_from" th:field="*{assigned_from}">
+                <!--<input i type="text" placeholder="year" class="form-control input-md" required="">-->
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="assigned_to"> Date To: </label>
+            <div class="col-md-4">
+                <input name="assigned_to" type="date" id="assigned_to" th:field="*{assigned_to}">
+                <!--<input i type="text" placeholder="year" class="form-control input-md" required="">-->
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-4">
+                <input name="assigned_to" type="hidden" id="fileList" th:field="*{fileList}">
+                <!--<input i type="text" placeholder="year" class="form-control input-md" required="">-->
+            </div>
+        </div>
+
+
+        <!-- Button -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="create">Create</label>
+            <div class="col-md-4">
+                <button id="create" name="create" class="btn btn-primary" th:onclick="'uploadFile();'">create</button>
+            </div>
+        </div>
+
+    </fieldset>
+</form>
+
+</body>
+
+
+<script th:inline="javascript">
+    function uploadFile() {
+
+        //var id;
+        $.ajax({
+            url: /*[[ @{'/upload/file'} ]]*/,
+            type: "POST",
+            data: new FormData($("#upload-file-form")[0]),
+            enctype: 'multipart/form-data',
+            processData: false,
+            async: false,
+            contentType: false,
+            cache: false,
+            success: function (data) {
+
+                $('#fileList').val(data);
+
+            },
+            error: function () {
+                // Handle upload error
+                // ...
+                console.log("Error happening ");
+            }
+        });
+        /* return id; */
+    }
+    </script>
+
+</html>

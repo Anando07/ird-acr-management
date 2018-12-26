@@ -1,5 +1,8 @@
 package com.sweetitech.ird.domain.dto.requestDto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import io.swagger.annotations.ApiModel;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 

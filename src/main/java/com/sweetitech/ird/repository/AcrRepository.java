@@ -9,5 +9,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @project InternalResourcesDivision
  */
 public interface AcrRepository extends JpaRepository<ACR, Long> {
-
 }
