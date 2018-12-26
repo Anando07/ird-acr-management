@@ -76,11 +76,7 @@ public class AdminController {
     @PostMapping(value = "/createAcr")
     public String doCreateAcr(@ModelAttribute("acrDto")AcrRequestDto acrDto)
     {
-        List<AcrFile> list = new ArrayList<>();
-        for(Object object :acrDto.getFileList())
-        {
-            System.out.println(object.getClass());
-        }
+
         System.out.println(acrDto.toString());
         return "createAcr";
     }

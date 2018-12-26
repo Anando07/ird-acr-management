@@ -20,7 +20,7 @@
 </form>
 
 <!--<form id="acrForm" class="form-horizontal" action="#" th:action="@{/admin/createAcr}" method="post" th:object="${acrDto}">-->
-<form id="acrForm" class="form-horizontal" method="post" th:object="${acrDto}">
+<form id="acrForm" class="form-horizontal" method="post"  th:object="${acrDto}" >
     <fieldset>
 
         <legend>Form Name</legend>
@@ -29,7 +29,7 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="govtId">Govt. ID</label>
             <div class="col-md-4">
-                <input id="govtId" name="govtId" type="text" placeholder="govt. Id" class="form-control input-md" required="" th:field="*{govtId}">
+                <input id="govtId" name="govtId" type="text" placeholder="govt. Id" class="form-control input-md" th:field="*{govtId}">
 
             </div>
         </div>
@@ -38,7 +38,7 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="year">Year</label>
             <div class="col-md-4">
-                <input id="year" name="year" type="text" placeholder="year" class="form-control input-md" required="" th:field="*{year}">
+                <input id="year" name="year" type="text" placeholder="year" class="form-control input-md" th:field="*{year}">
             </div>
         </div>
 
@@ -59,8 +59,7 @@
         </div>
 
         <div class="form-group">
-            <div class="col-md-4">
-                <input name="assigned_to" type="hidden" id="fileList" th:field="*{fileList}">
+            <div id="fileList" class="col-md-4">
                 <!--<input i type="text" placeholder="year" class="form-control input-md" required="">-->
             </div>
         </div>
@@ -70,7 +69,7 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="create">Create</label>
             <div class="col-md-4">
-                <button id="create" name="create" class="btn btn-primary" th:onclick="'uploadFile();'">create</button>
+                <button id="create" class="btn btn-primary">create</button>
             </div>
         </div>
 
@@ -81,7 +80,21 @@
 
 
 <script th:inline="javascript">
-    function uploadFile() {
+    $("body").on("click", "#create", function (event) {
+
+        event.preventDefault();
+        $("#fieldError").remove();
+
+       if ($("#govtId").val() == "") {
+           $("#govtId").closest("div")
+               .append($("<span/>",
+                   {
+                       "id": "fieldError",
+                       "class" : "alert alert-danger"
+                   })
+                   .text("Required"));
+           return;
+       }
 
         //var id;
         $.ajax({
@@ -94,8 +107,17 @@
             contentType: false,
             cache: false,
             success: function (data) {
+                var $fileListDiv = $("#fileList");
+                data.forEach(function(element){
+                    $fileListDiv.append($("<input/>",
+                        {
+                            "name" : "fileList",
+                            "type": "hidden",
+                            "value" : element.id
 
-                $('#fileList').val(data);
+                        }));
+                });
+               $("#acrForm").submit();
 
             },
             error: function () {
@@ -105,7 +127,7 @@
             }
         });
         /* return id; */
-    }
+    });
     </script>
 
 </html>

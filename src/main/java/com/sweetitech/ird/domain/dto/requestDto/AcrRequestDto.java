@@ -24,7 +24,7 @@ public class AcrRequestDto {
 
     private UserResponseDto userResponseDto;
 
-    List<AcrFile> fileList = new ArrayList<>();
+    List<Integer> fileList = new ArrayList<>();
 
 
     public AcrRequestDto() {
@@ -70,11 +70,11 @@ public class AcrRequestDto {
         this.userResponseDto = userResponseDto;
     }
 
-    public List<AcrFile> getFileList() {
+    public List<Integer> getFileList() {
         return fileList;
     }
 
-    public void setFileList(List<AcrFile> fileList) {
+    public void setFileList(List<Integer> fileList) {
         this.fileList = fileList;
     }
 
