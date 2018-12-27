@@ -52,31 +52,34 @@ public class FileUploadController {
     @PostMapping("/file")
     public ResponseEntity<List<AcrFile>> uploadFile(@RequestParam("file")MultipartFile[] files) {
 
-        System.out.println("inside controller" +files.length);
         List<AcrFile> list = new ArrayList<>();
-        for(MultipartFile file:files) {
-            if (file.isEmpty()) {
-                return new ResponseEntity("please select a file!", HttpStatus.OK);
-            }
 
-            try {
-                AcrFile i = saveUploadedFiles(Arrays.asList(file)).get(0);
-                list.add(i);
-            } catch (IOException e) {
-                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-            } catch (org.springframework.web.multipart.MultipartException eo) {
-                System.out.println("Maximum file size exceeds");
-                return new ResponseEntity("Maximum file size exceeds", HttpStatus.FORBIDDEN);
-            } catch (Exception e) {
-                e.printStackTrace();
-                System.out.println("just an exception");
-                System.out.println(e.getStackTrace().toString());
-                System.out.println(e.getLocalizedMessage());
-                return new ResponseEntity("Some thing went wrong please try again later", HttpStatus.BAD_GATEWAY);
+        if(!files[0].isEmpty()) {
+            for (MultipartFile file : files) {
+                if (file.isEmpty()) {
+                    return new ResponseEntity("please select a file!", HttpStatus.OK);
+                }
+
+                try {
+                    AcrFile i = saveUploadedFiles(Arrays.asList(file)).get(0);
+                    list.add(i);
+                } catch (IOException e) {
+                    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+                } catch (org.springframework.web.multipart.MultipartException eo) {
+                    System.out.println("Maximum file size exceeds");
+                    return new ResponseEntity("Maximum file size exceeds", HttpStatus.FORBIDDEN);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    System.out.println("just an exception");
+                    System.out.println(e.getStackTrace().toString());
+                    System.out.println(e.getLocalizedMessage());
+                    return new ResponseEntity("Some thing went wrong please try again later", HttpStatus.BAD_GATEWAY);
+                }
             }
+            return new ResponseEntity(list, new HttpHeaders(), HttpStatus.OK);
         }
-        System.out.println(list);
-        return new ResponseEntity(list, new HttpHeaders(), HttpStatus.OK);
+        else
+            return new ResponseEntity<>(list, new HttpHeaders(), HttpStatus.OK);
     }
 
 

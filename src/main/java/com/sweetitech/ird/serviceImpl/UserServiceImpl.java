@@ -1,13 +1,15 @@
 package com.sweetitech.ird.serviceImpl;
 
 import com.sweetitech.ird.common.Util.PageAttribute;
-import com.sweetitech.ird.domain.dto.requestDto.UserDTO;
+import com.sweetitech.ird.domain.Role;
+import com.sweetitech.ird.domain.dto.requestDto.UserRequestDto;
 import com.sweetitech.ird.domain.User;
 import com.sweetitech.ird.domain.dto.responseDto.UserResponseDto;
 import com.sweetitech.ird.mapper.requestMapper.UserRequestMapper;
 import com.sweetitech.ird.mapper.responseMapper.UserResponseMapper;
 import com.sweetitech.ird.pageable.UserResponsePage;
 import com.sweetitech.ird.repository.UserRepository;
+import com.sweetitech.ird.service.RoleService;
 import com.sweetitech.ird.service.UserService;
 import com.sweetitech.ird.common.Exception.UserNotFoundException;
 import com.sweetitech.ird.common.Util.PasswordUtil;
@@ -27,6 +29,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     UserResponseMapper responseMapper;
+
+    @Autowired
+    RoleService roleService;
 
     private UserRepository userRepository;
 
@@ -56,8 +61,8 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public User addUser(UserDTO userDTO) throws Exception {
-        return userRepository.save(userRequestMapper.map(userDTO));
+    public User addUser(UserRequestDto userRequestDto) throws Exception {
+        return userRepository.save(userRequestMapper.map(userRequestDto));
     }
 
     @Override
@@ -83,5 +88,22 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findByUserId(String userID) {
         return userRepository.findByUserId(userID);
+    }
+
+    @Override
+    public User findById(Long id) {
+        return userRepository.getOne(id);
+    }
+
+    @Override
+    public User updateUser(UserRequestDto dto) {
+        User user = findById(dto.getId());
+        user.setName(dto.getName());
+        user.setUserId(dto.getUserId());
+        user.setDesignation(dto.getDesignation());
+        user.setPhone(dto.getPhone());
+        Role role = roleService.findRoleById(dto.getRoleId());
+        user.setRole(role);
+        return userRepository.save(user);
     }
 }

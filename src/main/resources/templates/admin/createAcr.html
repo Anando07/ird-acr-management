@@ -14,7 +14,7 @@
 
 <form id="upload-file-form">
     <label style="margin-top: 4%; margin-left: 6%;">Attachment
-        File Upload (PDF)</label> <input id="upload-file-input" type="file"
+        File Upload</label> <input id="upload-file-input" type="file"
                                          name="file" style="margin-top: 1%; margin-left: 5%;"
                                          data-max-file-size="1000K" multiple>
 </form>
@@ -95,6 +95,30 @@
                    .text("Required"));
            return;
        }
+
+        if ($("#assigned_from").val() == "") {
+            $("#assigned_from").closest("div")
+                .append($("<span/>",
+                    {
+                        "id": "fieldError",
+                        "class" : "alert alert-danger"
+                    })
+                    .text("Required"));
+            return;
+        }
+
+        if ($("#assigned_to").val() == "") {
+            $("#assigned_to").closest("div")
+                .append($("<span/>",
+                    {
+                        "id": "fieldError",
+                        "class" : "alert alert-danger"
+                    })
+                    .text("Required"));
+            return;
+        }
+
+
 
         //var id;
         $.ajax({

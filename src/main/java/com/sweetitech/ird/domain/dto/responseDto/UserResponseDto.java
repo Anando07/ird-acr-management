@@ -80,4 +80,17 @@ public class UserResponseDto {
     public void setUserId(String userId) {
         this.userId = userId;
     }
+
+    @Override
+    public String toString() {
+        return "UserResponseDto{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", designation='" + designation + '\'' +
+                ", username='" + username + '\'' +
+                ", userId='" + userId + '\'' +
+                ", phone='" + phone + '\'' +
+                ", roleType='" + roleType + '\'' +
+                '}';
+    }
 }

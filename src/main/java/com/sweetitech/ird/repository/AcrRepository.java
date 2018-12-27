@@ -1,6 +1,8 @@
 package com.sweetitech.ird.repository;
 
 import com.sweetitech.ird.domain.ACR;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -9,4 +11,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @project InternalResourcesDivision
  */
 public interface AcrRepository extends JpaRepository<ACR, Long> {
+
+    Page<ACR> findByYearOrderByCreatedOnDesc(String year, Pageable page);
 }

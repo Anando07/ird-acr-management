@@ -24,6 +24,9 @@ public class AcrFile {
     @Column(columnDefinition = "LONGTEXT")
     private String url;
 
+    public AcrFile() {
+    }
+
     public AcrFile(String filename) {
         this.url = filename;
     }

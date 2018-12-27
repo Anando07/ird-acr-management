@@ -1,7 +1,5 @@
-<!--
 <!DOCTYPE html>
--->
-<html xmlns:th="http://www.w3.org/1999/xhtml" lang="en" >
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" >
 <head>
     <meta charset="UTF-8">
     <title>Add User</title>
@@ -9,7 +7,7 @@
 <body>
 <div class ="container">
     <h2>Add user</h2>
-    <form class="form-horizontal"  action="#" th:action="@{/admin/addUser}" method="post" th:object="${acrDto}" >
+    <form class="form-horizontal"  action="#" th:action="@{/admin/addUser}" method="post" th:object="${userRequestDto}" >
         <fieldset>
 
             <!-- Form Name -->
@@ -19,17 +17,17 @@
             <div class="form-group">
                 <label class="col-md-4 control-label" for="userId">User ID</label>
                 <div class="col-md-4">
-                    <input id="userId" name="userId" type="text" placeholder="userId" class="form-control input-md" required="">
+                    <input id="userId" name="userId" type="text" placeholder="userId" class="form-control input-md" required="" th:field="*{userId}">
                 </div>
-                <span th:if="${existRoll !=null}"
-                      style="color:Red;"> Already Exist !</span>
+                <span th:if="${#fields.hasErrors('userId')}" th:errors="*{userId}"></span>
+
             </div>
 
             <!-- Text input-->
             <div class="form-group">
                 <label class="col-md-4 control-label" for="name">Name </label>
                 <div class="col-md-4">
-                    <input id="name" name="name" type="text" placeholder="name" class="form-control input-md" />
+                    <input id="name" name="name" type="text" placeholder="name" class="form-control input-md" th:field="*{name}"/>
                 </div>
             </div>
 
@@ -37,7 +35,7 @@
             <div class="form-group">
                 <label class="col-md-4 control-label" for="designation">Designation</label>
                 <div class="col-md-4">
-                    <input id="designation" name="designation" type="text" placeholder="designation" class="form-control input-md" >
+                    <input id="designation" name="designation" type="text" placeholder="designation" class="form-control input-md" th:field="*{designation}" />
                 </div>
             </div>
 

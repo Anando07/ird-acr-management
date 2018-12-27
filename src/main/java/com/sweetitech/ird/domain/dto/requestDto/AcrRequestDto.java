@@ -1,10 +1,8 @@
 package com.sweetitech.ird.domain.dto.requestDto;
 
-import com.sweetitech.ird.domain.AcrFile;
 import com.sweetitech.ird.domain.dto.responseDto.UserResponseDto;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -24,7 +22,7 @@ public class AcrRequestDto {
 
     private UserResponseDto userResponseDto;
 
-    List<Integer> fileList = new ArrayList<>();
+    List<Long> fileList = new ArrayList<>();
 
 
     public AcrRequestDto() {
@@ -70,11 +68,11 @@ public class AcrRequestDto {
         this.userResponseDto = userResponseDto;
     }
 
-    public List<Integer> getFileList() {
+    public List<Long> getFileList() {
         return fileList;
     }
 
-    public void setFileList(List<Integer> fileList) {
+    public void setFileList(List<Long> fileList) {
         this.fileList = fileList;
     }
 

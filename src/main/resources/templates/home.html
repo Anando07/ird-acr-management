@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <title>ACR List</title>
 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" th:href="@{/css/common.css}" href="../static/css/css/common.css" type="text/css" />
 
 </head>
@@ -19,16 +22,17 @@
 
     <h2>RECEIVED ACR</h2>
 
-    <table class="acr">
+
+    <div class="row article-list" th:fragment="article-list" th:if="${list != null && !list.isEmpty()}">
+        <table class="acr">
         <tr>
-            <th>S/N</th>
+            <!--<th>S/N</th>-->
             <th>Govt. ID</th>
             <th>Year</th>
             <th>From</th>
             <th>To</th>
         </tr>
-
-        <tr th:each="acr : ${acrRecent}">
+        <tr th:each="acr : ${list}">
             <td th:text="${acr.govtId}"></td>
             <td th:text="${acr.year}"></td>
             <td th:text="${acr.assigned_from}"></td>
@@ -36,6 +40,25 @@
         </tr>
 
     </table>
+    </div>
+
+    <div class="row" th:fragment="pagination">
+        <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <nav aria-label="Pagination">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item" th:each="pageNumber : ${pageNumbers}" >
+                            <input type =hidden id="page" name="page" th:value="${pageNumber}">
+                            <a class="page-link"
+                               th:onclick="'acrList(\''+ ${pageNumber-1} +'\');'">Next</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+
+        <div class="col-md-2"></div>
+
+    </div>
 
     <h2>ENTERED ACR</h2>
 
@@ -59,4 +82,24 @@
 
 </div>
 </body>
+
+<script th:inline="javascript">
+
+    function acrList(page)
+    {
+        $.ajax({
+            type: 'get',
+            url: /*[[ @{'/test'} ]]*/,
+            data:  {page:page},
+            success: function(data){
+
+                console.log(data);
+
+                $('.article-list').html(data);
+            },
+            async:false
+        });
+    }
+
+</script>
 </html>

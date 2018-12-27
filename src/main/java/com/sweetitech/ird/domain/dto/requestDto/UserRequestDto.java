@@ -1,14 +1,15 @@
 package com.sweetitech.ird.domain.dto.requestDto;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import io.swagger.annotations.ApiModel;
 
+import org.springframework.validation.annotation.Validated;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-/*@ApiModel
-@JsonInclude(JsonInclude.Include.NON_NULL)*/
-public class UserDTO {
+
+@Validated
+public class UserRequestDto {
+
+    private Long id;
 
     private String name;
 
@@ -25,6 +26,9 @@ public class UserDTO {
 
     @NotNull
     private Long roleId;
+
+    public UserRequestDto() {
+    }
 
     public String getName() {
         return name;
@@ -82,10 +86,19 @@ public class UserDTO {
         this.userId = userId;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
-        return "UserDTO{" +
-                "name='" + name + '\'' +
+        return "UserRequestDto{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", designation='" + designation + '\'' +
                 ", username='" + username + '\'' +
                 ", userId='" + userId + '\'' +

@@ -17,10 +17,10 @@ public class AcrFileRelation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @OneToOne
     private ACR acr;
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @OneToOne
     private AcrFile acrFile;
 
     public AcrFileRelation() {

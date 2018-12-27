@@ -19,7 +19,7 @@ public class AcrResponseDto {
 
     private String assigned_to;
 
-    private List<String> fileUrl;
+    private List<String> filelist;
 
     public AcrResponseDto() {
     }
@@ -64,11 +64,24 @@ public class AcrResponseDto {
         this.assigned_to = assigned_to;
     }
 
-    public List<String> getFileUrl() {
-        return fileUrl;
+    public List<String> getFilelist() {
+        return filelist;
     }
 
-    public void setFileUrl(List<String> fileUrl) {
-        this.fileUrl = fileUrl;
+    public void setFilelist(List<String> filelist) {
+        this.filelist = filelist;
+    }
+
+
+    @Override
+    public String toString() {
+        return "AcrResponseDto{" +
+                "id=" + id +
+                ", govtId='" + govtId + '\'' +
+                ", year='" + year + '\'' +
+                ", assigned_from='" + assigned_from + '\'' +
+                ", assigned_to='" + assigned_to + '\'' +
+                ", fileUrl=" +  +
+                '}';
     }
 }

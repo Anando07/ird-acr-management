@@ -25,6 +25,8 @@ public class ACR {
 
     private Date assigned_to;
 
+    private Date createdOn;
+
     @NotNull
     @OneToOne
     User user;
@@ -72,5 +74,31 @@ public class ACR {
         this.assigned_to = assigned_to;
     }
 
+    public User getUser() {
+        return user;
+    }
 
+    public Date getCreatedOn() {
+        return createdOn;
+    }
+
+    public void setCreatedOn(Date createdOn) {
+        this.createdOn = createdOn;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    @Override
+    public String toString() {
+        return "ACR{" +
+                "id=" + id +
+                ", govtId='" + govtId + '\'' +
+                ", year='" + year + '\'' +
+                ", assigned_from=" + assigned_from +
+                ", assigned_to=" + assigned_to +
+                ", user=" + user +
+                '}';
+    }
 }

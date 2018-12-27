@@ -1,6 +1,6 @@
 package com.sweetitech.ird.mapper.requestMapper;
 
-import com.sweetitech.ird.domain.dto.requestDto.UserDTO;
+import com.sweetitech.ird.domain.dto.requestDto.UserRequestDto;
 import com.sweetitech.ird.domain.Role;
 import com.sweetitech.ird.domain.User;
 import com.sweetitech.ird.service.RoleService;
@@ -23,7 +23,7 @@ public class UserRequestMapper {
      * @param dto
      * @return entity
      */
-    public User map(UserDTO dto) throws Exception {
+    public User map(UserRequestDto dto) throws Exception {
         Role role = roleService.findRoleById(dto.getRoleId());
         if (role == null) {
             throw new EntityNotFoundException("Role does not exist");
