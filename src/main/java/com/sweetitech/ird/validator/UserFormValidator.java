@@ -1,4 +1,4 @@
-package com.sweetitech.ird.common.Util;
+package com.sweetitech.ird.validator;
 import com.sweetitech.ird.domain.User;
 import com.sweetitech.ird.domain.dto.requestDto.UserRequestDto;
 import com.sweetitech.ird.service.UserService;
@@ -26,24 +26,26 @@ public class UserFormValidator implements Validator {
 
     @Override
     public void validate(Object target, Errors errors) {
+
         UserRequestDto obj = (UserRequestDto) target;
-
-
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "Can't be Empty!");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "userId", "Can't be Empty!");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "phone", "Can't be Empty!");
 
-
         if(obj.getId()==null && userService.findByUserId(obj.getUserId())!=null)
         {
+            System.out.println("entering first time");
             errors.rejectValue("userId","1","Already Exists! Try another!");
         }
         if(obj.getId() !=null)
         {
             User user = userService.findById(obj.getId());
-            if(obj.getUserId() != user.getUserId() && userService.findByUserId(obj.getUserId()) !=null)
+
+            if(!obj.getUserId().equals(user.getUserId()) && userService.findByUserId(obj.getUserId()) !=null)
             {
-                errors.rejectValue("userId","2","Already Exists! Try another!");
+                System.out.println("Entering inside second logic");
+
+                errors.rejectValue("userId","1","Already Exists! Try another!");
             }
         }
 

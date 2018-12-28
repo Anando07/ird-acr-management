@@ -3,6 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Add User</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="http://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+    <script src="http://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 </head>
 <body>
 <div class ="container">
@@ -27,7 +33,7 @@
             <div class="form-group">
                 <label class="col-md-4 control-label" for="name">Name </label>
                 <div class="col-md-4">
-                    <input id="name" name="name" type="text" placeholder="name" class="form-control input-md" th:field="*{name}"/>
+                    <input id="name" name="name" type="text" placeholder="name" class="form-control input-md" th:field="*{name}" required/>
                 </div>
             </div>
 
@@ -35,7 +41,7 @@
             <div class="form-group">
                 <label class="col-md-4 control-label" for="designation">Designation</label>
                 <div class="col-md-4">
-                    <input id="designation" name="designation" type="text" placeholder="designation" class="form-control input-md" th:field="*{designation}" />
+                    <input id="designation" name="designation" type="text" placeholder="designation" class="form-control input-md" th:field="*{designation}" required />
                 </div>
             </div>
 
@@ -43,7 +49,7 @@
             <div class="form-group">
                 <label class="col-md-4 control-label" for="phone">Phone No.</label>
                 <div class="col-md-4">
-                    <input id="phone" name="phone" type="text" placeholder="phone no." class="form-control input-md">
+                    <input id="phone" name="phone" type="text" placeholder="phone no." class="form-control input-md" th:field="*{phone}" required>
                 </div>
             </div>
 

@@ -69,4 +69,30 @@ public class AcrServiceImpl implements AcrService {
         }
         return new AcrResponsePage(acrResponseDtos,acrlist);
     }
+
+    @Override
+    public List<AcrResponseDto> acrOfCurrentYear() {
+        String[] date = DateUtil.getReadableDate(new Date()).split(" ");
+        List<ACR> list = acrRepository.findByYearOrderByCreatedOnDesc(date[2]);
+        List<AcrResponseDto> dtoList = new ArrayList<>();
+        for(ACR obj : list)
+        {
+            dtoList.add(acrResponseMapper.map(obj));
+        }
+        return dtoList;
+    }
+
+    @Override
+    public List<AcrResponseDto> acrOfOldYear() {
+        String[] date = DateUtil.getReadableDate(new Date()).split(" ");
+        List<ACR> list = acrRepository.acrOfOldYear(date[2]);
+        List<AcrResponseDto> dtoList = new ArrayList<>();
+        for(ACR obj : list)
+        {
+            dtoList.add(acrResponseMapper.map(obj));
+        }
+        return dtoList;
+    }
+
+
 }

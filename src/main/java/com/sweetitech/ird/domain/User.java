@@ -195,4 +195,23 @@ public class User extends BaseEntity implements UserDetails {
         this.role = role;
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "name='" + name + '\'' +
+                ", designation='" + designation + '\'' +
+                ", createdOn=" + createdOn +
+                ", username='" + username + '\'' +
+                ", userId='" + userId + '\'' +
+                ", password='" + password + '\'' +
+                ", salt='" + salt + '\'' +
+                ", phone='" + phone + '\'' +
+                ", role=" + role +
+                ", isDeleted=" + isDeleted +
+                ", userEnabled=" + userEnabled +
+                ", accountNonExpired=" + accountNonExpired +
+                ", accountNoLocked=" + accountNoLocked +
+                ", credentialNonExpired=" + credentialNonExpired +
+                '}';
+    }
 }

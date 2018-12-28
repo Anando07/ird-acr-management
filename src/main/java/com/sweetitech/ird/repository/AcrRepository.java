@@ -4,6 +4,10 @@ import com.sweetitech.ird.domain.ACR;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+import java.util.List;
 
 /**
  * @author Avijit Barua
@@ -13,4 +17,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface AcrRepository extends JpaRepository<ACR, Long> {
 
     Page<ACR> findByYearOrderByCreatedOnDesc(String year, Pageable page);
+
+    List<ACR> findByYearOrderByCreatedOnDesc(String year);
+
+    @Query(value = "SELECT * from acr WHERE year != :year",nativeQuery = true)
+    List<ACR>acrOfOldYear(@Param("year") String year);
+
 }

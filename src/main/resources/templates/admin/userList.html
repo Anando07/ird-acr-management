@@ -6,21 +6,36 @@
 
     <meta charset="utf-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="http://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+    <script src="http://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 
-    <link rel="stylesheet" th:href="@{/css/common.css}" href="../static/css/css/common.css" type="text/css" />
+    <script>
+        $(function(){
+            $("#userTable").DataTable();
+        });
+    </script>
+
+    <script th:if="${hasError != null}">
+        $(function () {
+            $('#myModal').modal('show');
+        });
+    </script>
 
 </head>
-<script th:if="${hasError != null}">
-    $(function () {
-        $('#myModal').modal('show');
-    });
-</script>
+
 <body>
-<table class="acr">
+
+<div class="container">
+
+    <h2>User Information</h2>
+    <hr />
+
+<table  id="userTable" class="table table-striped table-bordered">
+    <thead>
     <tr>
         <th>Name</th>
         <th>User Id</th>
@@ -29,7 +44,9 @@
         <th>Role</th>
         <th>Setting</th>
     </tr>
-    <tr th:each="user : ${userpage.content}">
+    </thead>
+    <tbody>
+    <tr th:each="user : ${userlist}">
         <td th:text="${user.name}"></td>
         <td th:text="${user.userId}"></td>
         <td th:text="${user.designation}"></td>
@@ -37,7 +54,6 @@
         <td th:text="${user.roleType}"></td>
 
         <td>
-
             <button type="button"
                     class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal"
                     th:attrappend="data-target=${user.id}">Edit
@@ -48,7 +64,6 @@
 
                     <!-- Modal content-->
                     <div class="modal-content">
-
                         <div class="modal-body">
 
 
@@ -56,20 +71,20 @@
                             <legend>Update User</legend>
 
                             <form class="form-horizontal" action="#" th:action="@{/admin/doUpdate}"
-                                  th:object="${userDto}" method="post">
+                                  th:object="${user}" method="post">
                                 <fieldset>
 
                                     <div class="form-group">
                                         <label class="col-md-4 control-label" for="name">Name</label>
                                         <div class="col-md-4">
 
-                                            <input id="id" path="id" name="id" type="hidden" th:value="${user.id}">
+                                            <input id="id" path="id" name="id" type="hidden" th:value="${user.id}" >
 
                                             <input id="name" path="name" name="name" type="text"
                                                    placeholder="Name" class="form-control input-md"
-                                                   th:value="${user.name}" required/>
-                                            <span th:if="${existRoll !=null}"
+                                                   th:value="${user.name}" required >
 
+                                            <span th:if="${existRoll !=null}"
                                                   style="color:Red;"> Already Exist !</span>
                                         </div>
                                     </div>
@@ -82,7 +97,7 @@
                                             <input id="userId" path="userId" name="userId"
                                                    type="text" placeholder="userId"
                                                    class="form-control input-md" th:value="${user.userId}" required
-                                            />
+                                            >
                                             <!--<span th:if="${#fields.hasErrors('userId')}" th:errors="*{userId}"></span>-->
                                         </div>
                                     </div>
@@ -96,7 +111,7 @@
                                             <input id="designation" path="designation" name="designation"
                                                    type="text" placeholder="designation"
                                                    class="form-control input-md"
-                                                   th:value="${user.designation}" />
+                                                   th:value="${user.designation}" >
                                         </div>
                                     </div>
 
@@ -108,7 +123,7 @@
                                             <input id="phone" path="designation" name="phone"
                                                    type="text" placeholder="phone"
                                                    class="form-control input-md"
-                                                   th:value="${user.phone}" />
+                                                   th:value="${user.phone}">
                                         </div>
                                     </div>
 
@@ -157,6 +172,8 @@
         </td>
 
     </tr>
+    </tbody>
 </table>
+</div>
 </body>
 </html>

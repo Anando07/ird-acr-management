@@ -1,13 +1,14 @@
 package com.sweetitech.ird.controller;
 
-import com.sweetitech.ird.common.Util.UserFormValidator;
+import com.sweetitech.ird.validator.AcrFormValidator;
+import com.sweetitech.ird.validator.UserFormValidator;
 import com.sweetitech.ird.domain.dto.requestDto.AcrRequestDto;
 import com.sweetitech.ird.domain.dto.requestDto.UserRequestDto;
-import com.sweetitech.ird.domain.dto.responseDto.AcrResponseDto;
-import com.sweetitech.ird.pageable.UserResponsePage;
+import com.sweetitech.ird.domain.dto.responseDto.UserResponseDto;
 import com.sweetitech.ird.service.AcrService;
 import com.sweetitech.ird.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,9 +39,19 @@ public class AdminController {
     @Autowired
     UserFormValidator userFormValidator;
 
+    @Autowired
+    AcrFormValidator acrFormValidator;
+
     @InitBinder("userRequestDto")
     public void initBinder(WebDataBinder binder) {
         binder.addValidators(userFormValidator);
+        binder.registerCustomEditor(String.class, new StringTrimmerEditor(false));
+    }
+
+    @InitBinder("acrDto")
+    public void acrBinder(WebDataBinder binder)
+    {
+        binder.addValidators(acrFormValidator);
         binder.registerCustomEditor(String.class, new StringTrimmerEditor(false));
     }
 
@@ -52,7 +63,7 @@ public class AdminController {
     }
 
     @PostMapping(value = "/addUser")
-    public String addUser(@Valid @ModelAttribute("userRequestDto") UserRequestDto userRequestDto, BindingResult result, Model model) throws Exception {
+    public String addUser(@Valid @ModelAttribute("userRequestDto") UserRequestDto userRequestDto, BindingResult result) throws Exception {
         if(result.hasErrors())
         {
             return "admin/addUser";
@@ -60,19 +71,31 @@ public class AdminController {
         userService.addUser(userRequestDto);
         return "redirect:/admin/getUserList";
     }
-    @GetMapping(value = "/getUserList")
-    public String getUserList(@RequestParam(value = "page", defaultValue = "0") Integer page, Model model)
-    {
-        UserResponsePage userpage = userService.getAllUsers(page);
-        model.addAttribute("userpage", userpage);
-        return "admin/userList";
-    }
 
+    @PostMapping(value = "/doUpdate")
+    public String doUpdate(@Valid @ModelAttribute("userRequestDto") UserRequestDto userRequestDto, BindingResult result,Model model) throws Exception {
+        if(result.hasErrors())
+        {
+            model.addAttribute("existRoll", "existRoll");
+            model.addAttribute("hasError", "hasError");
+            return "userList";
+        }
+        userService.updateUser(userRequestDto);
+
+        return "redirect:/admin/getUserList";
+    }
 
     @GetMapping(value = "/deleteUser")
     public String deleteUSer(@RequestParam(name = "userId") String userId) {
         userService.deleteUser(userId);
         return "redirect:/admin/getUserList";
+    }
+    @GetMapping(value = "/getUserList")
+    public String getUserList(Model model)
+    {
+        List<UserResponseDto> list = userService.userList();
+        model.addAttribute("userlist", list);
+        return "admin/userList";
     }
 
     @GetMapping(value = "/createAcr")
@@ -83,31 +106,21 @@ public class AdminController {
     }
 
     @PostMapping(value = "/createAcr")
-    public String doCreateAcr(@ModelAttribute("acrDto")AcrRequestDto acrDto) throws ParseException {
+    public String doCreateAcr(@Valid @ModelAttribute("acrDto")AcrRequestDto acrDto, BindingResult result) throws ParseException {
         System.out.println(acrDto.toString());
-        acrService.saveAcr(acrDto);
-        return "admin/createAcr";
-    }
-
-    @GetMapping(value = "/acrlist")
-    public String getAcrList(@RequestParam(value = "page", defaultValue = "0") Integer page, Model model)
-    {
-        List<AcrResponseDto> list = acrService.acrOfCurrentYear(page).getContent();
-        model.addAttribute("list",list);
-        return "admin/acrList";
-    }
-
-    @PostMapping(value = "/doUpdate")
-    public String doUpdate(@Valid @ModelAttribute("userDto") UserRequestDto userDto, BindingResult result,Model model) throws Exception {
-        System.out.println(userDto.toString());
         if(result.hasErrors())
         {
-            model.addAttribute("existRoll", "existRoll");
-            model.addAttribute("hasError", "hasError");
-          return "userList";
+            return "admin/createAcr";
         }
-        userService.updateUser(userDto);
+        acrService.saveAcr(acrDto);
+        return "redirect:/admin/getall";
+    }
 
-        return "redirect:/admin/getUserList";
+    @GetMapping(value = "/getall")
+    public String findAllAcr(Model model)
+    {
+       model.addAttribute("list",acrService.acrOfCurrentYear());
+       model.addAttribute("oldAcr",acrService.acrOfOldYear());
+       return "admin/acrList";
     }
 }

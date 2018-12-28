@@ -1,18 +1,10 @@
 package com.sweetitech.ird.controller;
 
-import com.sweetitech.ird.domain.dto.responseDto.AcrResponseDto;
 import com.sweetitech.ird.service.AcrService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
-
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 /**
  * @author Avijit Barua
@@ -26,7 +18,16 @@ public class UserController {
     @Autowired
     AcrService acrService;
 
-    @GetMapping("/home")
+    @GetMapping(value = "/")
+    public String home(Model model)
+    {
+        model.addAttribute("list",acrService.acrOfCurrentYear());
+        model.addAttribute("oldAcr", acrService.acrOfOldYear());
+        return "home";
+    }
+
+
+/*    @GetMapping("/home")
     String login(@RequestParam(value = "page", defaultValue = "0") Integer page, Model model)
     {
         int totalPages = acrService.acrOfCurrentYear(page).getTotalPages();
@@ -55,5 +56,6 @@ public class UserController {
         List<AcrResponseDto>list = acrService.acrOfCurrentYear(page).getContent();
         modelAndView.addObject("list",list);
         return modelAndView;
-    }
+    }*/
+
 }

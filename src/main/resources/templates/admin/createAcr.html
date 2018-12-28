@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <title>Create Acr</title>
 
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="/resources/demos/style.css">
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="http://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+    <script src="http://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 
 </head>
 <body>
@@ -29,8 +30,7 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="govtId">Govt. ID</label>
             <div class="col-md-4">
-                <input id="govtId" name="govtId" type="text" placeholder="govt. Id" class="form-control input-md" th:field="*{govtId}">
-
+                <input id="govtId" name="govtId" type="text" placeholder="govt. Id" class="form-control input-md" th:field="*{govtId}" required>
             </div>
         </div>
 
@@ -38,14 +38,14 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="year">Year</label>
             <div class="col-md-4">
-                <input id="year" name="year" type="text" placeholder="year" class="form-control input-md" th:field="*{year}">
+                <input id="year" name="year" type="text" placeholder="year" class="form-control input-md" th:field="*{year}" required>
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-md-4 control-label" for="assigned_from"> Date From: </label>
             <div class="col-md-4">
-                <input name="assigned_from" type="date" id="assigned_from" th:field="*{assigned_from}">
+                <input name="assigned_from" type="date" id="assigned_from" th:field="*{assigned_from}" required>
                 <!--<input i type="text" placeholder="year" class="form-control input-md" required="">-->
             </div>
         </div>
@@ -53,7 +53,7 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="assigned_to"> Date To: </label>
             <div class="col-md-4">
-                <input name="assigned_to" type="date" id="assigned_to" th:field="*{assigned_to}">
+                <input name="assigned_to" type="date" id="assigned_to" th:field="*{assigned_to}" required>
                 <!--<input i type="text" placeholder="year" class="form-control input-md" required="">-->
             </div>
         </div>
@@ -73,6 +73,28 @@
             </div>
         </div>
 
+
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Empty Error</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Field can't be empty! Fill all the field!</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
     </fieldset>
 </form>
 
@@ -83,10 +105,12 @@
     $("body").on("click", "#create", function (event) {
 
         event.preventDefault();
-        $("#fieldError").remove();
+
+
+      /*  $("#fieldError").remove();
 
        if ($("#govtId").val() == "") {
-           $("#govtId").closest("div")
+           $("#govtId").closest("input")
                .append($("<span/>",
                    {
                        "id": "fieldError",
@@ -97,7 +121,7 @@
        }
 
         if ($("#assigned_from").val() == "") {
-            $("#assigned_from").closest("div")
+            $("#assigned_from").closest("input")
                 .append($("<span/>",
                     {
                         "id": "fieldError",
@@ -108,7 +132,7 @@
         }
 
         if ($("#assigned_to").val() == "") {
-            $("#assigned_to").closest("div")
+            $("#assigned_to").closest("input")
                 .append($("<span/>",
                     {
                         "id": "fieldError",
@@ -117,6 +141,26 @@
                     .text("Required"));
             return;
         }
+*/
+
+
+
+
+            var a=document.forms["acrForm"]["govtId"].value;
+            var b=document.forms["acrForm"]["year"].value;
+            var c=document.forms["acrForm"]["assigned_from"].value;
+            var d=document.forms["acrForm"]["assigned_to"].value;
+            if (a==null || a=="",b==null || b=="",c==null || c=="",d==null || d=="")
+            {
+                /*alert("Please Fill All Required Field");*/
+                $("#myModal").modal();
+                return false;
+            }
+
+
+
+
+
 
 
 
@@ -145,12 +189,10 @@
 
             },
             error: function () {
-                // Handle upload error
-                // ...
                 console.log("Error happening ");
             }
         });
-        /* return id; */
+
     });
     </script>
 

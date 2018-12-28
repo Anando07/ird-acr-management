@@ -1,7 +1,9 @@
 package com.sweetitech.ird.domain.dto.requestDto;
 
 import com.sweetitech.ird.domain.dto.responseDto.UserResponseDto;
+import org.springframework.validation.annotation.Validated;
 
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,14 +12,19 @@ import java.util.List;
  * @created_on 12/26/18 at 1:32 PM
  * @project ird
  */
+
+@Validated
 public class AcrRequestDto {
 
+    @NotNull
     private String govtId;
 
     private String year;
 
+    @NotNull
     private String assigned_from;
 
+    @NotNull
     private String assigned_to;
 
     private UserResponseDto userResponseDto;

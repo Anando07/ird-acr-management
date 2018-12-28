@@ -106,4 +106,18 @@ public class UserServiceImpl implements UserService {
         user.setRole(role);
         return userRepository.save(user);
     }
+
+    @Override
+    public List<UserResponseDto> userList() {
+        List<User> userList =userRepository.findAll();
+        List<UserResponseDto> dtolist = new ArrayList<>();
+        for(User user : userList)
+        {
+            if(user.isDeleted() == false)
+            {
+                dtolist.add(responseMapper.map(user));
+            }
+        }
+        return dtolist;
+    }
 }
