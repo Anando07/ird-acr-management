@@ -69,7 +69,7 @@ public class AdminController {
             return "admin/addUser";
         }
         userService.addUser(userRequestDto);
-        return "redirect:/admin/getUserList";
+        return "redirect:/admin/userList";
     }
 
     @PostMapping(value = "/doUpdate")
@@ -82,15 +82,15 @@ public class AdminController {
         }
         userService.updateUser(userRequestDto);
 
-        return "redirect:/admin/getUserList";
+        return "redirect:/admin/userList";
     }
 
     @GetMapping(value = "/deleteUser")
     public String deleteUSer(@RequestParam(name = "userId") String userId) {
         userService.deleteUser(userId);
-        return "redirect:/admin/getUserList";
+        return "redirect:/admin/userList";
     }
-    @GetMapping(value = "/getUserList")
+    @GetMapping(value = "/userList")
     public String getUserList(Model model)
     {
         List<UserResponseDto> list = userService.userList();
@@ -116,11 +116,18 @@ public class AdminController {
         return "redirect:/admin/getall";
     }
 
-    @GetMapping(value = "/getall")
+    @GetMapping(value = "/acrlist")
     public String findAllAcr(Model model)
     {
        model.addAttribute("list",acrService.acrOfCurrentYear());
        model.addAttribute("oldAcr",acrService.acrOfOldYear());
        return "admin/acrList";
+    }
+
+    @PostMapping(value = "/updateAcr")
+    public String updateAcr(@ModelAttribute("acr") AcrRequestDto acr, BindingResult result,Model model) throws ParseException {
+        System.out.println(acr.toString());
+        acrService.updateAcr(acr);
+        return "redirect:/admin/acrlist";
     }
 }

@@ -16,6 +16,8 @@ import java.util.List;
 @Validated
 public class AcrRequestDto {
 
+    private Long id;
+
     @NotNull
     private String govtId;
 
@@ -37,6 +39,14 @@ public class AcrRequestDto {
 
     public String getGovtId() {
         return govtId;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public void setGovtId(String govtId) {
@@ -83,12 +93,11 @@ public class AcrRequestDto {
         this.fileList = fileList;
     }
 
-
-
     @Override
     public String toString() {
         return "AcrRequestDto{" +
-                "govtId='" + govtId + '\'' +
+                "id=" + id +
+                ", govtId='" + govtId + '\'' +
                 ", year='" + year + '\'' +
                 ", assigned_from='" + assigned_from + '\'' +
                 ", assigned_to='" + assigned_to + '\'' +

@@ -30,6 +30,7 @@ public class AcrResponseMapper {
     public AcrResponseDto map(ACR acr)
     {
         AcrResponseDto dto = new AcrResponseDto();
+        dto.setId(acr.getId());
         dto.setGovtId(acr.getGovtId());
         dto.setYear(acr.getYear());
         dto.setAssigned_from(DateTimeUtils.toDateString(acr.getAssigned_from()));

@@ -23,4 +23,6 @@ public interface AcrService {
 
     List<AcrResponseDto> acrOfOldYear();
 
+    AcrResponseDto updateAcr(AcrRequestDto acrRequestDto) throws ParseException;
+
 }

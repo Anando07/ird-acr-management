@@ -1,8 +1,10 @@
 package com.sweetitech.ird.serviceImpl;
 
+import com.sweetitech.ird.common.Util.DateTimeUtils;
 import com.sweetitech.ird.common.Util.DateUtil;
 import com.sweetitech.ird.common.Util.PageAttribute;
 import com.sweetitech.ird.domain.ACR;
+import com.sweetitech.ird.domain.User;
 import com.sweetitech.ird.domain.dto.requestDto.AcrRequestDto;
 import com.sweetitech.ird.domain.dto.responseDto.AcrResponseDto;
 import com.sweetitech.ird.mapper.requestMapper.AcrRequestMapper;
@@ -11,6 +13,7 @@ import com.sweetitech.ird.pageable.AcrResponsePage;
 import com.sweetitech.ird.repository.AcrRepository;
 import com.sweetitech.ird.service.AcrFileRelService;
 import com.sweetitech.ird.service.AcrService;
+import com.sweetitech.ird.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -37,6 +40,9 @@ public class AcrServiceImpl implements AcrService {
 
     @Autowired
     AcrFileRelService acrFileRelService;
+
+    @Autowired
+    UserService userService;
 
     @Autowired
     AcrResponseMapper acrResponseMapper;
@@ -95,4 +101,28 @@ public class AcrServiceImpl implements AcrService {
     }
 
 
+
+    @Override
+    public AcrResponseDto updateAcr(AcrRequestDto acrRequestDto) throws ParseException {
+
+        System.out.println("inside service "+acrRequestDto.toString());
+
+        ACR acr =  acrRepository.getOne(acrRequestDto.getId());
+        acr.setGovtId(acrRequestDto.getGovtId());
+        acr.setAssigned_from(DateTimeUtils.toDate(acrRequestDto.getAssigned_from()));
+        acr.setAssigned_to(DateTimeUtils.toDate(acrRequestDto.getAssigned_to()));
+
+        User user = userService.findByUserId("ASH1201010M");
+
+        System.out.println(user.toString());
+        acr.setUser(user);
+        acrRepository.save(acr);
+
+        for(Long l : acrRequestDto.getFileList())
+        {
+            acrFileRelService.saveRelation(acr,l);
+        }
+
+        return acrResponseMapper.map(acr);
+    }
 }
