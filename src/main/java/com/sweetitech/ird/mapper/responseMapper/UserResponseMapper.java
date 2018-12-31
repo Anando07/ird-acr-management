@@ -28,6 +28,7 @@ public class UserResponseMapper {
         dto.setPhone(user.getPhone());
 
         Role role  = roleService.findRoleById(user.getRole().getId());
+        dto.setRoleId(role.getId());
         dto.setRoleType(role.getName());
         return dto;
     }

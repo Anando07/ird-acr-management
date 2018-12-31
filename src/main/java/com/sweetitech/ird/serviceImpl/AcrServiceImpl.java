@@ -55,10 +55,9 @@ public class AcrServiceImpl implements AcrService {
     @Override
     public ACR saveAcr(AcrRequestDto acrRequestDto) throws ParseException {
 
-        ACR acr =  acrRepository.save(acrRequestMapper.map(acrRequestDto));
-        for(Long l : acrRequestDto.getFileList())
-        {
-            acrFileRelService.saveRelation(acr,l);
+        ACR acr = acrRepository.save(acrRequestMapper.map(acrRequestDto));
+        for (Long l : acrRequestDto.getFileList()) {
+            acrFileRelService.saveRelation(acr, l);
         }
         return acr;
     }
@@ -66,14 +65,13 @@ public class AcrServiceImpl implements AcrService {
     @Override
     public AcrResponsePage acrOfCurrentYear(Integer page) {
         String[] date = DateUtil.getReadableDate(new Date()).split(" ");
-        Page<ACR> acrlist = acrRepository.findByYearOrderByCreatedOnDesc(date[2],new PageRequest(page, PageAttribute.PAGE_SIZE));
+        Page<ACR> acrlist = acrRepository.findByYearOrderByCreatedOnDesc(date[2], new PageRequest(page, PageAttribute.PAGE_SIZE));
 
         List<AcrResponseDto> acrResponseDtos = new ArrayList<>();
-        for(ACR acr : acrlist.getContent())
-        {
+        for (ACR acr : acrlist.getContent()) {
             acrResponseDtos.add(acrResponseMapper.map(acr));
         }
-        return new AcrResponsePage(acrResponseDtos,acrlist);
+        return new AcrResponsePage(acrResponseDtos, acrlist);
     }
 
     @Override
@@ -81,9 +79,10 @@ public class AcrServiceImpl implements AcrService {
         String[] date = DateUtil.getReadableDate(new Date()).split(" ");
         List<ACR> list = acrRepository.findByYearOrderByCreatedOnDesc(date[2]);
         List<AcrResponseDto> dtoList = new ArrayList<>();
-        for(ACR obj : list)
-        {
-            dtoList.add(acrResponseMapper.map(obj));
+        for (ACR obj : list) {
+            if (obj.getDeleted() == false || obj.getDeleted() == null) {
+                dtoList.add(acrResponseMapper.map(obj));
+            }
         }
         return dtoList;
     }
@@ -93,36 +92,46 @@ public class AcrServiceImpl implements AcrService {
         String[] date = DateUtil.getReadableDate(new Date()).split(" ");
         List<ACR> list = acrRepository.acrOfOldYear(date[2]);
         List<AcrResponseDto> dtoList = new ArrayList<>();
-        for(ACR obj : list)
-        {
-            dtoList.add(acrResponseMapper.map(obj));
+        for (ACR obj : list) {
+            if (obj.getDeleted() == false) {
+                dtoList.add(acrResponseMapper.map(obj));
+            }
         }
         return dtoList;
     }
 
 
-
     @Override
     public AcrResponseDto updateAcr(AcrRequestDto acrRequestDto) throws ParseException {
 
-        System.out.println("inside service "+acrRequestDto.toString());
-
-        ACR acr =  acrRepository.getOne(acrRequestDto.getId());
+        ACR acr = acrRepository.getOne(acrRequestDto.getId());
         acr.setGovtId(acrRequestDto.getGovtId());
+        acr.setYear(acrRequestDto.getYear());
         acr.setAssigned_from(DateTimeUtils.toDate(acrRequestDto.getAssigned_from()));
         acr.setAssigned_to(DateTimeUtils.toDate(acrRequestDto.getAssigned_to()));
 
         User user = userService.findByUserId("ASH1201010M");
 
-        System.out.println(user.toString());
         acr.setUser(user);
         acrRepository.save(acr);
 
-        for(Long l : acrRequestDto.getFileList())
-        {
-            acrFileRelService.saveRelation(acr,l);
+        for (Long l : acrRequestDto.getFileList()) {
+            acrFileRelService.saveRelation(acr, l);
         }
 
         return acrResponseMapper.map(acr);
+    }
+
+    @Override
+    public AcrResponseDto getSingleAcr(Long id) {
+        ACR acr = acrRepository.getOne(id);
+        return acrResponseMapper.map(acr);
+    }
+
+    @Override
+    public void deleteAcr(Long id) {
+        ACR acr = acrRepository.getOne(id);
+        acr.setDeleted(true);
+        acrRepository.save(acr);
     }
 }

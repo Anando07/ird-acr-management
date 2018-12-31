@@ -1,20 +1,23 @@
 package com.sweetitech.ird.controller;
 
-import com.sweetitech.ird.validator.AcrFormValidator;
-import com.sweetitech.ird.validator.UserFormValidator;
 import com.sweetitech.ird.domain.dto.requestDto.AcrRequestDto;
 import com.sweetitech.ird.domain.dto.requestDto.UserRequestDto;
+import com.sweetitech.ird.domain.dto.responseDto.AcrResponseDto;
 import com.sweetitech.ird.domain.dto.responseDto.UserResponseDto;
+import com.sweetitech.ird.mapper.AcrResponseToRequestMapper;
+import com.sweetitech.ird.mapper.responseMapper.UserResponseMapper;
 import com.sweetitech.ird.service.AcrService;
 import com.sweetitech.ird.service.UserService;
+import com.sweetitech.ird.validator.AcrFormValidator;
+import com.sweetitech.ird.validator.UserFormValidator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.text.ParseException;
@@ -40,7 +43,13 @@ public class AdminController {
     UserFormValidator userFormValidator;
 
     @Autowired
+    AcrResponseToRequestMapper mapper;
+
+    @Autowired
     AcrFormValidator acrFormValidator;
+
+    @Autowired
+    UserResponseMapper userResponseMapper;
 
     @InitBinder("userRequestDto")
     public void initBinder(WebDataBinder binder) {
@@ -76,14 +85,28 @@ public class AdminController {
     public String doUpdate(@Valid @ModelAttribute("userRequestDto") UserRequestDto userRequestDto, BindingResult result,Model model) throws Exception {
         if(result.hasErrors())
         {
+            model.addAttribute("user",userRequestDto);
             model.addAttribute("existRoll", "existRoll");
-            model.addAttribute("hasError", "hasError");
-            return "userList";
+            return "admin/userList";
         }
         userService.updateUser(userRequestDto);
 
         return "redirect:/admin/userList";
     }
+
+/*    @PostMapping(value = "/doUpdate")
+    public ModelAndView doUpdate(@Valid @ModelAttribute("userRequestDto") UserRequestDto userRequestDto, BindingResult result, Model model) throws Exception {
+    if(result.hasErrors())
+        {
+            model.addAttribute("hasError", "hasError");
+            model.addAttribute("existRoll", "existRoll");
+            model.addAttribute("user",userRequestDto);
+            return new ModelAndView("admin/userList::updateForm");
+        }
+        userService.updateUser(userRequestDto);
+
+        return new ModelAndView("redirect:/admin/userList");
+    }*/
 
     @GetMapping(value = "/deleteUser")
     public String deleteUSer(@RequestParam(name = "userId") String userId) {
@@ -94,12 +117,14 @@ public class AdminController {
     public String getUserList(Model model)
     {
         List<UserResponseDto> list = userService.userList();
+        model.addAttribute("user", new UserRequestDto());
         model.addAttribute("userlist", list);
+
         return "admin/userList";
     }
 
     @GetMapping(value = "/createAcr")
-    public String createAcr(@ModelAttribute("acrDto")AcrRequestDto acrDto, Model model)
+    public String createAcr(Model model)
     {
         model.addAttribute("acrDto", new AcrRequestDto());
         return "admin/createAcr";
@@ -113,7 +138,7 @@ public class AdminController {
             return "admin/createAcr";
         }
         acrService.saveAcr(acrDto);
-        return "redirect:/admin/getall";
+        return "redirect:/admin/acrlist";
     }
 
     @GetMapping(value = "/acrlist")
@@ -121,6 +146,7 @@ public class AdminController {
     {
        model.addAttribute("list",acrService.acrOfCurrentYear());
        model.addAttribute("oldAcr",acrService.acrOfOldYear());
+       model.addAttribute("acr",new AcrRequestDto());
        return "admin/acrList";
     }
 
@@ -129,5 +155,27 @@ public class AdminController {
         System.out.println(acr.toString());
         acrService.updateAcr(acr);
         return "redirect:/admin/acrlist";
+    }
+
+    @GetMapping(value = "/getacr")
+    public String getAcr(@RequestParam("id") Long acrId,Model model)
+    {
+        AcrResponseDto dto= acrService.getSingleAcr(acrId);
+        model.addAttribute("acrDto",mapper.map(dto));
+        return "admin/createAcr";
+    }
+
+    @GetMapping(value = "/deleteAcr")
+    public String deleteAcr(@RequestParam(name = "id") Long id) {
+        acrService.deleteAcr(id);
+        return "redirect:/admin/acrlist";
+    }
+
+    @GetMapping(value = "/getUser")
+    public ModelAndView getUser(@RequestParam("id") Long id)
+    {
+        ModelAndView mv = new ModelAndView("admin/userList::updateForm");
+        mv.addObject("user",userResponseMapper.map(userService.findById(id)));
+        return mv;
     }
 }

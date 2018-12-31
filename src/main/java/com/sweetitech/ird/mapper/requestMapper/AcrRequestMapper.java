@@ -23,11 +23,15 @@ public class AcrRequestMapper {
 
     public ACR map(AcrRequestDto dto) throws ParseException {
         ACR acr= new ACR();
+        if(dto.getId() !=null)
+        {
+            acr.setId(dto.getId());
+        }
         acr.setGovtId(dto.getGovtId());
         acr.setYear(dto.getYear());
         acr.setAssigned_from(DateTimeUtils.toDate(dto.getAssigned_from()));
         acr.setAssigned_to(DateTimeUtils.toDate(dto.getAssigned_to()));
-        User user = userService.findByUserId("1201010m");
+        User user = userService.findByUserId("ASH1201010M");
         acr.setUser(user);
         acr.setCreatedOn(new Date());
         return acr;

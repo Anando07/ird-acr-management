@@ -7,11 +7,17 @@
     <meta charset="utf-8">
 
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<!--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="http://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
-    <script src="http://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="http://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>-->
+
+    <link href="../css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+    <script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+    <link href="../css/jquery.dataTables.min.css" th:href="@{/css/jquery.dataTables.min.css}" rel="stylesheet" />
+    <script type="text/javascript" th:src="@{/js/jquery.dataTables.min.js}"></script>
 
     <script>
         $(function(){
@@ -19,11 +25,12 @@
         });
     </script>
 
-    <script th:if="${hasError != null}">
+    <script th:if="${existRoll != null}">
         $(function () {
             $('#myModal').modal('show');
         });
     </script>
+
 
 </head>
 
@@ -56,110 +63,10 @@
         <td>
             <button type="button"
                     class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal"
-                    th:attrappend="data-target=${user.id}">Edit
+                     th:onclick="'getUser(\'' + ${user.id} + '\');'">Edit
             </button>
 
-            <div class="modal fade" id="myModal" role="dialog" th:attrappend="id=${user.id}">
-                <div class="modal-dialog">
-
-                    <!-- Modal content-->
-                    <div class="modal-content">
-                        <div class="modal-body">
-
-
-                            <!-- Form Name -->
-                            <legend>Update User</legend>
-
-                            <form class="form-horizontal" action="#" th:action="@{/admin/doUpdate}"
-                                  th:object="${user}" method="post">
-                                <fieldset>
-
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label" for="name">Name</label>
-                                        <div class="col-md-4">
-
-                                            <input id="id" path="id" name="id" type="hidden" th:value="${user.id}" >
-
-                                            <input id="name" path="name" name="name" type="text"
-                                                   placeholder="Name" class="form-control input-md"
-                                                   th:value="${user.name}" required >
-
-                                            <span th:if="${existRoll !=null}"
-                                                  style="color:Red;"> Already Exist !</span>
-                                        </div>
-                                    </div>
-
-
-                                    <!-- Text input-->
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label" for="userId">User ID</label>
-                                        <div class="col-md-4">
-                                            <input id="userId" path="userId" name="userId"
-                                                   type="text" placeholder="userId"
-                                                   class="form-control input-md" th:value="${user.userId}" required
-                                            >
-                                            <!--<span th:if="${#fields.hasErrors('userId')}" th:errors="*{userId}"></span>-->
-                                        </div>
-                                    </div>
-
-
-                                    <!-- Text input-->
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label" for="designation">Designation
-                                        </label>
-                                        <div class="col-md-4">
-                                            <input id="designation" path="designation" name="designation"
-                                                   type="text" placeholder="designation"
-                                                   class="form-control input-md"
-                                                   th:value="${user.designation}" >
-                                        </div>
-                                    </div>
-
-                                    <!-- Text input-->
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label" for="phone">Phone
-                                        </label>
-                                        <div class="col-md-4">
-                                            <input id="phone" path="designation" name="phone"
-                                                   type="text" placeholder="phone"
-                                                   class="form-control input-md"
-                                                   th:value="${user.phone}">
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label" for="roleId">Role</label>
-                                        <div class="col-md-4">
-                                            <select id="roleId" name="roleId" class="form-control">
-                                                <option value=1>ADMIN</option>
-                                                <option value=2>OPERATOR</option>
-                                                <option value=3>USER</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <!-- Button -->
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label" for="register"></label>
-                                        <div class="col-md-4">
-                                            <button id="register" name="register" class="btn btn-primary">
-                                                Update
-                                            </button>
-                                        </div>
-                                    </div>
-
-                                </fieldset>
-                            </form>
-
-                        </div>
-
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
+            <!--th:attrappend="data-target=${user.id}"-->
 
 
             <a th:href="@{/admin/deleteUser(userId=${user.userId})}"
@@ -174,6 +81,130 @@
     </tr>
     </tbody>
 </table>
+
 </div>
+
+<!--<div class="modal fade" id="myModal" role="dialog" th:attrappend="id=${user.id}">-->
+
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog" th:fragment="updateForm">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-body">
+
+
+                <!-- Form Name -->
+                <legend>Update User</legend>
+
+                <form class="form-horizontal" action="#" th:action="@{/admin/doUpdate}"
+                      th:object="${user}" method="post">
+                    <fieldset>
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="name">Name</label>
+                            <div class="col-md-4">
+
+                                <input id="id" path="id" name="id" type="hidden" th:field="*{id}" >
+
+                                <input id="name" path="name" name="name" type="text"
+                                       placeholder="Name" class="form-control input-md"
+                                       th:field="*{name}" required >
+
+
+                            </div>
+                        </div>
+
+
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="userId">User ID</label>
+                            <div class="col-md-4">
+                                <input id="userId" path="userId" name="userId"
+                                       type="text" placeholder="userId"
+                                       class="form-control input-md" th:field="*{userId}" required
+                                >
+                                <span th:if="${existRoll !=null}"
+                                      style="color:Red;"> User with this Id is already Exist !</span>
+                            </div>
+                        </div>
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="designation">Designation
+                            </label>
+                            <div class="col-md-4">
+                                <input id="designation" path="designation" name="designation"
+                                       type="text" placeholder="designation"
+                                       class="form-control input-md"
+                                       th:field="*{designation}" >
+                            </div>
+                        </div>
+
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="phone">Phone
+                            </label>
+                            <div class="col-md-4">
+                                <input id="phone" path="designation" name="phone"
+                                       type="text" placeholder="phone"
+                                       class="form-control input-md"
+                                       th:field="*{phone}">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="roleId">Role</label>
+
+                            <div class="col-md-4">
+                                <select id="roleId" name="roleId" class="form-control" th:field="*{roleId}">
+                                    <option value=1>ADMIN</option>
+                                    <option value=2>OPERATOR</option>
+                                    <option value=3>USER</option>
+                                </select>
+                            </div>
+
+                        </div>
+
+                        <!-- Button -->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="register"></label>
+                            <div class="col-md-4">
+                                <button id="register" name="register" class="btn btn-primary">
+                                    Update
+                                </button>
+                            </div>
+                        </div>
+
+                    </fieldset>
+                </form>
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script th:inline="javascript">
+
+    function getUser(id)
+    {
+        $.ajax({
+            type: 'get',
+            url: /*[[ @{'/admin/getUser'} ]]*/,
+            data:  { id: id},
+            success: function(returnedData){
+                console.log(returnedData);
+                $('#myModal').html(returnedData);
+
+                $('#myModal').modal('show');
+
+            },
+            /*async:false*/
+        });
+    }
+</script>
 </body>
 </html>

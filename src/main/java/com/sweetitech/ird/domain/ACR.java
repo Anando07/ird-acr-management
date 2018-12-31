@@ -27,6 +27,8 @@ public class ACR {
 
     private Date createdOn;
 
+    private Boolean isDeleted = false;
+
     @NotNull
     @OneToOne
     User user;
@@ -88,6 +90,14 @@ public class ACR {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Boolean getDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        isDeleted = deleted;
     }
 
     @Override

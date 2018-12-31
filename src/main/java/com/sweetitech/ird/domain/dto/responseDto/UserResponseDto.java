@@ -21,6 +21,8 @@ public class UserResponseDto {
 
     private String roleType;
 
+    private Long roleId;
+
     public UserResponseDto() {
 
     }
@@ -81,6 +83,14 @@ public class UserResponseDto {
         this.userId = userId;
     }
 
+    public Long getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(Long roleId) {
+        this.roleId = roleId;
+    }
+
     @Override
     public String toString() {
         return "UserResponseDto{" +
@@ -91,6 +101,7 @@ public class UserResponseDto {
                 ", userId='" + userId + '\'' +
                 ", phone='" + phone + '\'' +
                 ", roleType='" + roleType + '\'' +
+                ", roleId=" + roleId +
                 '}';
     }
 }

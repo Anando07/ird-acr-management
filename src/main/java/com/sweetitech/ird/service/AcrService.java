@@ -25,4 +25,7 @@ public interface AcrService {
 
     AcrResponseDto updateAcr(AcrRequestDto acrRequestDto) throws ParseException;
 
+    AcrResponseDto getSingleAcr(Long id);
+
+    void deleteAcr(Long id);
 }

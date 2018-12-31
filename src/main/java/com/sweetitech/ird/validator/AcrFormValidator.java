@@ -28,7 +28,6 @@ public class AcrFormValidator implements Validator {
     @Override
     public void validate(Object o, Errors errors) {
         AcrRequestDto obj = (AcrRequestDto) o;
-        System.out.println("entering inside validator ");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "govtId", "1","Can't be empty!");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "year", "1", "Can't be empty!");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "assigned_from", "1", "Can't be empty!");
