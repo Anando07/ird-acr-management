@@ -28,6 +28,10 @@
     <script th:if="${existRoll != null}">
         $(function () {
             $('#myModal').modal('show');
+
+            $("body").on("hidden.bs.modal", function() {
+                window.location.href = window.location.origin + "/admin/userList";
+            });
         });
     </script>
 

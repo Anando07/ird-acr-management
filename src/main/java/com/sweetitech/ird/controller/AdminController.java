@@ -87,6 +87,7 @@ public class AdminController {
         {
             model.addAttribute("user",userRequestDto);
             model.addAttribute("existRoll", "existRoll");
+            model.addAttribute("userlist",userService.userList());
             return "admin/userList";
         }
         userService.updateUser(userRequestDto);
