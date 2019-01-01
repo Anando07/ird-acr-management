@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Internal Resource Division</title>
@@ -20,7 +20,7 @@
           crossorigin="anonymous">
 </head>
 <body>
-<form class="form-horizontal">
+<form class="form-horizontal" action="login" method="POST">
     <fieldset>
 
         <!-- Form Name -->
@@ -29,17 +29,17 @@
 
         <!-- Text input-->
         <div class="form-group">
-            <label class="col-md-4 control-label" for="textinput">User Id</label>
+            <label class="col-md-4 control-label" for="username">User Id</label>
             <div class="col-md-4">
-                <input id="textinput" name="textinput" type="text" placeholder="user Id" class="form-control input-md" required="">
+                <input id="username" name="username" type="text" placeholder="user Id" class="form-control input-md" required="">
 
             </div>
         </div>
         <!-- Password input-->
         <div class="form-group">
-            <label class="col-md-4 control-label" for="passwordinput">Password</label>
+            <label class="col-md-4 control-label" for="password">Password</label>
             <div class="col-md-4">
-                <input id="passwordinput" name="passwordinput" type="password" placeholder="password" class="form-control input-md" required="">
+                <input id="password" name="password" type="password" placeholder="password" class="form-control input-md" required="">
 
             </div>
         </div>

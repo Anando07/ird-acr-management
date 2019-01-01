@@ -24,10 +24,10 @@ public class CustomTokenEnhancer implements TokenEnhancer {
 
         additionalInfo.put("userId", user.getId());
         additionalInfo.put("authorities", user.getAuthorities());
+        additionalInfo.put("isDeleted", user.isDeleted());
 
         ((DefaultOAuth2AccessToken) accessToken).setAdditionalInformation(additionalInfo);
 
         return accessToken;
     }
-
 }

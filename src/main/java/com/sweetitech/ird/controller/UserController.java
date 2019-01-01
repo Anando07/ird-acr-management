@@ -25,6 +25,11 @@ public class UserController {
         model.addAttribute("oldAcr", acrService.acrOfOldYear());
         return "home";
     }
+/*    @GetMapping(value = "/login")
+    public String login(Model model)
+    {
+        return "login";
+    }*/
 
 
 /*    @GetMapping("/home")

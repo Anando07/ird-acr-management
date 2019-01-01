@@ -37,6 +37,7 @@ public class UserRequestMapper {
         entity.setPhone(dto.getPhone());
         entity.setRole(role);
         entity.setUserId(dto.getUserId());
+        entity.setUsername(dto.getUserId());
         return entity;
     }
 

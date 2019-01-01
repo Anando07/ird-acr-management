@@ -2,6 +2,7 @@ package com.sweetitech.ird.configuration;
 
 import com.sweetitech.ird.serviceImpl.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
@@ -28,9 +29,13 @@ import javax.sql.DataSource;
  * @created_on 12/24/18 at 12:35 PM
  * @project InternalResourcesDivision
  */
+
 @Configuration
 @EnableAuthorizationServer
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
+
+    @Value("${access.token.validity}")
+    private int accessTokenValidity;
 
     private final AuthenticationManager authenticationManager;
     private final CustomUserDetailsService userDetailsService;
@@ -52,20 +57,21 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         clients
-                .inMemory().withClient("android-client")
+                .inMemory().withClient("hrm-client-sweet")
                 .authorizedGrantTypes("client-credentials", "password", "refresh_token")
-                .authorities("ROLE_ADMIN", "ROLE_EMPLOYEE")
+                .authorities("ROLE_ADMIN", "ROLE_OPERATOR")
                 .scopes("read", "write", "trust")
                 .resourceIds("oauth2-resource")
-                .accessTokenValiditySeconds(5000)
-                .secret("{noop}android-secret")
+                .accessTokenValiditySeconds(accessTokenValidity)
+                .secret("{noop}hrm-secret-sweet")
                 .refreshTokenValiditySeconds(-1);
     }
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints
-                .authenticationManager(authenticationManager).userDetailsService(userDetailsService)
+                .authenticationManager(authenticationManager)
+                .userDetailsService(userDetailsService)
                 .allowedTokenEndpointRequestMethods(HttpMethod.GET, HttpMethod.POST, HttpMethod.PUT, HttpMethod.DELETE)
                 .tokenEnhancer(new CustomTokenEnhancer())
                 .exceptionTranslator(loggingExceptionTranslator())
@@ -103,6 +109,4 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     public TokenStore tokenStore() {
         return new JdbcTokenStore(dataSource);
     }
-
-
 }

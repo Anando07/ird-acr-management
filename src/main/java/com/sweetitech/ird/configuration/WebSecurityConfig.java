@@ -1,7 +1,7 @@
 package com.sweetitech.ird.configuration;
 
-import com.sweetitech.ird.serviceImpl.CustomUserDetailsService;
 import com.sweetitech.ird.common.Util.PasswordUtil;
+import com.sweetitech.ird.serviceImpl.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Bean;
