@@ -108,7 +108,7 @@ public class FileUploadController {
             System.out.println(fileo.getFilename());
 
             AcrFile image = imageService.addImage(new AcrFile(fileo.getFilename()));
-            System.out.println("value of image is "+ image.toString());
+            System.out.println("value of images is "+ image.toString());
 
             imagesToBeReturned.add(imageService.findByUrl(fileo.getFilename()));
 

@@ -4,107 +4,167 @@
     <meta charset="UTF-8">
     <title>Create Acr</title>
 
-<!--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="http://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
-    <script src="http://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>-->
+    <!--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="http://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+        <script src="http://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>-->
 
-    <link href="../css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+    <link href="../css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
     <script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
     <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
-    <link href="../css/jquery.dataTables.min.css" th:href="@{/css/jquery.dataTables.min.css}" rel="stylesheet" />
+    <link href="../css/jquery.dataTables.min.css" th:href="@{/css/jquery.dataTables.min.css}" rel="stylesheet"/>
     <script type="text/javascript" th:src="@{/js/jquery.dataTables.min.js}"></script>
 
 </head>
-<body>
-
-<form id="upload-file-form">
-    <label style="margin-top: 4%; margin-left: 6%;">Attachment
-        File Upload</label> <input id="upload-file-input" type="file"
-                                         name="file" style="margin-top: 1%; margin-left: 5%;"
-                                         data-max-file-size="1000K" multiple>
-</form>
-
-<!--<form id="acrForm" class="form-horizontal" action="#" th:action="@{/admin/createAcr}" method="post" th:object="${acrDto}">-->
-<form id="acrForm" class="form-horizontal" method="post"  th:object="${acrDto}" >
-    <fieldset>
-
-        <legend>Form Name</legend>
-
-        <!-- Text input-->
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="govtId">Govt. ID</label>
-            <div class="col-md-4">
-                <input id="id" path="id" name="id" type="hidden" th:field="*{id}" >
-
-                <input id="govtId" name="govtId" type="text" placeholder="govt. Id" class="form-control input-md" th:field="*{govtId}" required>
-            </div>
-        </div>
-
-        <!-- Text input-->
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="year">Year</label>
-            <div class="col-md-4">
-                <input id="year" name="year" type="text" placeholder="year" class="form-control input-md" th:field="*{year}" required>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="assigned_from"> Date From: </label>
-            <div class="col-md-4">
-                <input name="assigned_from" type="date" id="assigned_from" th:field="*{assigned_from}" required>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="assigned_to"> Date To: </label>
-            <div class="col-md-4">
-                <input name="assigned_to" type="date" id="assigned_to" th:field="*{assigned_to}" required>
-                <!--<input i type="text" placeholder="year" class="form-control input-md" required="">-->
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div id="fileList" class="col-md-4">
-                <!--<input i type="text" placeholder="year" class="form-control input-md" required="">-->
-            </div>
-        </div>
+<body
+        style="padding-top: 40px; padding-bottom: 3px; background-repeat: no-repeat; background-size: cover;"
+        background="/images/background4.jpg">
 
 
-        <!-- Button -->
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="create">Create</label>
-            <div class="col-md-4">
-                <button id="create" class="btn btn-primary">create</button>
-            </div>
-        </div>
+
+<div class="container"  style="width: 70%">
+    <div th:replace="fragment/menuBar :: menubar"></div>
+    <div th:replace="fragment/slider :: slider"></div>
+    <div  class="center-block" style="width: 70%; margin-top: 30px;background-color: #F0F8FF;">
 
 
-        <div class="modal fade" id="myModal" role="dialog">
-            <div class="modal-dialog">
+        <div>
+<!--
+    <form id="upload-file-form" class="form-horizontal" >
+        &lt;!&ndash;<label style="margin-top: 4%; margin-left: 6%;">&ndash;&gt;
 
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Empty Error</h4>
+        <label class="col-md-4 control-label" for="govtId">Attachment
+            File Upload</label>
+        <input id="upload-file-input" type="file"
+                                       name="file" style="margin-top: 1%; margin-left: 5%;"
+                                       ata-max-file-size="1000K" multiple>
+    </form>
+-->
+
+
+            <form  id="upload-file-form" class="form-horizontal">
+                <fieldset>
+
+                    <!-- Form Name -->
+                    <legend style="text-align: center">Create ACR</legend>
+
+                    <!-- File Button -->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="upload-file-input">Attaachment File Upload</label>
+                        <div class="col-md-4">
+                            <input id="upload-file-input" name="file" class="input-file" type="file" multiple>
+                        </div>
                     </div>
-                    <div class="modal-body">
-                        <p>Field can't be empty! Fill all the field!</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    </div>
-                </div>
 
-            </div>
+                </fieldset>
+            </form>
+
         </div>
 
+        <br/>
 
-    </fieldset>
-</form>
 
+
+
+       <!-- class="form-horizontal"-->
+                <!--<form id="acrForm" class="form-horizontal" action="#" th:action="@{/admin/createAcr}" method="post" th:object="${acrDto}">-->
+                <form id="acrForm" class="form-horizontal"  method="post" th:object="${acrDto}">
+                    <fieldset>
+
+
+                        <!-- Text input-->
+                        <div class="row">
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="govtId">Govt. ID</label>
+                            <div class="col-md-4">
+                                <input id="id" path="id" name="id" type="hidden" th:field="*{id}">
+
+                                <input id="govtId" name="govtId" type="text" placeholder="govt. Id" class="form-control input-md"
+                                       th:field="*{govtId}" required>
+                            </div>
+                        </div>
+                        </div>
+
+                        <!-- Text input-->
+                        <div class="row">
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="year">Year</label>
+                            <div class="col-md-4">
+                                <input id="year" name="year" type="text" placeholder="year" class="form-control input-md"
+                                       th:field="*{year}" required>
+                            </div>
+                        </div>
+                        </div>
+
+                        <div>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="assigned_from"> Date From: </label>
+                            <div class="col-md-4">
+                                <input name="assigned_from" type="date" id="assigned_from" th:field="*{assigned_from}" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="assigned_to"> Date To: </label>
+                            <div class="col-md-4">
+                                <input name="assigned_to" type="date" id="assigned_to" th:field="*{assigned_to}" required>
+                                <!--<input i type="text" placeholder="year" class="form-control input-md" required="">-->
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div id="fileList" class="col-md-4">
+                                <!--<input i type="text" placeholder="year" class="form-control input-md" required="">-->
+                            </div>
+                        </div>
+
+
+                        <!-- Button -->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="create"></label>
+                            <div class="col-md-4">
+                                <button id="create" class="btn btn-primary">create</button>
+                            </div>
+                        </div>
+
+
+                        <div class="modal fade" id="myModal" role="dialog">
+                            <div class="modal-dialog">
+
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">Empty Error</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Field can't be empty! Fill all the field!</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                    </fieldset>
+                </form>
+
+
+
+
+
+
+
+
+    </div>
+
+</div>
 </body>
 
 
@@ -114,55 +174,51 @@
         event.preventDefault();
 
 
-      /*  $("#fieldError").remove();
+        /*  $("#fieldError").remove();
 
-       if ($("#govtId").val() == "") {
-           $("#govtId").closest("input")
-               .append($("<span/>",
-                   {
-                       "id": "fieldError",
-                       "class" : "alert alert-danger"
-                   })
-                   .text("Required"));
-           return;
-       }
+         if ($("#govtId").val() == "") {
+             $("#govtId").closest("input")
+                 .append($("<span/>",
+                     {
+                         "id": "fieldError",
+                         "class" : "alert alert-danger"
+                     })
+                     .text("Required"));
+             return;
+         }
 
-        if ($("#assigned_from").val() == "") {
-            $("#assigned_from").closest("input")
-                .append($("<span/>",
-                    {
-                        "id": "fieldError",
-                        "class" : "alert alert-danger"
-                    })
-                    .text("Required"));
-            return;
+          if ($("#assigned_from").val() == "") {
+              $("#assigned_from").closest("input")
+                  .append($("<span/>",
+                      {
+                          "id": "fieldError",
+                          "class" : "alert alert-danger"
+                      })
+                      .text("Required"));
+              return;
+          }
+
+          if ($("#assigned_to").val() == "") {
+              $("#assigned_to").closest("input")
+                  .append($("<span/>",
+                      {
+                          "id": "fieldError",
+                          "class" : "alert alert-danger"
+                      })
+                      .text("Required"));
+              return;
+          }
+  */
+
+
+        var a = document.forms["acrForm"]["govtId"].value;
+        var b = document.forms["acrForm"]["year"].value;
+        var c = document.forms["acrForm"]["assigned_from"].value;
+        var d = document.forms["acrForm"]["assigned_to"].value;
+        if (a == null || a == "", b == null || b == "", c == null || c == "", d == null || d == "") {
+            $("#myModal").modal();
+            return false;
         }
-
-        if ($("#assigned_to").val() == "") {
-            $("#assigned_to").closest("input")
-                .append($("<span/>",
-                    {
-                        "id": "fieldError",
-                        "class" : "alert alert-danger"
-                    })
-                    .text("Required"));
-            return;
-        }
-*/
-
-
-
-
-            var a=document.forms["acrForm"]["govtId"].value;
-            var b=document.forms["acrForm"]["year"].value;
-            var c=document.forms["acrForm"]["assigned_from"].value;
-            var d=document.forms["acrForm"]["assigned_to"].value;
-            if (a==null || a=="",b==null || b=="",c==null || c=="",d==null || d=="")
-            {
-                $("#myModal").modal();
-                return false;
-            }
-
 
 
         //var id;
@@ -177,17 +233,16 @@
             cache: false,
             success: function (data) {
                 var $fileListDiv = $("#fileList");
-                data.forEach(function(element){
+                data.forEach(function (element) {
                     $fileListDiv.append($("<input/>",
                         {
-                            "name" : "fileList",
+                            "name": "fileList",
                             "type": "hidden",
-                            "value" : element.id
+                            "value": element.id
 
                         }));
                 });
-               $("#acrForm").attr("action","/admin/createAcr").
-               submit();
+                $("#acrForm").attr("action", "/admin/createAcr").submit();
             },
             error: function () {
                 console.log("Error happening ");
@@ -195,6 +250,6 @@
         });
 
     });
-    </script>
+</script>
 
 </html>

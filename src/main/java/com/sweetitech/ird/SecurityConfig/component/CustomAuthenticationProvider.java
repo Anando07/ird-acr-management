@@ -99,6 +99,7 @@ public class CustomAuthenticationProvider
  		    
 
  		    settings.setUserId(response.getBody().getUserId());
+			System.out.println("checking session data"+ settings.toString());
  		    
  		    
  		   /*	if(response.getBody().getIsDeleted().equals("true"))

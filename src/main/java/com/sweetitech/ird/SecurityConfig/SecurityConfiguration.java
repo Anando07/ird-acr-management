@@ -49,17 +49,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         http
                 .csrf().disable()
-
                 .authorizeRequests()
 
-                .antMatchers("/admin/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_OPERATOR")
-
-                .antMatchers("/","/login").permitAll()
+                //.antMatchers("/admin/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_OPERATOR")
+                .antMatchers("/admin/**").permitAll()
+                .antMatchers("/","/login","/upload/*").permitAll()
 
                 .anyRequest().authenticated()
-
-
-
 
 
 
@@ -68,12 +64,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/login")
                 .loginProcessingUrl("/login")
-
                 .failureUrl("/login?error")
-
                 .defaultSuccessUrl("/admin/acrlist",true)
-
                 .permitAll();
+
+
         http
                 .logout()
                 .logoutUrl("/logout")
@@ -87,7 +82,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web
                 .ignoring()
-                .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**");
+                .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**","/vendor/**","/fonts/**");
     }
 
 

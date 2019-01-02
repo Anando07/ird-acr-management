@@ -1,95 +1,131 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" >
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
     <title>Add User</title>
-
-<!--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="http://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
-    <script src="http://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>-->
-
-
-
-    <link href="../css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
-    <script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
-    <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
-    <link href="../css/jquery.dataTables.min.css" th:href="@{/css/jquery.dataTables.min.css}" rel="stylesheet" />
-    <script type="text/javascript" th:src="@{/js/jquery.dataTables.min.js}"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" th:href="@{images/icons/favicon.ico}"/>
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" th:href="@{/vendor/bootstrap/css/bootstrap.min.css}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" th:href="@{/fonts/font-awesome-4.7.0/css/font-awesome.min.css}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" th:href="@{/fonts/iconic/css/material-design-iconic-font.min.css}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" th:href="@{/vendor/animate/animate.css}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" th:href="@{/vendor/css-hamburgers/hamburgers.min.css}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" th:href="@{/vendor/animsition/css/animsition.min.css}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" th:href="@{/vendor/select2/select2.min.css}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" th:href="@{/vendor/daterangepicker/daterangepicker.css}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/util.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}">
+    <!--===============================================================================================-->
 </head>
-<body>
-<div class ="container">
-    <h2>Add user</h2>
-    <form class="form-horizontal"  action="#" th:action="@{/admin/addUser}" method="post" th:object="${userRequestDto}" >
-        <fieldset>
 
-            <!-- Form Name -->
-            <legend>Form Name</legend>
+<body
+        style="padding-top: 40px; padding-bottom: 3px; background-repeat: no-repeat; background-size: cover;"
+        background="/images/background4.jpg">
 
-            <!-- Text input-->
-            <div class="form-group">
-                <label class="col-md-4 control-label" for="userId">User ID</label>
-                <div class="col-md-4">
-                    <input id="userId" name="userId" type="text" placeholder="userId" class="form-control input-md" required="" th:field="*{userId}">
+<div th:replace="fragment/menuBar :: menubar"></div>
+
+<div class="limiter">
+    <div class="container-login100">
+        <div class="wrap-login100">
+            <form class="login100-form validate-form" th:action="@{/admin/addUser}" method="post"  th:object="${userRequestDto}">
+					<span class="login100-form-title p-b-26">
+						Add User
+					</span>
+                <span class="login100-form-title p-b-48">
+						<i class="zmdi zmdi-font"></i>
+					</span>
+
+
+                <div class="wrap-input100 validate-input" >
+
+                    <input id="userId" class="input100" type="text" name="userId" required th:field="*{userId}">
+                    <span class="focus-input100" data-placeholder="User ID"></span>
+                    <span th:if="${#fields.hasErrors('userId')}" th:errors="*{userId}" style="color:red"></span>
                 </div>
-                <span th:if="${#fields.hasErrors('userId')}" th:errors="*{userId}"></span>
 
-            </div>
 
-            <!-- Text input-->
-            <div class="form-group">
-                <label class="col-md-4 control-label" for="name">Name </label>
-                <div class="col-md-4">
-                    <input id="name" name="name" type="text" placeholder="name" class="form-control input-md" th:field="*{name}" required/>
+                <div class="wrap-input100 validate-input" >
+
+                    <input id="name" class="input100" type="text" name="name" required th:field="*{name}">
+                    <span class="focus-input100" data-placeholder="Name"></span>
                 </div>
-            </div>
 
-            <!-- Text input-->
-            <div class="form-group">
-                <label class="col-md-4 control-label" for="designation">Designation</label>
-                <div class="col-md-4">
-                    <input id="designation" name="designation" type="text" placeholder="designation" class="form-control input-md" th:field="*{designation}" required />
+                <div class="wrap-input100 validate-input" >
+
+                    <input id="designation" class="input100" type="text" name="designation" required th:field="*{designation}">
+                    <span class="focus-input100" data-placeholder="Designation"></span>
                 </div>
-            </div>
 
-            <!-- Text input-->
-            <div class="form-group">
-                <label class="col-md-4 control-label" for="phone">Phone No.</label>
-                <div class="col-md-4">
-                    <input id="phone" name="phone" type="text" placeholder="phone no." class="form-control input-md" th:field="*{phone}" required>
+                <div class="wrap-input100 validate-input" >
+
+                    <input id="phone" class="input100" type="text" name="phone" required th:field="*{phone}">
+                    <span class="focus-input100" data-placeholder="Phone Number"></span>
                 </div>
-            </div>
 
-            <div class="form-group">
-                <label class="col-md-4 control-label" for="password">Password</label>
-                <div class="col-md-4">
-                    <input id="password" name="phone" type="password" placeholder="password" class="form-control input-md" th:field="*{password}" required>
+                <div class="wrap-input100 validate-input" data-validate="Enter password">
+						<span class="btn-show-pass">
+							<i class="zmdi zmdi-eye"></i>
+						</span>
+                    <input id="password" class="input100" type="password" name="password" required th:field="*{password}">
+                    <span class="focus-input100" data-placeholder="Password"></span>
                 </div>
-            </div>
 
-            <div class="form-group">
-                <label class="col-md-4 control-label" for="roleId">Role</label>
-                <div class="col-md-4">
-                    <select id="roleId" name="roleId" class="form-control">
+                <div class="wrap-input100">
+                    <label class="col-md-4 control-label">Role</label>
+                    <select id="roleId" name="roleId" class="form-control" th:field="*{roleId}">
                         <option value=1>ADMIN</option>
                         <option value=2>OPERATOR</option>
                         <option value=3>USER</option>
                     </select>
                 </div>
-            </div>
 
 
-            <div class="form-group">
-                <label class="col-md-4 control-label" for="save"></label>
-                <div class="col-md-4">
-                    <button id="save" name="singlebutton" class="btn btn-primary">Save</button>
+
+                <div class="container-login100-form-btn">
+                    <div class="wrap-login100-form-btn">
+                        <div class="login100-form-bgbtn"></div>
+                        <button class="login100-form-btn">
+                            Login
+                        </button>
+                    </div>
                 </div>
-            </div>
+                <div>
 
-        </fieldset>
-    </form>
-
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
+
+
+<!--<div id="dropDownSelect1"></div>-->
+
+<!--===============================================================================================-->
+<script th:src="@{/vendor/jquery/jquery-3.2.1.min.js}" type="text/javascript"></script>
+<!--===============================================================================================-->
+<script th:src="@{/vendor/animsition/js/animsition.min.js}" type="text/javascript"></script>
+<!--===============================================================================================-->
+<script th:src="@{/vendor/bootstrap/js/popper.js}" type="text/javascript"></script>
+<script th:src="@{/vendor/bootstrap/js/bootstrap.min.js}" type="text/javascript"></script>
+<!--===============================================================================================-->
+<script th:src="@{/vendor/select2/select2.min.js}" type="text/javascript"></script>
+<!--===============================================================================================-->
+<script th:src="@{/vendor/daterangepicker/moment.min.js}" type="text/javascript"></script>
+<script th:src="@{/vendor/daterangepicker/daterangepicker.js}" type="text/javascript"></script>
+<!--===============================================================================================-->
+<script th:src="@{/vendor/countdowntime/countdowntime.js}" type="text/javascript"></script>
+<!--===============================================================================================-->
+<script th:src="@{/js/main.js}" type="text/javascript"></script>
+
 </body>
 </html>

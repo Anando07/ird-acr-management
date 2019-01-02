@@ -35,7 +35,7 @@ public class UserFormValidator implements Validator {
         if(obj.getId()==null && userService.findByUserId(obj.getUserId())!=null)
         {
             System.out.println("entering first time");
-            errors.rejectValue("userId","1","Already Exists! Try another!");
+            errors.rejectValue("userId","1","User with this name already Exists! Try another!");
         }
         if(obj.getId() !=null)
         {

@@ -114,4 +114,18 @@ public class SettingsRepository {
     }
 
 
+    @Override
+    public String toString() {
+        return "SettingsRepository{" +
+                "accessToken='" + accessToken + '\'' +
+                ", refreshToken='" + refreshToken + '\'' +
+                ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                ", userId='" + userId + '\'' +
+                ", roleid='" + roleid + '\'' +
+                ", rolename='" + rolename + '\'' +
+                ", isFirstLoggedin='" + isFirstLoggedin + '\'' +
+                ", apierror=" + apierror +
+                '}';
+    }
 }

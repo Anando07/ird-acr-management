@@ -1,0 +1,17 @@
+<div data-scroll-to-active="true" xmlns:th="http://www.thymeleaf.org"
+     th:fragment="menubar">
+
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" th:href="@{/admin/acrlist}">Internal Resource Division</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li ><a th:href="@{/admin/acrlist}">Home</a></li>
+                <li><a th:href="@{/admin/userList}">Users</a></li>
+                <li><a th:href="@{/admin/createAcr}">New ACR</a></li>
+                <li><a th:href="@{/admin/addUser}">New User</a></li>
+            </ul>
+        </div>
+    </nav>
+</div>

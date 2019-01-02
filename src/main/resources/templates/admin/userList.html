@@ -38,33 +38,41 @@
 
 </head>
 
-<body>
+<body
+	style="padding-top: 40px; padding-bottom: 3px; background-repeat: no-repeat; background-size: cover;"
+	background="/images/background4.jpg">
 
-<div class="container">
+<div class="container"  style="width: 70%">
+    <div th:replace="fragment/menuBar :: menubar"></div>
+    <div th:replace="fragment/slider :: slider"></div>
 
-    <h2>User Information</h2>
+    <h2 style="text-align:center;color:green">User Information</h2>
     <hr />
-
+    <div style=" display: block;
+    padding: 10px;
+    margin-bottom: 100px; /* SIMPLY SET THIS PROPERTY AS MUCH AS YOU WANT. This changes the space below box1 */
+    text-align: justify; background-color: #F0F8FF">
+<div style="width: 90%" class="center">
 <table  id="userTable" class="table table-striped table-bordered">
     <thead>
     <tr>
-        <th>Name</th>
-        <th>User Id</th>
-        <th>Designation</th>
-        <th>Phone</th>
-        <th>Role</th>
-        <th>Setting</th>
+        <th style="text-align:center;">Name</th>
+        <th style="text-align:center;">User Id</th>
+        <th style="text-align:center;">Designation</th>
+        <th style="text-align:center;">Phone</th>
+        <th style="text-align:center;">Role</th>
+        <th style="text-align:center;">Setting</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="user : ${userlist}">
-        <td th:text="${user.name}"></td>
-        <td th:text="${user.userId}"></td>
-        <td th:text="${user.designation}"></td>
-        <td th:text="${user.phone}"></td>
-        <td th:text="${user.roleType}"></td>
+        <td th:text="${user.name}" align="center"></td>
+        <td th:text="${user.userId}" align="center"></td>
+        <td th:text="${user.designation}" align="center"></td>
+        <td th:text="${user.phone}" align="center"></td>
+        <td th:text="${user.roleType}" align="center"></td>
 
-        <td>
+        <td align="center">
             <button type="button"
                     class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal"
                      th:onclick="'getUser(\'' + ${user.id} + '\');'">Edit
@@ -85,7 +93,8 @@
     </tr>
     </tbody>
 </table>
-
+</div>
+</div>
 </div>
 
 <!--<div class="modal fade" id="myModal" role="dialog" th:attrappend="id=${user.id}">-->
@@ -211,4 +220,12 @@
     }
 </script>
 </body>
+<style>
+.center {
+  margin: auto;
+  width: 60%;
+  
+  padding: 10px;
+}
+</style>
 </html>
