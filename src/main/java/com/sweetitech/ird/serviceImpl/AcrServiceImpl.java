@@ -110,9 +110,9 @@ public class AcrServiceImpl implements AcrService {
         acr.setAssigned_from(DateTimeUtils.toDate(acrRequestDto.getAssigned_from()));
         acr.setAssigned_to(DateTimeUtils.toDate(acrRequestDto.getAssigned_to()));
 
-        User user = userService.findByUserId("ASH1201010M");
+       /* User user = userService.findByUserId("ASH1201010M");
+        acr.setUser(user);*/
 
-        acr.setUser(user);
         acrRepository.save(acr);
 
         for (Long l : acrRequestDto.getFileList()) {
@@ -133,5 +133,42 @@ public class AcrServiceImpl implements AcrService {
         ACR acr = acrRepository.getOne(id);
         acr.setDeleted(true);
         acrRepository.save(acr);
+    }
+
+    @Override
+    public List<AcrResponseDto> getAcrOfGovtIdWithCurrentYear(String govtId) {
+
+        String[] date = DateUtil.getReadableDate(new Date()).split(" ");
+
+        List<ACR> acrList = acrRepository.findByGovtIdAndYearOrderByCreatedOn(govtId, date[2]);
+
+        List<AcrResponseDto> dtoList = new ArrayList<>();
+        for(ACR acr : acrList)
+        {
+            dtoList.add(acrResponseMapper.map(acr));
+        }
+        return dtoList;
+    }
+
+    @Override
+    public List<AcrResponseDto> getAllAcrByGovtId(String govtId) {
+        List<ACR> acrList = acrRepository.findByGovtId(govtId);
+        List<AcrResponseDto> dtoList = new ArrayList<>();
+        for(ACR acr : acrList)
+        {
+            dtoList.add(acrResponseMapper.map(acr));
+        }
+        return dtoList;
+    }
+
+    @Override
+    public List<AcrResponseDto> getAcrByYear(String year) {
+        List<ACR> acrList = acrRepository.findByYearOrderByCreatedOnDesc(year);
+        List<AcrResponseDto> dtoList = new ArrayList<>();
+        for(ACR acr : acrList)
+        {
+            dtoList.add(acrResponseMapper.map(acr));
+        }
+        return dtoList;
     }
 }

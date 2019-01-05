@@ -28,4 +28,10 @@ public interface AcrService {
     AcrResponseDto getSingleAcr(Long id);
 
     void deleteAcr(Long id);
+
+    List<AcrResponseDto> getAcrOfGovtIdWithCurrentYear(String govtId);
+
+    List<AcrResponseDto> getAllAcrByGovtId(String govtId);
+
+    List<AcrResponseDto> getAcrByYear(String year);
 }

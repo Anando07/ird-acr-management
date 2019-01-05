@@ -50,16 +50,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-
-                //.antMatchers("/admin/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_OPERATOR")
-                .antMatchers("/admin/**").permitAll()
-                .antMatchers("/","/login","/upload/*").permitAll()
-
+                .antMatchers("/admin/**","/upload/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_OPERATOR")
+                //.antMatchers("/admin/**","/file/**").permitAll()
+                .antMatchers("/","/login","/logout","/govtId","/user/**").permitAll()
                 .anyRequest().authenticated()
-
-
-
-
                 .and()
                 .formLogin()
                 .loginPage("/login")
@@ -72,7 +66,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http
                 .logout()
                 .logoutUrl("/logout")
-                .logoutSuccessUrl("/login")
+                .logoutSuccessUrl("/")
                 .deleteCookies("JSESSIONID")
                 .permitAll();
     }

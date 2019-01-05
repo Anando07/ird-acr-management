@@ -17,17 +17,21 @@
     <script type="text/javascript" th:src="@{/js/jquery.dataTables.min.js}"></script>
 
 </head>
-<body
-        style="padding-top: 40px; padding-bottom: 3px; background-repeat: no-repeat; background-size: cover;"
-        background="/images/background4.jpg">
+<body style="padding-top: 40px; padding-bottom: 3px;  background-repeat: no-repeat;
+ background-size: cover;" background="../images/background4.jpg">
 
 
 
 <div class="container"  style="width: 70%">
     <div th:replace="fragment/menuBar :: menubar"></div>
     <div th:replace="fragment/slider :: slider"></div>
-    <div  class="center-block" style="width: 70%; margin-top: 30px;background-color: #F0F8FF;">
+    <div  class="center-block" style="width: 100%; margin-top: 30px;background-color: #F0F8FF;">
 
+
+        <div style=" display: block;
+    padding: 10px;
+    margin-bottom: 30px; /* SIMPLY SET THIS PROPERTY AS MUCH AS YOU WANT. This changes the space below box1 */
+    text-align: justify; background-color: #F0F8FF">
 
         <div>
 <!--
@@ -47,7 +51,9 @@
                 <fieldset>
 
                     <!-- Form Name -->
-                    <legend style="text-align: center">Create ACR</legend>
+                    <legend style="text-align: center"><h2>Create ACR</h2></legend>
+
+
 
                     <!-- File Button -->
                     <div class="form-group">
@@ -61,10 +67,6 @@
             </form>
 
         </div>
-
-        <br/>
-
-
 
 
        <!-- class="form-horizontal"-->
@@ -154,15 +156,11 @@
 
                     </fieldset>
                 </form>
-
-
-
-
-
-
+</div>
 
 
     </div>
+    <div th:replace="fragment/footer :: footer"></div>
 
 </div>
 </body>
@@ -220,7 +218,7 @@
             return false;
         }
 
-
+        //"/ird-0.0.1-SNAPSHOT/admin/createAcr"
         //var id;
         $.ajax({
             url: /*[[ @{'/upload/file'} ]]*/,
@@ -242,7 +240,7 @@
 
                         }));
                 });
-                $("#acrForm").attr("action", "/admin/createAcr").submit();
+                $("#acrForm").attr("action",/*[[ @{'/admin/createAcr'} ]]*/ ).submit();
             },
             error: function () {
                 console.log("Error happening ");

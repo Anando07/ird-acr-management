@@ -11,7 +11,7 @@
     <groupId>com.sweetitech</groupId>
     <artifactId>ird</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>jar</packaging>
+    <packaging>war</packaging>
     <name>ird</name>
     <description>IRD website</description>
 

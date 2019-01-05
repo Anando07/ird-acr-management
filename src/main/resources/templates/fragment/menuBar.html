@@ -12,6 +12,49 @@
                 <li><a th:href="@{/admin/createAcr}">New ACR</a></li>
                 <li><a th:href="@{/admin/addUser}">New User</a></li>
             </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a th:href="@{/logout}" th:onclick="'javascript:deleteAllCookies();'"><b>Logout</b></a></li>
+            </ul>
         </div>
+
+
+
+        <script th:inline="javascript">
+
+            function setCookie(cname, cvalue, exdays) {
+                var d = new Date();
+                d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+                var expires = "expires="+d.toUTCString();
+                document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+            }
+
+            function getCookie(cname) {
+                var name = cname + "=";
+                var ca = document.cookie.split(';');
+                for(var i = 0; i < ca.length; i++) {
+                    var c = ca[i];
+                    while (c.charAt(0) == ' ') {
+                        c = c.substring(1);
+                    }
+                    if (c.indexOf(name) == 0) {
+                        return c.substring(name.length, c.length);
+                    }
+                }
+                return "";
+            }
+
+
+
+
+
+
+
+            function deleteAllCookies() {
+
+                setCookie("servercount","",1);
+                setCookie("currentcount","",1);
+            }
+
+        </script>
     </nav>
 </div>

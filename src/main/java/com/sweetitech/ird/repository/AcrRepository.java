@@ -23,4 +23,10 @@ public interface AcrRepository extends JpaRepository<ACR, Long> {
     @Query(value = "SELECT * from acr WHERE year != :year",nativeQuery = true)
     List<ACR>acrOfOldYear(@Param("year") String year);
 
+    List<ACR> findByGovtIdOrderByCreatedOnDesc(String govtId);
+
+    List<ACR> findByGovtIdAndYearOrderByCreatedOn(String govtId, String year);
+
+    List<ACR> findByGovtId(String govtId);
+
 }

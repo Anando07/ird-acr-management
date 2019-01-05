@@ -31,7 +31,7 @@ public class AcrRequestMapper {
         acr.setYear(dto.getYear());
         acr.setAssigned_from(DateTimeUtils.toDate(dto.getAssigned_from()));
         acr.setAssigned_to(DateTimeUtils.toDate(dto.getAssigned_to()));
-        User user = userService.findByUserId("ASH1201010M");
+        User user = userService.findByUserId("admin");
         acr.setUser(user);
         acr.setCreatedOn(new Date());
         return acr;

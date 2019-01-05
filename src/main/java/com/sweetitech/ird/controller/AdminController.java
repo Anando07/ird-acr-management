@@ -95,20 +95,6 @@ public class AdminController {
         return "redirect:/admin/userList";
     }
 
-/*    @PostMapping(value = "/doUpdate")
-    public ModelAndView doUpdate(@Valid @ModelAttribute("userRequestDto") UserRequestDto userRequestDto, BindingResult result, Model model) throws Exception {
-    if(result.hasErrors())
-        {
-            model.addAttribute("hasError", "hasError");
-            model.addAttribute("existRoll", "existRoll");
-            model.addAttribute("user",userRequestDto);
-            return new ModelAndView("admin/userList::updateForm");
-        }
-        userService.updateUser(userRequestDto);
-
-        return new ModelAndView("redirect:/admin/userList");
-    }*/
-
     @GetMapping(value = "/deleteUser")
     public String deleteUSer(@RequestParam(name = "userId") String userId) {
         userService.deleteUser(userId);
@@ -132,24 +118,32 @@ public class AdminController {
     }
 
     @PostMapping(value = "/createAcr")
-    public String doCreateAcr(@Valid @ModelAttribute("acrDto")AcrRequestDto acrDto, BindingResult result) throws ParseException {
+    public String doCreateAcr(@ModelAttribute("acrDto")AcrRequestDto acrDto, BindingResult result) throws ParseException {
         System.out.println(acrDto.toString());
-        if(result.hasErrors())
+       /* if(result.hasErrors())
         {
             return "admin/createAcr";
-        }
+        }*/
         acrService.saveAcr(acrDto);
         return "redirect:/admin/acrlist";
     }
 
     @GetMapping(value = "/acrlist")
-    public String findAllAcr(Model model)
+    public String findAllAcr(@RequestParam(value = "year", required = false) String year, Model model)
     {
-       model.addAttribute("list",acrService.acrOfCurrentYear());
-       model.addAttribute("oldAcr",acrService.acrOfOldYear());
-       model.addAttribute("acr",new AcrRequestDto());
+        if(year==null)
+        {
+            model.addAttribute("list",acrService.acrOfCurrentYear());
+        }
+        else
+        {
+            model.addAttribute("list",acrService.getAcrByYear(year));
+        }
+
        return "admin/acrList";
     }
+
+
 
     @PostMapping(value = "/updateAcr")
     public String updateAcr(@ModelAttribute("acr") AcrRequestDto acr, BindingResult result,Model model) throws ParseException {

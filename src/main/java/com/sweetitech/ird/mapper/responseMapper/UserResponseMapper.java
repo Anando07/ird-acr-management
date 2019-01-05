@@ -29,7 +29,16 @@ public class UserResponseMapper {
 
         Role role  = roleService.findRoleById(user.getRole().getId());
         dto.setRoleId(role.getId());
-        dto.setRoleType(role.getName());
+
+        if(role.getName().equalsIgnoreCase("ROLE_ADMIN"))
+        {
+            dto.setRoleType("ADMIN");
+        }
+        else
+        {
+            dto.setRoleType("OPERATOR");
+        }
+
         return dto;
     }
 }
