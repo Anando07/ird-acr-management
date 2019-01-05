@@ -35,6 +35,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void authenticationManager(AuthenticationManagerBuilder builder) throws Exception {
+
+        System.out.println("inside authenticationManager method");
+
         builder
                 .userDetailsService(userDetailsService)
                 .passwordEncoder(passwordEncoder)
@@ -51,6 +54,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
+
+        System.out.println("inside DaoAuthenticationProvider");
+
+
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
         authenticationProvider.setUserDetailsService(userDetailsService);
         authenticationProvider.setPasswordEncoder(passwordEncoder);

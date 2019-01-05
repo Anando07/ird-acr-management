@@ -57,6 +57,8 @@ public class CustomAuthenticationProvider
   
  	@Override
  	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+
+
  		String name = authentication.getName();
  		String password = authentication.getCredentials().toString();
  		//Optional<User> optionalUser = users.stream().filter(u -> u.index(name, password)).findFirst();
@@ -146,6 +148,7 @@ public class CustomAuthenticationProvider
   
  	@Override
  	public boolean supports(Class<?> authentication) {
+		System.out.println("something wrong here !!");
  		return authentication.equals(UsernamePasswordAuthenticationToken.class);
  	}
 }

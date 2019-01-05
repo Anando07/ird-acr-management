@@ -40,6 +40,7 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
     public void addViewControllers(final ViewControllerRegistry registry) {
         // super.addViewControllers(registry);
 
+        System.out.println("Now i am inside MvcConfig addViewControllers");
         registry.addViewController("/login");
         registry.addViewController("/admin/acrlist");
         registry.addViewController("/logout.html");

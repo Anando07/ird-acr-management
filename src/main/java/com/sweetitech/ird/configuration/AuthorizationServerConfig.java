@@ -48,6 +48,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
+
+        System.out.println(" inside configure with AuthorizationServerSecurityConfigurer");
         security
                 .tokenKeyAccess("permitAll()")
                 .checkTokenAccess("isAuthenticated()")
@@ -56,6 +58,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
+
+        System.out.println(" inside configure with ClientDetailsServiceConfigurer");
+
         clients
                 .inMemory().withClient("hrm-client-sweet")
                 .authorizedGrantTypes("client-credentials", "password", "refresh_token")
@@ -69,6 +74,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
+
+        System.out.println(" inside configure with AuthorizationServerEndpointsConfigurer");
         endpoints
                 .authenticationManager(authenticationManager)
                 .userDetailsService(userDetailsService)
@@ -81,6 +88,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Bean
     public WebResponseExceptionTranslator loggingExceptionTranslator() {
+        System.out.println(" inside configure with WebResponseExceptionTranslator");
+
         return new DefaultWebResponseExceptionTranslator() {
             @Override
             public ResponseEntity<OAuth2Exception> translate(Exception e) throws Exception {

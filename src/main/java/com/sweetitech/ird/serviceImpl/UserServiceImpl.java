@@ -1,12 +1,11 @@
 package com.sweetitech.ird.serviceImpl;
 
+import com.sweetitech.ird.common.Exception.UserNotFoundException;
 import com.sweetitech.ird.common.Util.PageAttribute;
-import com.sweetitech.ird.domain.ACR;
+import com.sweetitech.ird.common.Util.PasswordUtil;
 import com.sweetitech.ird.domain.Role;
-import com.sweetitech.ird.domain.dto.requestDto.AcrRequestDto;
-import com.sweetitech.ird.domain.dto.requestDto.UserRequestDto;
 import com.sweetitech.ird.domain.User;
-import com.sweetitech.ird.domain.dto.responseDto.AcrResponseDto;
+import com.sweetitech.ird.domain.dto.requestDto.UserRequestDto;
 import com.sweetitech.ird.domain.dto.responseDto.UserResponseDto;
 import com.sweetitech.ird.mapper.requestMapper.UserRequestMapper;
 import com.sweetitech.ird.mapper.responseMapper.UserResponseMapper;
@@ -14,8 +13,6 @@ import com.sweetitech.ird.pageable.UserResponsePage;
 import com.sweetitech.ird.repository.UserRepository;
 import com.sweetitech.ird.service.RoleService;
 import com.sweetitech.ird.service.UserService;
-import com.sweetitech.ird.common.Exception.UserNotFoundException;
-import com.sweetitech.ird.common.Util.PasswordUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

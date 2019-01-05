@@ -42,6 +42,8 @@ public class ClientConfiguration {
 
     @Bean
     public OAuth2ProtectedResourceDetails passwordResourceDetails() {
+
+
         //@formatter:off
         ResourceOwnerPasswordResourceDetails resourceDetails = new ResourceOwnerPasswordResourceDetails();
 
@@ -56,6 +58,7 @@ public class ClientConfiguration {
         resourceDetails.setClientAuthenticationScheme(AuthenticationScheme.header);
         //@formatter:on
 
+        System.out.println("inside OAuth2ProtectedResourceDetails in ClientConfiguration before return");
         return resourceDetails;
     }
 
@@ -73,6 +76,8 @@ public class ClientConfiguration {
         provider.setClientTokenServices(clientTokenServices);
         template.setAccessTokenProvider(provider);
         template.setErrorHandler(new RestTemplateResponseErrorHandler());
+
+        System.out.println("inside oauth2RestTemplate in ClientConfiguration before return");
 
         return template;
     }

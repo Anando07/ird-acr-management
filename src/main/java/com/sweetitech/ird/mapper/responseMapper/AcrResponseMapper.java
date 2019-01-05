@@ -8,6 +8,7 @@ import com.sweetitech.ird.domain.dto.responseDto.AcrResponseDto;
 import com.sweetitech.ird.service.AcrFileRelService;
 import com.sweetitech.ird.service.AcrFileService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -26,6 +27,9 @@ public class AcrResponseMapper {
 
     @Autowired
    AcrFileService acrFileService;
+
+    @Value("${base.url.images}")
+    String fileDownloadUrl;
 
     public AcrResponseDto map(ACR acr)
     {

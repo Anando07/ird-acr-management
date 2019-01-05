@@ -30,6 +30,7 @@ public class OAuth2ClientTokenSevices implements ClientTokenServices {
     @Override
     public OAuth2AccessToken getAccessToken(OAuth2ProtectedResourceDetails resource, Authentication authentication) {
         //ClientUser clientUser = getClientUser(authentication);
+        System.out.println("I am inside OAuth2ClientTokenSevices class's method");
 
         String accessToken = settings.getAccessToken();
 

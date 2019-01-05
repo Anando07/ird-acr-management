@@ -15,7 +15,6 @@
     <script type="text/javascript" th:src="@{/js/jquery.dataTables.min.js}"></script>
 
 
-
 </head>
 <body style="padding-top: 40px; padding-bottom: 3px;  background-repeat: no-repeat;
  background-size: cover;" background="../images/background4.jpg">
@@ -23,9 +22,6 @@
 
     <div th:replace="fragment/menuBar :: menubar"></div>
     <div th:replace="fragment/slider :: slider"></div>
-
-
-
 
 
     <div>
@@ -41,7 +37,7 @@
                             <input style="width: 100%;" type="text" class="form-control govtId"
                                    placeholder="Search ACR with year" name="year">
                             <div class="input-group-btn">
-                                <button class="btn btn-default" type="submit" >
+                                <button class="btn btn-default" type="submit">
                                     <i class="glyphicon glyphicon-search"></i>
                                 </button>
                             </div>
@@ -68,16 +64,25 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="acr : ${list}">
+                    <tr th:each="acr : ${list}" >
                         <td th:text="${acr.govtId}" align="center"></td>
                         <td th:text="${acr.year}" align="center"></td>
                         <td th:text="${acr.assigned_from}" align="center"></td>
                         <td th:text="${acr.assigned_to}" align="center"></td>
+
+
                         <td align="center">
-                <span th:each="file: ${acr.filelist}">
-                    <a href=""><img th:src="@{/images/pdf-icon.png}" width="15px" height="15px" /></a>
-                </span>
+
+                            <!--<div style="overflow-y:scroll; height:75px; max-width:50px; display:block;">-->
+                            <div style="overflow-y:scroll; height:50px; display:block;">
+
+                                <span th:each="file: ${acr.filelist}">
+                                <a href=""><img th:src="@{/images/pdf-icon.png}" width="15px" height="15px"/></a>
+                            </span>
+                            </div>
                         </td>
+
+
                         <td align="center">
                             <a th:href="@{/admin/getacr(id=${acr.id})}">
                                 <button type="button"
@@ -98,7 +103,6 @@
                 </table>
             </div>
         </div>
-
 
 
         <div class="oldAcrDiv" style="display: block; padding: 10px; margin-bottom: 30px;
@@ -125,7 +129,7 @@
                         <td th:text="${acr.assigned_to}" align="center"></td>
                         <td align="center">
                 <span th:each="file: ${acr.filelist}">
-                    <a href=""><img th:src="@{/image/pdf-icon.png}" /></a>
+                    <a href=""><img th:src="@{/image/pdf-icon.png}"/></a>
                 </span>
                         </td>
 
@@ -158,8 +162,8 @@
         $("#currentAcrTable").DataTable({
             "columnDefs": [
 
-                { "targets": [1,2,3,4,5], "searchable": false },
-                { "width": "15%", "targets": 4 }
+                {"targets": [1, 2, 3, 4, 5], "searchable": false},
+                {"width": "15%", "targets": 4}
             ]
         });
         $("#oldAcrTable").DataTable();
