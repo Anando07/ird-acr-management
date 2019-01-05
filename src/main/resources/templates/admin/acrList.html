@@ -75,7 +75,7 @@
                         <td th:text="${acr.assigned_to}" align="center"></td>
                         <td align="center">
                 <span th:each="file: ${acr.filelist}">
-                    <a href="">avi</a>
+                    <a href=""><img th:src="@{/images/pdf-icon.png}" width="15px" height="15px" /></a>
                 </span>
                         </td>
                         <td align="center">
@@ -125,7 +125,7 @@
                         <td th:text="${acr.assigned_to}" align="center"></td>
                         <td align="center">
                 <span th:each="file: ${acr.filelist}">
-                    <a href="">avi</a>
+                    <a href=""><img th:src="@{/image/pdf-icon.png}" /></a>
                 </span>
                         </td>
 
@@ -157,7 +157,9 @@
     $(function () {
         $("#currentAcrTable").DataTable({
             "columnDefs": [
-                { "targets": [1,2,3,4,5], "searchable": false }
+
+                { "targets": [1,2,3,4,5], "searchable": false },
+                { "width": "15%", "targets": 4 }
             ]
         });
         $("#oldAcrTable").DataTable();
