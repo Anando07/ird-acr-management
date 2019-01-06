@@ -1,6 +1,6 @@
 package com.sweetitech.ird.repository;
 
-import com.sweetitech.ird.domain.dto.AcrFileRelation;
+import com.sweetitech.ird.domain.AcrFileRelation;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

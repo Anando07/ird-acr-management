@@ -18,6 +18,7 @@
     <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
     <link rel="stylesheet" href="/css/jquery.dataTables.min.css" th:href="@{/css/jquery.dataTables.min.css}">
     <script type="text/javascript" th:src="@{/js/jquery.dataTables.min.js}"></script>
+
 </head>
 
 
@@ -41,31 +42,30 @@
         <hr/>
 
 
-        <div style=" display: block;
-    padding: 10px;
-    margin-bottom: 10px;
-    text-align: justify;">
+        <div style=" display: block; padding: 10px; margin-bottom: 10px; text-align: justify;">
 
 
             <nav class="navbar navbar-default">
                 <div class="container-fluid">
-                    <form class="navbar-form navbar-right" id="searchForm">
+                    <br/>
+                    <form id="searchForm" class="form-horizontal">
                         <div class="input-group">
-                            <input style="width: 100%;" type="text" class="form-control govtId"  placeholder="Search with Govt. ID" name="govtId">
-                            <div class="input-group-btn">
-                                <button class="btn btn-default" type="submit" th:onClick="'loadTables();'">
-                                    <i class="glyphicon glyphicon-search"></i>
-                                </button>
-                            </div>
+                            <input name="govtId" placeholder="Search with Govt. ID" class="form-control govtId"
+                                   type="text">
+                            <span class="input-group-btn">
+               <button class="btn btn-default" type="submit" th:onClick="'loadTables();'">
+                   <span class="glyphicon glyphicon-search"></span>
+               </button>
+            </span>
                         </div>
                     </form>
+                    <br/>
                 </div>
             </nav>
-
         </div>
 
 
-<div class="acrListDiv" th:fragment="acrList" style=" display: block;
+        <div class="acrListDiv" th:fragment="acrList" style=" display: block;
     padding: 10px;
     margin-bottom: 40px;
     text-align: justify; background-color: #F0F8FF">
@@ -92,15 +92,13 @@
                     </tbody>
                 </table>
             </div>
- </div>
+        </div>
 
 
-
-
- <div class="allAcrDiv"  th:fragment="allAcr" style=" display: block;
+        <div class="allAcrDiv" th:fragment="allAcr" style=" display: block;
     padding: 10px;
     margin-bottom: 30px;
-    text-align: justify; background-color: #F0F8FF" >
+    text-align: justify; background-color: #F0F8FF">
             <h2 style="text-align:center;color:green">All ACR</h2>
             <div style="width: 90%" class="center">
                 <table id="acrOldTable" class="table table-striped table-bordered">
@@ -132,67 +130,65 @@
 
 
 <script>
-
     $(function () {
         $("#acrTable").DataTable();
         $("#acrOldTable").DataTable();
     });
-    </script>
+</script>
 
 <script th:inline="javascript">
     $(".acrListDiv").hide();
     $(".allAcrDiv").hide();
 
-function loadTables()
-{
-    $('#searchForm').submit(function(e) {
-        e.preventDefault();
-        var govtId = $('.govtId').val();
-        loadAcrList(govtId);
+    function loadTables() {
+        $('#searchForm').submit(function (e) {
+            e.preventDefault();
+            var govtId = $('.govtId').val();
+            loadAcrList(govtId);
 
-        loadAllAcr(govtId);
+            loadAllAcr(govtId);
 
-    });
-}
+        });
+    }
 
 
-    function loadAcrList(govtId)
-    {
+    function loadAcrList(govtId) {
 
         $.ajax({
             type: 'get',
             url: /*[[ @{'/user/govtId'} ]]*/,
-            data:  { govtId: govtId},
-            success: function(data){
+            data: {govtId: govtId},
+            success: function (data) {
                 console.log(data);
                 $('.acrListDiv').html(data);
                 $("#acrTable").DataTable();
                 $(".acrListDiv").show();
 
             },
-            async:false
+            async: false
         });
 
     }
 
-    function loadAllAcr(govtId){
+    function loadAllAcr(govtId) {
         $.ajax({
             type: 'get',
             url: /*[[ @{'/user/allAcr'} ]]*/,
-            data:  { govtId: govtId},
-            success: function(data){
+            data: {govtId: govtId},
+            success: function (data) {
                 console.log(data);
                 $('.allAcrDiv').html(data);
                 $("#acrOldTable").DataTable();
                 $(".allAcrDiv").show();
             },
-            async:false
+            async: false
         });
     }
 </script>
 
 </body>
 <style>
+    .dataTables_filter, .dataTables_info { display: none; }
     .center {
         margin: auto;
         width: 60%;

@@ -2,7 +2,7 @@ package com.sweetitech.ird.serviceImpl;
 
 import com.sweetitech.ird.domain.ACR;
 import com.sweetitech.ird.domain.AcrFile;
-import com.sweetitech.ird.domain.dto.AcrFileRelation;
+import com.sweetitech.ird.domain.AcrFileRelation;
 import com.sweetitech.ird.repository.AcrFileRelationRepository;
 import com.sweetitech.ird.repository.AcrFileRepository;
 import com.sweetitech.ird.service.AcrFileRelService;

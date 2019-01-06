@@ -3,7 +3,7 @@ package com.sweetitech.ird.mapper.responseMapper;
 import com.sweetitech.ird.common.Util.DateTimeUtils;
 import com.sweetitech.ird.domain.ACR;
 import com.sweetitech.ird.domain.AcrFile;
-import com.sweetitech.ird.domain.dto.AcrFileRelation;
+import com.sweetitech.ird.domain.AcrFileRelation;
 import com.sweetitech.ird.domain.dto.responseDto.AcrResponseDto;
 import com.sweetitech.ird.service.AcrFileRelService;
 import com.sweetitech.ird.service.AcrFileService;

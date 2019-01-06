@@ -1,7 +1,7 @@
 package com.sweetitech.ird.service;
 
 import com.sweetitech.ird.domain.ACR;
-import com.sweetitech.ird.domain.dto.AcrFileRelation;
+import com.sweetitech.ird.domain.AcrFileRelation;
 
 import java.util.List;
 

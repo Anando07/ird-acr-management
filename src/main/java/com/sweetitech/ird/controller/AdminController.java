@@ -4,7 +4,7 @@ import com.sweetitech.ird.domain.dto.requestDto.AcrRequestDto;
 import com.sweetitech.ird.domain.dto.requestDto.UserRequestDto;
 import com.sweetitech.ird.domain.dto.responseDto.AcrResponseDto;
 import com.sweetitech.ird.domain.dto.responseDto.UserResponseDto;
-import com.sweetitech.ird.mapper.AcrResponseToRequestMapper;
+import com.sweetitech.ird.mapper.responseTorequest.AcrResponseToRequestMapper;
 import com.sweetitech.ird.mapper.responseMapper.UserResponseMapper;
 import com.sweetitech.ird.service.AcrService;
 import com.sweetitech.ird.service.UserService;
@@ -114,16 +114,17 @@ public class AdminController {
     public String createAcr(Model model)
     {
         model.addAttribute("acrDto", new AcrRequestDto());
+        model.addAttribute("title","Create ACR");
         return "admin/createAcr";
     }
 
     @PostMapping(value = "/createAcr")
     public String doCreateAcr(@ModelAttribute("acrDto")AcrRequestDto acrDto, BindingResult result) throws ParseException {
         System.out.println(acrDto.toString());
-       /* if(result.hasErrors())
+        if(result.hasErrors())
         {
             return "admin/createAcr";
-        }*/
+        }
         acrService.saveAcr(acrDto);
         return "redirect:/admin/acrlist";
     }
@@ -157,6 +158,7 @@ public class AdminController {
     {
         AcrResponseDto dto= acrService.getSingleAcr(acrId);
         model.addAttribute("acrDto",mapper.map(dto));
+        model.addAttribute("title","Update ACR");
         return "admin/createAcr";
     }
 

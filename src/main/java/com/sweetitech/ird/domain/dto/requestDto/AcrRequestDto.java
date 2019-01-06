@@ -1,5 +1,6 @@
 package com.sweetitech.ird.domain.dto.requestDto;
 
+import com.sweetitech.ird.domain.AcrFile;
 import com.sweetitech.ird.domain.dto.responseDto.UserResponseDto;
 import org.springframework.validation.annotation.Validated;
 
@@ -32,6 +33,8 @@ public class AcrRequestDto {
     private UserResponseDto userResponseDto;
 
     List<Long> fileList = new ArrayList<>();
+
+    List<AcrFile> acrFiles = new ArrayList<>();
 
 
     public AcrRequestDto() {
@@ -91,6 +94,14 @@ public class AcrRequestDto {
 
     public void setFileList(List<Long> fileList) {
         this.fileList = fileList;
+    }
+
+    public List<AcrFile> getAcrFiles() {
+        return acrFiles;
+    }
+
+    public void setAcrFiles(List<AcrFile> acrFiles) {
+        this.acrFiles = acrFiles;
     }
 
     @Override

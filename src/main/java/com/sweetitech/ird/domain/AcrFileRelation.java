@@ -1,4 +1,4 @@
-package com.sweetitech.ird.domain.dto;
+package com.sweetitech.ird.domain;
 
 import com.sweetitech.ird.domain.ACR;
 import com.sweetitech.ird.domain.AcrFile;

@@ -1,7 +1,5 @@
 package com.sweetitech.ird.domain;
 
-import com.sweetitech.ird.domain.dto.AcrFileRelation;
-
 import javax.persistence.*;
 import java.util.Date;
 
