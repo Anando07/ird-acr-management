@@ -40,7 +40,7 @@ public class AcrResponseMapper {
         dto.setAssigned_from(DateTimeUtils.toDateString(acr.getAssigned_from()));
         dto.setAssigned_to(DateTimeUtils.toDateString(acr.getAssigned_to()));
 
-        List<AcrFileRelation> list = fileRelService.findObjByAcrId(acr.getId());
+        List<AcrFileRelation> list = fileRelService.findListByAcrId(acr.getId());
 
         List<String> fileList = new ArrayList<>();
 

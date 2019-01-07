@@ -1,12 +1,16 @@
 package com.sweetitech.ird.serviceImpl;
 
 import com.sweetitech.ird.domain.AcrFile;
+import com.sweetitech.ird.domain.AcrFileRelation;
 import com.sweetitech.ird.repository.AcrFileRepository;
+import com.sweetitech.ird.service.AcrFileRelService;
 import com.sweetitech.ird.service.AcrFileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Avijit Barua
@@ -20,6 +24,12 @@ public class AcrFileServiceImpl implements AcrFileService {
 
     @Autowired
     AcrFileRepository acrFileRepository;
+
+    @Autowired
+    AcrFileRelService acrFileRelService;
+
+    @Autowired
+    AcrFileService acrFileService;
 
     @Override
     public AcrFile addImage(AcrFile image) {
@@ -52,5 +62,25 @@ public class AcrFileServiceImpl implements AcrFileService {
     @Override
     public AcrFile updateImage(AcrFile image) {
         return acrFileRepository.save(image);
+    }
+
+    @Override
+    public List<AcrFile> filesOfSingleAcr(Long acrId) {
+
+        List<AcrFileRelation> relationList = acrFileRelService.findListByAcrId(acrId);
+
+        List<AcrFile> files = new ArrayList<>();
+        for(AcrFileRelation relation : relationList)
+        {
+            files.add(acrFileService.findById(relation.getAcrFile().getId()));
+        }
+        return files;
+    }
+
+    @Override
+    public void deleteFile(Long fileId) {
+        acrFileRelService.deleteRelByFileId(fileId);
+        AcrFile file = acrFileRepository.getOne(fileId);
+        acrFileRepository.delete(file);
     }
 }

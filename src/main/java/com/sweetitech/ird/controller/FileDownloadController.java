@@ -64,7 +64,7 @@ public class FileDownloadController {
             ByteArrayResource resource = new ByteArrayResource(data);
             return ResponseEntity.ok()
 
-                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=" + path.getFileName().toString())
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "inline;filename=" + path.getFileName().toString())
                     .contentType(mediaType)
                     .contentLength(data.length)
                     .body(resource);

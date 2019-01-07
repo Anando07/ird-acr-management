@@ -39,7 +39,7 @@ public class AcrResponseToRequestMapper {
         requestDto.setAssigned_from(dto.getAssigned_from());
         requestDto.setAssigned_to(dto.getAssigned_to());
 
-        List<AcrFileRelation> relList = fileRelService.findObjByAcrId(dto.getId());
+/*        List<AcrFileRelation> relList = fileRelService.findListByAcrId(dto.getId());
 
         List<AcrFile> fileList = new ArrayList<>();
 
@@ -48,7 +48,8 @@ public class AcrResponseToRequestMapper {
             fileList.add(fileService.findById(rel.getAcrFile().getId()));
         }
         System.out.println("file list is "+ fileList.toString());
-        requestDto.setAcrFiles(fileList);
+        requestDto.setAcrFiles(fileList);*/
+
         return requestDto;
     }
 }

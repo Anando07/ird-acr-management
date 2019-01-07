@@ -41,8 +41,19 @@ public class AcrFileRelImpl implements AcrFileRelService {
     }
 
     @Override
-    public List<AcrFileRelation> findObjByAcrId(Long acrId) {
+    public List<AcrFileRelation> findListByAcrId(Long acrId) {
 
         return repository.findByAcr_Id(acrId);
+    }
+
+    @Override
+    public AcrFileRelation getRelByFileId(Long fileId) {
+        return repository.findAcrFileRelationByAcrFile_Id(fileId);
+    }
+
+    @Override
+    public void deleteRelByFileId(Long fileId) {
+        AcrFileRelation rel = repository.findAcrFileRelationByAcrFile_Id(fileId);
+        repository.delete(rel);
     }
 }

@@ -14,4 +14,6 @@ public interface AcrFileRelationRepository extends JpaRepository<AcrFileRelation
 
     List<AcrFileRelation> findByAcr_Id(Long acrId);
 
+    AcrFileRelation findAcrFileRelationByAcrFile_Id(Long fileId);
+
 }

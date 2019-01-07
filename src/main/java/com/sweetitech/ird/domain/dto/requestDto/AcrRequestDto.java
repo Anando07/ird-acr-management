@@ -34,7 +34,7 @@ public class AcrRequestDto {
 
     List<Long> fileList = new ArrayList<>();
 
-    List<AcrFile> acrFiles = new ArrayList<>();
+   /* List<AcrFile> acrFiles = new ArrayList<>();*/
 
 
     public AcrRequestDto() {
@@ -96,13 +96,13 @@ public class AcrRequestDto {
         this.fileList = fileList;
     }
 
-    public List<AcrFile> getAcrFiles() {
+/*    public List<AcrFile> getAcrFiles() {
         return acrFiles;
     }
 
     public void setAcrFiles(List<AcrFile> acrFiles) {
         this.acrFiles = acrFiles;
-    }
+    }*/
 
     @Override
     public String toString() {

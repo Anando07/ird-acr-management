@@ -2,6 +2,8 @@ package com.sweetitech.ird.service;
 
 import com.sweetitech.ird.domain.AcrFile;
 
+import java.util.List;
+
 /**
  * @author Avijit Barua
  * @created_on 12/26/18 at 1:05 PM
@@ -19,4 +21,8 @@ public interface AcrFileService {
     AcrFile findByUrl(String url);
 
     AcrFile updateImage(AcrFile image);
+
+    List<AcrFile> filesOfSingleAcr(Long acrId);
+
+    void deleteFile(Long fileId);
 }

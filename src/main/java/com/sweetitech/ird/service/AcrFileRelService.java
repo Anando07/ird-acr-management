@@ -14,5 +14,9 @@ public interface AcrFileRelService {
 
     AcrFileRelation saveRelation(ACR acr, Long fileId);
 
-    List<AcrFileRelation> findObjByAcrId(Long acrId);
+    List<AcrFileRelation> findListByAcrId(Long acrId);
+
+    AcrFileRelation getRelByFileId(Long fileId);
+
+    void deleteRelByFileId(Long fileId);
 }

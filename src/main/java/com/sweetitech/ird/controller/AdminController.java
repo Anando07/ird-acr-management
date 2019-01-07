@@ -6,8 +6,10 @@ import com.sweetitech.ird.domain.dto.responseDto.AcrResponseDto;
 import com.sweetitech.ird.domain.dto.responseDto.UserResponseDto;
 import com.sweetitech.ird.mapper.responseTorequest.AcrResponseToRequestMapper;
 import com.sweetitech.ird.mapper.responseMapper.UserResponseMapper;
+import com.sweetitech.ird.service.AcrFileService;
 import com.sweetitech.ird.service.AcrService;
 import com.sweetitech.ird.service.UserService;
+import com.sweetitech.ird.serviceImpl.async.AsyncService;
 import com.sweetitech.ird.validator.AcrFormValidator;
 import com.sweetitech.ird.validator.UserFormValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -40,6 +43,9 @@ public class AdminController {
     AcrService acrService;
 
     @Autowired
+    AcrFileService acrFileService;
+
+    @Autowired
     UserFormValidator userFormValidator;
 
     @Autowired
@@ -50,6 +56,9 @@ public class AdminController {
 
     @Autowired
     UserResponseMapper userResponseMapper;
+
+    @Autowired
+    AsyncService asyncService;
 
     @InitBinder("userRequestDto")
     public void initBinder(WebDataBinder binder) {
@@ -91,32 +100,35 @@ public class AdminController {
             return "admin/userList";
         }
         userService.updateUser(userRequestDto);
-
         return "redirect:/admin/userList";
     }
+
 
     @GetMapping(value = "/deleteUser")
     public String deleteUSer(@RequestParam(name = "userId") String userId) {
         userService.deleteUser(userId);
         return "redirect:/admin/userList";
     }
+
+
     @GetMapping(value = "/userList")
     public String getUserList(Model model)
     {
         List<UserResponseDto> list = userService.userList();
         model.addAttribute("user", new UserRequestDto());
         model.addAttribute("userlist", list);
-
         return "admin/userList";
     }
+
 
     @GetMapping(value = "/createAcr")
     public String createAcr(Model model)
     {
         model.addAttribute("acrDto", new AcrRequestDto());
-        model.addAttribute("title","Create ACR");
+        model.addAttribute("acrFiles", new ArrayList<>());
         return "admin/createAcr";
     }
+
 
     @PostMapping(value = "/createAcr")
     public String doCreateAcr(@ModelAttribute("acrDto")AcrRequestDto acrDto, BindingResult result) throws ParseException {
@@ -140,7 +152,6 @@ public class AdminController {
         {
             model.addAttribute("list",acrService.getAcrByYear(year));
         }
-
        return "admin/acrList";
     }
 
@@ -153,12 +164,13 @@ public class AdminController {
         return "redirect:/admin/acrlist";
     }
 
+
     @GetMapping(value = "/getacr")
     public String getAcr(@RequestParam("id") Long acrId,Model model)
     {
         AcrResponseDto dto= acrService.getSingleAcr(acrId);
         model.addAttribute("acrDto",mapper.map(dto));
-        model.addAttribute("title","Update ACR");
+        model.addAttribute("acrFiles",acrFileService.filesOfSingleAcr(acrId));
         return "admin/createAcr";
     }
 
@@ -173,6 +185,22 @@ public class AdminController {
     {
         ModelAndView mv = new ModelAndView("admin/userList::updateForm");
         mv.addObject("user",userResponseMapper.map(userService.findById(id)));
+        return mv;
+    }
+
+    @GetMapping(value = "/deleteFile")
+    ModelAndView deleteFile(@RequestParam("fileId") Long fileId, @RequestParam("acrId") Long acrId)
+    {
+        System.out.println("getting inside controller "+ fileId +" and "+acrId);
+
+        asyncService.deleteFileFromStorage(fileId);
+
+        acrFileService.deleteFile(fileId);
+
+        ModelAndView mv = new ModelAndView("admin/createAcr::fileList");
+        mv.addObject("acrFiles",acrFileService.filesOfSingleAcr(acrId));
+        AcrResponseDto dto= acrService.getSingleAcr(acrId);
+        mv.addObject("acrDto",mapper.map(dto));
         return mv;
     }
 }
