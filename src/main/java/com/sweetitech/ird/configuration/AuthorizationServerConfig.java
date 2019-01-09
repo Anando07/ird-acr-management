@@ -1,3 +1,4 @@
+/*
 package com.sweetitech.ird.configuration;
 
 import com.sweetitech.ird.serviceImpl.CustomUserDetailsService;
@@ -23,12 +24,14 @@ import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
 
 import javax.sql.DataSource;
 
+*/
 /*
 *
  * @author Avijit Barua
  * @created_on 12/24/18 at 12:35 PM
  * @project InternalResourcesDivision
-*/
+*//*
+
 
 
 
@@ -80,6 +83,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 .exceptionTranslator(loggingExceptionTranslator())
                 //.tokenStore(inMemoryTokenStore());
                 .tokenStore(tokenStore());
+
     }
 
     @Bean
@@ -110,3 +114,4 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         return new JdbcTokenStore(dataSource);
     }
 }
+*/

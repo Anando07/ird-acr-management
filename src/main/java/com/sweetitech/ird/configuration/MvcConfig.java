@@ -18,12 +18,12 @@ import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 
 import java.util.Locale;
 
-/*
- * @author Avijit Barua
+/* * @author Avijit Barua
  * @created_on 1/1/19 at 3:51 PM
  * @project ird
- *
-*/
+ **/
+
+
 
 
 @Configuration

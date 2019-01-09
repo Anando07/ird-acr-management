@@ -1,3 +1,4 @@
+/*
 package com.sweetitech.ird.configuration;
 
 import org.springframework.security.access.AccessDeniedException;
@@ -10,12 +11,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+*/
 /*
 *
  * @author Avijit Barua
  * @created_on 1/1/19 at 1:23 PM
  * @project ird
-*/
+*//*
+
 
 
 public class CustomAccessDeniedHandler extends AccessDeniedHandlerImpl {
@@ -37,3 +40,4 @@ public class CustomAccessDeniedHandler extends AccessDeniedHandlerImpl {
     }
 
 }
+*/

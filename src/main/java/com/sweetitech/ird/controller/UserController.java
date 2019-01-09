@@ -1,5 +1,6 @@
 package com.sweetitech.ird.controller;
 
+import com.sweetitech.ird.configuration.MySessionInfo;
 import com.sweetitech.ird.domain.dto.responseDto.AcrResponseDto;
 import com.sweetitech.ird.service.AcrService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ public class UserController {
     @Autowired
     AcrService acrService;
 
+
     @GetMapping(value = "/")
     public String home(Model model)
     {
@@ -35,6 +37,7 @@ public class UserController {
         ModelAndView mv = new ModelAndView("home::acrList");
         List<AcrResponseDto> dtoList = acrService.getAcrOfGovtIdWithCurrentYear(govtId);
         mv.addObject("list", dtoList);
+
         return mv;
     }
 

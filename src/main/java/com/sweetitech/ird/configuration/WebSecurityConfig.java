@@ -38,7 +38,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void authenticationManager(AuthenticationManagerBuilder builder) throws Exception {
-        System.out.println("at the first stage ");
         builder
                 .userDetailsService(userDetailsService)
                 .passwordEncoder(passwordEncoder)
@@ -64,7 +63,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
 
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         System.out.println("inside configure with resource ");
@@ -72,6 +70,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
+
                 .antMatchers("/admin/**","/upload/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_OPERATOR")
                 .antMatchers("/","/login","/logout","/user/**").permitAll()
                 .anyRequest().authenticated()

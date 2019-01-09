@@ -1,3 +1,4 @@
+/*
 package com.sweetitech.ird.configuration;
 
 import com.sweetitech.ird.domain.User;
@@ -9,11 +10,13 @@ import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 import java.util.HashMap;
 import java.util.Map;
 
+*/
 /**
  * @author Avijit Barua
  * @created_on 12/24/18 at 12:36 PM
  * @project InternalResourcesDivision
- */
+ *//*
+
 
 
 public class CustomTokenEnhancer implements TokenEnhancer {
@@ -33,3 +36,4 @@ public class CustomTokenEnhancer implements TokenEnhancer {
         return accessToken;
     }
 }
+*/

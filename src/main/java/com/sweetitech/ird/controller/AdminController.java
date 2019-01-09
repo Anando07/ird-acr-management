@@ -4,8 +4,8 @@ import com.sweetitech.ird.domain.dto.requestDto.AcrRequestDto;
 import com.sweetitech.ird.domain.dto.requestDto.UserRequestDto;
 import com.sweetitech.ird.domain.dto.responseDto.AcrResponseDto;
 import com.sweetitech.ird.domain.dto.responseDto.UserResponseDto;
-import com.sweetitech.ird.mapper.responseTorequest.AcrResponseToRequestMapper;
 import com.sweetitech.ird.mapper.responseMapper.UserResponseMapper;
+import com.sweetitech.ird.mapper.responseTorequest.AcrResponseToRequestMapper;
 import com.sweetitech.ird.service.AcrFileService;
 import com.sweetitech.ird.service.AcrService;
 import com.sweetitech.ird.service.UserService;
@@ -59,6 +59,7 @@ public class AdminController {
 
     @Autowired
     AsyncService asyncService;
+
 
     @InitBinder("userRequestDto")
     public void initBinder(WebDataBinder binder) {
@@ -144,6 +145,12 @@ public class AdminController {
     @GetMapping(value = "/acrlist")
     public String findAllAcr(@RequestParam(value = "year", required = false) String year, Model model)
     {
+        /*User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        System.out.println(user.toString());*/
+
+
+
         if(year==null)
         {
             model.addAttribute("list",acrService.acrOfCurrentYear());
