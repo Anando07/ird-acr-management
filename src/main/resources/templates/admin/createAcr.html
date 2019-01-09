@@ -30,7 +30,7 @@
                     <fieldset>
                         <!-- Form Name -->
                         <legend style="text-align: center">
-                            <h2 th:text="${acrDto.id != null} ? 'Update ACR' : 'Create ACR'" ></h2>
+                            <h2 th:text="${acrDto.id != null} ? 'Update ACR' : 'Create ACR'"></h2>
                         </legend>
 
                         <!-- File Button -->
@@ -46,9 +46,8 @@
 
 
                 <span th:if="${acrFiles.size() gt 0}">
-                     <div class="fileListDiv center-block" th:fragment="fileList" style=" width:40%;  display: block; padding: 10px;
-                                                                           margin-bottom: 10px;
-                                                                           text-align: justify; background-color: #F0F8FF">
+                     <div class="fileListDiv center-block" th:fragment="fileList" style=" width:40%;  display: block;
+                             padding: 10px; margin-bottom: 10px; text-align: justify; background-color: #F0F8FF">
                         <legend style="text-align: center"><h2>Files of ACR</h2></legend>
                             <table id="acrFiles" class="table table-striped table-bordered">
                                  <thead>
@@ -59,12 +58,13 @@
                                  </thead>
                                  <tbody>
                                     <tr th:each="file : ${acrFiles}">
-                                        <td align="center"><a th:href="@{/file/download(fileName=${file.url})}" target="_blank">
+                                        <td align="center"><a th:href="@{/file/download(fileName=${file.url})}"
+                                                              target="_blank">
                                             <img th:src="@{/images/pdf-icon.png}" width="15px" height="15px"/></a>
                                         </td>
                                         <td>
                                             <button type="button" th:onclick="|loadFiles('${file.id}', '${acrDto.id}')|"
-                                                     class="btn btn-info btn-sm">Delete
+                                                    class="btn btn-info btn-sm">Delete
                                             </button>
                                         </td>
                                     </tr>
@@ -78,39 +78,39 @@
                         <!-- Text input-->
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="govtId">Govt. ID</label>
-                                <div class="col-md-4">
-                                     <input id="id" path="id" name="id" type="hidden" th:field="*{id}">
+                            <div class="col-md-4">
+                                <input id="id" path="id" name="id" type="hidden" th:field="*{id}">
 
-                                     <input id="govtId" name="govtId" type="text" placeholder="govt. Id"
+                                <input id="govtId" name="govtId" type="text" placeholder="govt. Id"
                                        class="form-control input-md"
                                        th:field="*{govtId}" required>
-                                </div>
+                            </div>
                         </div>
 
                         <!-- Text input-->
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="year">Year</label>
-                                <div class="col-md-4">
-                                     <input id="year" name="year" type="text" placeholder="year"
+                            <div class="col-md-4">
+                                <input id="year" name="year" type="text" placeholder="year"
                                        class="form-control input-md"
                                        th:field="*{year}" required>
-                                </div>
+                            </div>
                         </div>
 
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="assigned_from"> Date From: </label>
-                                 <div class="col-md-4">
-                                     <input name="assigned_from" type="date" id="assigned_from"
-                                            th:field="*{assigned_from}" required>
-                                 </div>
+                            <div class="col-md-4">
+                                <input name="assigned_from" type="date" id="assigned_from"
+                                       th:field="*{assigned_from}" required>
+                            </div>
                         </div>
 
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="assigned_to"> Date To: </label>
-                                <div class="col-md-4">
-                                    <input name="assigned_to" type="date" id="assigned_to" th:field="*{assigned_to}"
+                            <div class="col-md-4">
+                                <input name="assigned_to" type="date" id="assigned_to" th:field="*{assigned_to}"
                                        required>
-                                </div>
+                            </div>
                         </div>
 
                         <div class="form-group">
@@ -123,10 +123,10 @@
                         <!-- Button -->
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="create"></label>
-                                <div class="col-md-4">
-                                  <button id="create" class="btn btn-primary"
-                                          th:text="${acrDto.id != null} ? 'Update' : 'Create'"></button>
-                                </div>
+                            <div class="col-md-4">
+                                <button id="create" class="btn btn-primary"
+                                        th:text="${acrDto.id != null} ? 'Update' : 'Create'"></button>
+                            </div>
                         </div>
 
 
@@ -206,12 +206,14 @@
 
     });
 
-    function loadFiles(fileId,acrId) {
+    function loadFiles(fileId, acrId) {
         $.ajax({
             type: 'get',
             url: /*[[ @{'/admin/deleteFile'} ]]*/,
-            data: {fileId: fileId,
-                acrId:acrId },
+            data: {
+                fileId: fileId,
+                acrId: acrId
+            },
             success: function (data) {
                 $('.fileListDiv').html(data);
             },

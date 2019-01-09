@@ -1,4 +1,4 @@
-package com.sweetitech.ird.SecurityConfig;
+package com.sweetitech.ird.configuration;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -18,15 +18,15 @@ import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 
 import java.util.Locale;
 
-/**
+/*
  * @author Avijit Barua
  * @created_on 1/1/19 at 3:51 PM
  * @project ird
- */
-@Configuration
-/*
-@ComponentScan(basePackages = { " com.packt.example.clientpassword.security" })
+ *
 */
+
+
+@Configuration
 public class MvcConfig extends WebMvcConfigurerAdapter {
 
     public MvcConfig() {
@@ -38,9 +38,6 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void addViewControllers(final ViewControllerRegistry registry) {
-        // super.addViewControllers(registry);
-
-        System.out.println("Now i am inside MvcConfig addViewControllers");
         registry.addViewController("/login");
         registry.addViewController("/admin/acrlist");
         registry.addViewController("/logout.html");

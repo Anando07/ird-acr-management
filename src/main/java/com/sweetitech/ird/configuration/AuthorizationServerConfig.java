@@ -23,12 +23,14 @@ import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
 
 import javax.sql.DataSource;
 
-
-/**
+/*
+*
  * @author Avijit Barua
  * @created_on 12/24/18 at 12:35 PM
  * @project InternalResourcesDivision
- */
+*/
+
+
 
 @Configuration
 @EnableAuthorizationServer
@@ -48,8 +50,6 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
-
-        System.out.println(" inside configure with AuthorizationServerSecurityConfigurer");
         security
                 .tokenKeyAccess("permitAll()")
                 .checkTokenAccess("isAuthenticated()")
@@ -58,11 +58,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-
-        System.out.println(" inside configure with ClientDetailsServiceConfigurer");
-
         clients
-                .inMemory().withClient("hrm-client-sweet")
+                .inMemory()
+                .withClient("hrm-client-sweet")
                 .authorizedGrantTypes("client-credentials", "password", "refresh_token")
                 .authorities("ROLE_ADMIN", "ROLE_OPERATOR")
                 .scopes("read", "write", "trust")
@@ -74,8 +72,6 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-
-        System.out.println(" inside configure with AuthorizationServerEndpointsConfigurer");
         endpoints
                 .authenticationManager(authenticationManager)
                 .userDetailsService(userDetailsService)
@@ -88,15 +84,10 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Bean
     public WebResponseExceptionTranslator loggingExceptionTranslator() {
-        System.out.println(" inside configure with WebResponseExceptionTranslator");
-
         return new DefaultWebResponseExceptionTranslator() {
             @Override
             public ResponseEntity<OAuth2Exception> translate(Exception e) throws Exception {
-                // This is the line that prints the stack trace to the log. You can customise this to format the trace etc if you like
                 e.printStackTrace();
-
-                // Carry on handling the exception
                 ResponseEntity<OAuth2Exception> responseEntity = super.translate(e);
                 HttpHeaders headers = new HttpHeaders();
                 headers.setAll(responseEntity.getHeaders().toSingleValueMap());

@@ -38,10 +38,10 @@
                             <input name="year" placeholder="Search ACR with year" class="form-control govtId"
                                    type="text">
                             <span class="input-group-btn">
-               <button class="btn btn-default" type="submit">
-                   <span class="glyphicon glyphicon-search"></span>
-               </button>
-            </span>
+                               <button class="btn btn-default" type="submit">
+                                   <span class="glyphicon glyphicon-search"></span>
+                               </button>
+                             </span>
                         </div>
                     </form>
                     <br/>
@@ -56,49 +56,39 @@
             <div style="width: 90%" class="center">
                 <table id="currentAcrTable" class="table table-striped table-bordered">
                     <thead>
-                    <tr>
-                        <th style="text-align: center;">Govt. ID</th>
-                        <th style="text-align: center;">Year</th>
-                        <th style="text-align: center;">From</th>
-                        <th style="text-align: center;">To</th>
-                        <th style="text-align: center;">Files</th>
-                        <th style="text-align: center;">Action</th>
-                    </tr>
+                        <tr>
+                            <th style="text-align: center;">Govt. ID</th>
+                            <th style="text-align: center;">Year</th>
+                            <th style="text-align: center;">From</th>
+                            <th style="text-align: center;">To</th>
+                            <th style="text-align: center;">Files</th>
+                            <th style="text-align: center;">Action</th>
+                        </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="acr : ${list}" >
-                        <td th:text="${acr.govtId}" align="center"></td>
-                        <td th:text="${acr.year}" align="center"></td>
-                        <td th:text="${acr.assigned_from}" align="center"></td>
-                        <td th:text="${acr.assigned_to}" align="center"></td>
+                        <tr th:each="acr : ${list}" >
+                            <td th:text="${acr.govtId}" align="center"></td>
+                            <td th:text="${acr.year}" align="center"></td>
+                            <td th:text="${acr.assigned_from}" align="center"></td>
+                            <td th:text="${acr.assigned_to}" align="center"></td>
+                            <td align="center">
+                                <div style="overflow-y:scroll; height:50px; display:block;">
+                                    <span th:each="fileName: ${acr.filelist}">
+                                        <a th:href="@{/file/download(fileName=${fileName})}" target="_blank"><img th:src="@{/images/pdf-icon.png}" width="15px" height="15px"/></a>
+                                    </span>
+                                </div>
+                            </td>
+                            <td align="center">
+                                <a th:href="@{/admin/getacr(id=${acr.id})}">
+                                    <button type="button" class="btn btn-info btn-md">Edit</button>
+                                </a>
 
-
-                        <td align="center">
-
-                            <div style="overflow-y:scroll; height:50px; display:block;">
-                                <span th:each="fileName: ${acr.filelist}">
-                                <a th:href="@{/file/download(fileName=${fileName})}" target="_blank"><img th:src="@{/images/pdf-icon.png}" width="15px" height="15px"/></a>
-                            </span>
-                            </div>
-                        </td>
-
-
-                        <td align="center">
-                            <a th:href="@{/admin/getacr(id=${acr.id})}">
-                                <button type="button"
-                                        class="btn btn-info btn-md">Edit
-                                </button>
-                            </a>
-
-
-                            <a th:href="@{/admin/deleteAcr(id=${acr.id})}"
-                               onclick="return confirm('Are you sure you want to delete this item?');">
-                                <button type="button"
-                                        class="btn btn-info btn-md">Delete
-                                </button>
-                            </a>
-                        </td>
-                    </tr>
+                                <a th:href="@{/admin/deleteAcr(id=${acr.id})}"
+                                   onclick="return confirm('Are you sure you want to delete this item?');">
+                                    <button type="button" class="btn btn-info btn-md">Delete</button>
+                                </a>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -109,47 +99,42 @@
                  text-align: justify; background-color: #F0F8FF">
             <h2 style="text-align: center; color: green">Entered ACR</h2>
             <div style="width: 90%" class="center">
-
                 <table id="oldAcrTable" class="table table-striped table-bordered">
                     <thead>
-                    <tr>
-                        <th style="text-align: center;">Govt. ID</th>
-                        <th style="text-align: center;">Year</th>
-                        <th style="text-align: center;">From</th>
-                        <th style="text-align: center;">To</th>
-                        <th style="text-align: center;">Files</th>
-                        <th style="text-align: center;">Action</th>
-                    </tr>
+                        <tr>
+                            <th style="text-align: center;">Govt. ID</th>
+                            <th style="text-align: center;">Year</th>
+                            <th style="text-align: center;">From</th>
+                            <th style="text-align: center;">To</th>
+                            <th style="text-align: center;">Files</th>
+                            <th style="text-align: center;">Action</th>
+                        </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="acr : ${oldAcr}">
-                        <td th:text="${acr.govtId}" align="center"></td>
-                        <td th:text="${acr.year}" align="center"></td>
-                        <td th:text="${acr.assigned_from}" align="center"></td>
-                        <td th:text="${acr.assigned_to}" align="center"></td>
-                        <td align="center">
-                <span th:each="file: ${acr.filelist}">
-                        <td th:text="${file}" align="center"></td>
+                        <tr th:each="acr : ${oldAcr}">
+                            <td th:text="${acr.govtId}" align="center"></td>
+                            <td th:text="${acr.year}" align="center"></td>
+                            <td th:text="${acr.assigned_from}" align="center"></td>
+                            <td th:text="${acr.assigned_to}" align="center"></td>
+                            <td align="center">
+                                <span th:each="file: ${acr.filelist}">
+                                        <td th:text="${file}" align="center"></td>
+                                             <a href="www.google.com"><img th:src="@{/image/pdf-icon.png}"/></a>
 
-                    <a href="www.google.com" ><img th:src="@{/image/pdf-icon.png}"/></a>
-
-                </span>
-                        </td>
-
-                        <td align="center">
-                            <a th:href="@{/admin/getacr/(id=${acr.id})}">
-                                <button type="button"
-                                        class="btn btn-info btn-lg">Edit
-                                </button>
-                            </a>
-                            <a th:href="@{/admin/deleteAcr(id=${acr.id})}"
-                               onclick="return confirm('Are you sure you want to delete this item?');">
-                                <button type="button"
-                                        class="btn btn-info btn-lg">Delete
-                                </button>
-                            </a>
-                        </td>
-                    </tr>
+                                </span>
+                            </td>
+                            <td align="center">
+                                <a th:href="@{/admin/getacr/(id=${acr.id})}">
+                                    <button type="button" class="btn btn-info btn-lg">Edit</button>
+                                </a>
+                                <a th:href="@{/admin/deleteAcr(id=${acr.id})}"
+                                   onclick="return confirm('Are you sure you want to delete this item?');">
+                                    <button type="button"
+                                            class="btn btn-info btn-lg">Delete
+                                    </button>
+                                </a>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>

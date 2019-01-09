@@ -26,11 +26,9 @@ public class UserController {
     @GetMapping(value = "/")
     public String home(Model model)
     {
-        /*model.addAttribute("list",acrService.acrOfCurrentYear());
-        model.addAttribute("oldAcr", acrService.acrOfOldYear());*/
-
         return "home";
     }
+
     @GetMapping(value = "/user/govtId")
     public ModelAndView acrOfGovtId(@RequestParam("govtId") String govtId)
     {

@@ -4,13 +4,8 @@
     <meta charset="UTF-8">
     <title>Add User</title>
 
-    <!--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <link rel="stylesheet" href="http://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
-        <script src="http://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>-->
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <link href="../css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
     <script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
     <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
@@ -25,90 +20,93 @@
     <div th:replace="fragment/menuBar :: menubar"></div>
     <div th:replace="fragment/slider :: slider"></div>
 
-    <div  class="center-block" style="width: 100%; margin-top: 30px;background-color: #F0F8FF;">
+    <div class="center-block" style="width: 100%; margin-top: 30px;background-color: #F0F8FF;">
 
-    <div style=" display: block;
+        <div style=" display: block;
     padding: 10px;
     margin-bottom: 30px; /* SIMPLY SET THIS PROPERTY AS MUCH AS YOU WANT. This changes the space below box1 */
     text-align: justify; background-color: #F0F8FF">
 
-    <div class="center-block" style="width: 100%;background-color: #F0F8FF;">
-        <form class="form-horizontal" action="#" th:action="@{/admin/addUser}" method="post"
-              th:object="${userRequestDto}">
-            <fieldset>
+            <div class="center-block" style="width: 100%;background-color: #F0F8FF;">
+                <form class="form-horizontal" action="#" th:action="@{/admin/addUser}" method="post"
+                      th:object="${userRequestDto}">
+                    <fieldset>
 
-                <!-- Form Name -->
-                <legend style="text-align: center"><h2>Add user</h2></legend>
+                        <!-- Form Name -->
+                        <legend style="text-align: center"><h2>Add user</h2></legend>
 
-                <!-- Text input-->
-                <div class="form-group">
-                    <label class="col-md-4 control-label" for="userId">User ID</label>
-                    <div class="col-md-4">
-                        <input id="userId" name="userId" type="text" placeholder="userId" class="form-control input-md"
-                               required="" th:field="*{userId}">
-                    </div>
-                    <span th:if="${#fields.hasErrors('userId')}" th:errors="*{userId}"></span>
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="userId">User ID</label>
+                            <div class="col-md-4">
+                                <input id="userId" name="userId" type="text" placeholder="userId"
+                                       class="form-control input-md"
+                                       required="" th:field="*{userId}">
+                            </div>
+                            <span th:if="${#fields.hasErrors('userId')}" th:errors="*{userId}"></span>
 
-                </div>
+                        </div>
 
-                <!-- Text input-->
-                <div class="form-group">
-                    <label class="col-md-4 control-label" for="name">Name </label>
-                    <div class="col-md-4">
-                        <input id="name" name="name" type="text" placeholder="name" class="form-control input-md"
-                               th:field="*{name}" required/>
-                    </div>
-                </div>
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="name">Name </label>
+                            <div class="col-md-4">
+                                <input id="name" name="name" type="text" placeholder="name"
+                                       class="form-control input-md"
+                                       th:field="*{name}" required/>
+                            </div>
+                        </div>
 
-                <!-- Text input-->
-                <div class="form-group">
-                    <label class="col-md-4 control-label" for="designation">Designation</label>
-                    <div class="col-md-4">
-                        <input id="designation" name="designation" type="text" placeholder="designation"
-                               class="form-control input-md" th:field="*{designation}" required/>
-                    </div>
-                </div>
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="designation">Designation</label>
+                            <div class="col-md-4">
+                                <input id="designation" name="designation" type="text" placeholder="designation"
+                                       class="form-control input-md" th:field="*{designation}" required/>
+                            </div>
+                        </div>
 
-                <!-- Text input-->
-                <div class="form-group">
-                    <label class="col-md-4 control-label" for="phone">Phone No.</label>
-                    <div class="col-md-4">
-                        <input id="phone" name="phone" type="text" placeholder="phone no." class="form-control input-md"
-                               th:field="*{phone}" required>
-                    </div>
-                </div>
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="phone">Phone No.</label>
+                            <div class="col-md-4">
+                                <input id="phone" name="phone" type="text" placeholder="phone no."
+                                       class="form-control input-md"
+                                       th:field="*{phone}" required>
+                            </div>
+                        </div>
 
-                <div class="form-group">
-                    <label class="col-md-4 control-label" for="password">Password</label>
-                    <div class="col-md-4">
-                        <input id="password" name="phone" type="password" placeholder="password"
-                               class="form-control input-md" th:field="*{password}" required>
-                    </div>
-                </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="password">Password</label>
+                            <div class="col-md-4">
+                                <input id="password" name="phone" type="password" placeholder="password"
+                                       class="form-control input-md" th:field="*{password}" required>
+                            </div>
+                        </div>
 
-                <div class="form-group">
-                    <label class="col-md-4 control-label" for="roleId">Role</label>
-                    <div class="col-md-4">
-                        <select id="roleId" name="roleId" class="form-control">
-                            <option value=1>ADMIN</option>
-                            <option value=2>OPERATOR</option>
-                            <!--<option value=3>USER</option>-->
-                        </select>
-                    </div>
-                </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="roleId">Role</label>
+                            <div class="col-md-4">
+                                <select id="roleId" name="roleId" class="form-control">
+                                    <option value=1>ADMIN</option>
+                                    <option value=2>OPERATOR</option>
+                                    <!--<option value=3>USER</option>-->
+                                </select>
+                            </div>
+                        </div>
 
 
-                <div class="form-group">
-                    <label class="col-md-4 control-label" for="save"></label>
-                    <div class="col-md-4">
-                        <button id="save" name="singlebutton" class="btn btn-primary">Save</button>
-                    </div>
-                </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="save"></label>
+                            <div class="col-md-4">
+                                <button id="save" name="singlebutton" class="btn btn-primary">Save</button>
+                            </div>
+                        </div>
 
-            </fieldset>
-        </form>
-    </div>
-    </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
     </div>
 
     <div th:replace="fragment/footer :: footer"></div>
