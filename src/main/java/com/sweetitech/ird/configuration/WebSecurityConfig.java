@@ -71,8 +71,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
 
-                .antMatchers("/admin/**","/upload/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_OPERATOR")
+                .antMatchers("/admin/**","/file/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_OPERATOR")
                 .antMatchers("/","/login","/logout","/user/**").permitAll()
+
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -87,7 +88,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/login")
                 .deleteCookies("JSESSIONID")
+                .invalidateHttpSession(true)
                 .permitAll();
+
+        /*http.
+                sessionManagement()
+                .invalidSessionUrl("/login?expired")
+                .maximumSessions(-1)
+                .expiredUrl("/login?expired");*/
+
+
     }
 
 

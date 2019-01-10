@@ -1,6 +1,7 @@
 package com.sweetitech.ird.mapper.requestMapper;
 
 import com.sweetitech.ird.common.Util.DateTimeUtils;
+import com.sweetitech.ird.configuration.MySessionInfo;
 import com.sweetitech.ird.domain.ACR;
 import com.sweetitech.ird.domain.User;
 import com.sweetitech.ird.domain.dto.requestDto.AcrRequestDto;
@@ -21,6 +22,9 @@ public class AcrRequestMapper {
     @Autowired
     UserService userService;
 
+    @Autowired
+    MySessionInfo sessionInfo;
+
     public ACR map(AcrRequestDto dto) throws ParseException {
         ACR acr= new ACR();
         if(dto.getId() !=null)
@@ -31,7 +35,9 @@ public class AcrRequestMapper {
         acr.setYear(dto.getYear());
         acr.setAssigned_from(DateTimeUtils.toDate(dto.getAssigned_from()));
         acr.setAssigned_to(DateTimeUtils.toDate(dto.getAssigned_to()));
-        User user = userService.findByUserId("admin");
+        /*User user = userService.findByUserId("admin");*/
+
+        User user = sessionInfo.getCurrentUser();
         acr.setUser(user);
         acr.setCreatedOn(new Date());
         return acr;

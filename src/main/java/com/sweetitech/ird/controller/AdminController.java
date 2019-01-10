@@ -149,8 +149,6 @@ public class AdminController {
 
         System.out.println(user.toString());*/
 
-
-
         if(year==null)
         {
             model.addAttribute("list",acrService.acrOfCurrentYear());

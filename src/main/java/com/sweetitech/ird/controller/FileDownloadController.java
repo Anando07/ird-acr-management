@@ -1,3 +1,4 @@
+/*
 package com.sweetitech.ird.controller;
 
 import com.sweetitech.ird.common.Util.MediaTypeUtils;
@@ -20,13 +21,15 @@ import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+*/
 /**
  * @author Avijit Barua
  * @created_on 1/6/19 at 2:17 PM
  * @project ird
- */
+ *//*
+
 @Controller
-@RequestMapping(value = "/file/")
+@RequestMapping(value = "/file")
 public class FileDownloadController {
 
     @Value("${file.upload.url}")
@@ -36,6 +39,7 @@ public class FileDownloadController {
     @Autowired
     private ServletContext servletContext;
 
+*/
 /*    @RequestMapping("/download")
     public ResponseEntity<InputStreamResource> downloadFile(@RequestParam("fileName") String fileName) throws IOException {
 
@@ -50,7 +54,8 @@ public class FileDownloadController {
                 .contentType(mediaType)
                 .contentLength(file.length())
                 .body(resource);
-    }*/
+    }*//*
+
 
     @GetMapping("/download")
     public ResponseEntity<ByteArrayResource> downloadFile2(
@@ -76,3 +81,4 @@ public class FileDownloadController {
 
 
 
+*/
