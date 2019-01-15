@@ -68,23 +68,20 @@ public class AdminController {
     }
 
     @InitBinder("acrDto")
-    public void acrBinder(WebDataBinder binder)
-    {
+    public void acrBinder(WebDataBinder binder) {
         binder.addValidators(acrFormValidator);
         binder.registerCustomEditor(String.class, new StringTrimmerEditor(false));
     }
 
     @GetMapping(value = "/addUser")
-    public String addUser(Model model)
-    {
-        model.addAttribute("userRequestDto",new UserRequestDto());
+    public String addUser(Model model) {
+        model.addAttribute("userRequestDto", new UserRequestDto());
         return "admin/addUser";
     }
 
     @PostMapping(value = "/addUser")
     public String addUser(@Valid @ModelAttribute("userRequestDto") UserRequestDto userRequestDto, BindingResult result) throws Exception {
-        if(result.hasErrors())
-        {
+        if (result.hasErrors()) {
             return "admin/addUser";
         }
         userService.addUser(userRequestDto);
@@ -92,12 +89,11 @@ public class AdminController {
     }
 
     @PostMapping(value = "/doUpdate")
-    public String doUpdate(@Valid @ModelAttribute("userRequestDto") UserRequestDto userRequestDto, BindingResult result,Model model) throws Exception {
-        if(result.hasErrors())
-        {
-            model.addAttribute("user",userRequestDto);
+    public String doUpdate(@Valid @ModelAttribute("userRequestDto") UserRequestDto userRequestDto, BindingResult result, Model model) throws Exception {
+        if (result.hasErrors()) {
+            model.addAttribute("user", userRequestDto);
             model.addAttribute("existRoll", "existRoll");
-            model.addAttribute("userlist",userService.userList());
+            model.addAttribute("userlist", userService.userList());
             return "admin/userList";
         }
         userService.updateUser(userRequestDto);
@@ -113,8 +109,7 @@ public class AdminController {
 
 
     @GetMapping(value = "/userList")
-    public String getUserList(Model model)
-    {
+    public String getUserList(Model model) {
         List<UserResponseDto> list = userService.userList();
         model.addAttribute("user", new UserRequestDto());
         model.addAttribute("userlist", list);
@@ -123,8 +118,7 @@ public class AdminController {
 
 
     @GetMapping(value = "/createAcr")
-    public String createAcr(Model model)
-    {
+    public String createAcr(Model model) {
         model.addAttribute("acrDto", new AcrRequestDto());
         model.addAttribute("acrFiles", new ArrayList<>());
         return "admin/createAcr";
@@ -132,10 +126,9 @@ public class AdminController {
 
 
     @PostMapping(value = "/createAcr")
-    public String doCreateAcr(@ModelAttribute("acrDto")AcrRequestDto acrDto, BindingResult result) throws ParseException {
+    public String doCreateAcr(@ModelAttribute("acrDto") AcrRequestDto acrDto, BindingResult result) throws ParseException {
         System.out.println(acrDto.toString());
-        if(result.hasErrors())
-        {
+        if (result.hasErrors()) {
             return "admin/createAcr";
         }
         acrService.saveAcr(acrDto);
@@ -143,27 +136,19 @@ public class AdminController {
     }
 
     @GetMapping(value = "/acrlist")
-    public String findAllAcr(@RequestParam(value = "year", required = false) String year, Model model)
-    {
-        /*User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    public String findAllAcr(@RequestParam(value = "year", required = false) String year, Model model) {
 
-        System.out.println(user.toString());*/
-
-        if(year==null)
-        {
-            model.addAttribute("list",acrService.acrOfCurrentYear());
+        if (year == null) {
+            model.addAttribute("list", acrService.acrOfCurrentYear());
+        } else {
+            model.addAttribute("list", acrService.getAcrByYear(year));
         }
-        else
-        {
-            model.addAttribute("list",acrService.getAcrByYear(year));
-        }
-       return "admin/acrList";
+        return "admin/acrList";
     }
 
 
-
     @PostMapping(value = "/updateAcr")
-    public String updateAcr(@ModelAttribute("acr") AcrRequestDto acr, BindingResult result,Model model) throws ParseException {
+    public String updateAcr(@ModelAttribute("acr") AcrRequestDto acr, BindingResult result, Model model) throws ParseException {
         System.out.println(acr.toString());
         acrService.updateAcr(acr);
         return "redirect:/admin/acrlist";
@@ -171,11 +156,10 @@ public class AdminController {
 
 
     @GetMapping(value = "/getacr")
-    public String getAcr(@RequestParam("id") Long acrId,Model model)
-    {
-        AcrResponseDto dto= acrService.getSingleAcr(acrId);
-        model.addAttribute("acrDto",mapper.map(dto));
-        model.addAttribute("acrFiles",acrFileService.filesOfSingleAcr(acrId));
+    public String getAcr(@RequestParam("id") Long acrId, Model model) {
+        AcrResponseDto dto = acrService.getSingleAcr(acrId);
+        model.addAttribute("acrDto", mapper.map(dto));
+        model.addAttribute("acrFiles", acrFileService.filesOfSingleAcr(acrId));
         return "admin/createAcr";
     }
 
@@ -186,26 +170,24 @@ public class AdminController {
     }
 
     @GetMapping(value = "/getUser")
-    public ModelAndView getUser(@RequestParam("id") Long id)
-    {
+    public ModelAndView getUser(@RequestParam("id") Long id) {
         ModelAndView mv = new ModelAndView("admin/userList::updateForm");
-        mv.addObject("user",userResponseMapper.map(userService.findById(id)));
+        mv.addObject("user", userResponseMapper.map(userService.findById(id)));
         return mv;
     }
 
     @GetMapping(value = "/deleteFile")
-    ModelAndView deleteFile(@RequestParam("fileId") Long fileId, @RequestParam("acrId") Long acrId)
-    {
-        System.out.println("getting inside controller "+ fileId +" and "+acrId);
+    ModelAndView deleteFile(@RequestParam("fileId") Long fileId, @RequestParam("acrId") Long acrId) {
+        System.out.println("getting inside controller " + fileId + " and " + acrId);
 
         asyncService.deleteFileFromStorage(fileId);
 
         acrFileService.deleteFile(fileId);
 
         ModelAndView mv = new ModelAndView("admin/createAcr::fileList");
-        mv.addObject("acrFiles",acrFileService.filesOfSingleAcr(acrId));
-        AcrResponseDto dto= acrService.getSingleAcr(acrId);
-        mv.addObject("acrDto",mapper.map(dto));
+        mv.addObject("acrFiles", acrFileService.filesOfSingleAcr(acrId));
+        AcrResponseDto dto = acrService.getSingleAcr(acrId);
+        mv.addObject("acrDto", mapper.map(dto));
         return mv;
     }
 }
