@@ -1,23 +1,14 @@
 package com.sweetitech.ird.serviceImpl;
 
-import com.sweetitech.ird.common.Util.DateTimeUtils;
 import com.sweetitech.ird.common.Util.DateUtil;
-import com.sweetitech.ird.common.Util.PageAttribute;
-import com.sweetitech.ird.configuration.MySessionInfo;
 import com.sweetitech.ird.domain.ACR;
-import com.sweetitech.ird.domain.User;
-import com.sweetitech.ird.domain.dto.requestDto.AcrRequestDto;
-import com.sweetitech.ird.domain.dto.responseDto.AcrResponseDto;
-import com.sweetitech.ird.mapper.requestMapper.AcrRequestMapper;
-import com.sweetitech.ird.mapper.responseMapper.AcrResponseMapper;
-import com.sweetitech.ird.pageable.AcrResponsePage;
+import com.sweetitech.ird.domain.dto.AcrDTO;
+import com.sweetitech.ird.mapper.AcrMapper;
 import com.sweetitech.ird.repository.AcrRepository;
 import com.sweetitech.ird.service.AcrFileRelService;
 import com.sweetitech.ird.service.AcrService;
 import com.sweetitech.ird.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
@@ -37,7 +28,7 @@ public class AcrServiceImpl implements AcrService {
     AcrRepository acrRepository;
 
     @Autowired
-    AcrRequestMapper acrRequestMapper;
+    AcrMapper acrMapper;
 
     @Autowired
     AcrFileRelService acrFileRelService;
@@ -45,8 +36,6 @@ public class AcrServiceImpl implements AcrService {
     @Autowired
     UserService userService;
 
-    @Autowired
-    AcrResponseMapper acrResponseMapper;
 
     @Autowired
     public AcrServiceImpl(AcrRepository acrRepository) {
@@ -54,48 +43,35 @@ public class AcrServiceImpl implements AcrService {
     }
 
     @Override
-    public ACR saveAcr(AcrRequestDto acrRequestDto) throws ParseException {
+    public ACR saveAcr(AcrDTO acrRequestDto) throws ParseException {
 
-        ACR acr = acrRepository.save(acrRequestMapper.map(acrRequestDto));
+        ACR acr = acrRepository.save(acrMapper.requestMapper(acrRequestDto));
         for (Long l : acrRequestDto.getFileList()) {
             acrFileRelService.saveRelation(acr, l);
         }
         return acr;
     }
 
-    @Override
+/*    @Override
     public AcrResponsePage acrOfCurrentYear(Integer page) {
         String[] date = DateUtil.getReadableDate(new Date()).split(" ");
         Page<ACR> acrlist = acrRepository.findByYearOrderByCreatedOnDesc(date[2], new PageRequest(page, PageAttribute.PAGE_SIZE));
 
         List<AcrResponseDto> acrResponseDtos = new ArrayList<>();
         for (ACR acr : acrlist.getContent()) {
-            acrResponseDtos.add(acrResponseMapper.map(acr));
+            acrResponseDtos.add(acrMapper.responseMapper(acr));
         }
         return new AcrResponsePage(acrResponseDtos, acrlist);
-    }
+    }*/
 
     @Override
-    public List<AcrResponseDto> acrOfCurrentYear() {
+    public List<AcrDTO> acrOfCurrentYear() {
         String[] date = DateUtil.getReadableDate(new Date()).split(" ");
         List<ACR> list = acrRepository.findByYearOrderByCreatedOnDesc(date[2]);
-        List<AcrResponseDto> dtoList = new ArrayList<>();
+        List<AcrDTO> dtoList = new ArrayList<>();
         for (ACR obj : list) {
-            if (obj.getDeleted() == false || obj.getDeleted() == null) {
-                dtoList.add(acrResponseMapper.map(obj));
-            }
-        }
-        return dtoList;
-    }
-
-    @Override
-    public List<AcrResponseDto> acrOfOldYear() {
-        String[] date = DateUtil.getReadableDate(new Date()).split(" ");
-        List<ACR> list = acrRepository.acrOfOldYear(date[2]);
-        List<AcrResponseDto> dtoList = new ArrayList<>();
-        for (ACR obj : list) {
-            if (obj.getDeleted() == false) {
-                dtoList.add(acrResponseMapper.map(obj));
+            if (!obj.getDeleted() || obj.getDeleted() == null) {
+                dtoList.add(acrMapper.responseMapper(obj));
             }
         }
         return dtoList;
@@ -103,30 +79,20 @@ public class AcrServiceImpl implements AcrService {
 
 
     @Override
-    public AcrResponseDto updateAcr(AcrRequestDto acrRequestDto) throws ParseException {
+    public AcrDTO updateAcr(AcrDTO acrRequestDto) throws ParseException {
 
-        ACR acr = acrRepository.getOne(acrRequestDto.getId());
-        acr.setGovtId(acrRequestDto.getGovtId());
-        acr.setYear(acrRequestDto.getYear());
-        acr.setAssigned_from(DateTimeUtils.toDate(acrRequestDto.getAssigned_from()));
-        acr.setAssigned_to(DateTimeUtils.toDate(acrRequestDto.getAssigned_to()));
-
-       /* User user = userService.findByUserId("ASH1201010M");
-        acr.setUser(user);*/
-
+        ACR acr = acrMapper.requestMapper(acrRequestDto);
         acrRepository.save(acr);
-
         for (Long l : acrRequestDto.getFileList()) {
             acrFileRelService.saveRelation(acr, l);
         }
-
-        return acrResponseMapper.map(acr);
+        return acrMapper.responseMapper(acr);
     }
 
     @Override
-    public AcrResponseDto getSingleAcr(Long id) {
+    public AcrDTO getSingleAcr(Long id) {
         ACR acr = acrRepository.getOne(id);
-        return acrResponseMapper.map(acr);
+        return acrMapper.responseMapper(acr);
     }
 
     @Override
@@ -137,38 +103,35 @@ public class AcrServiceImpl implements AcrService {
     }
 
     @Override
-    public List<AcrResponseDto> getAcrOfGovtIdWithCurrentYear(String govtId) {
+    public List<AcrDTO> getAcrOfGovtIdWithCurrentYear(String govtId) {
 
         String[] date = DateUtil.getReadableDate(new Date()).split(" ");
 
         List<ACR> acrList = acrRepository.findByGovtIdAndYearOrderByCreatedOn(govtId, date[2]);
 
-        List<AcrResponseDto> dtoList = new ArrayList<>();
-        for(ACR acr : acrList)
-        {
-            dtoList.add(acrResponseMapper.map(acr));
+        List<AcrDTO> dtoList = new ArrayList<>();
+        for (ACR acr : acrList) {
+            dtoList.add(acrMapper.responseMapper(acr));
         }
         return dtoList;
     }
 
     @Override
-    public List<AcrResponseDto> getAllAcrByGovtId(String govtId) {
+    public List<AcrDTO> getAllAcrByGovtId(String govtId) {
         List<ACR> acrList = acrRepository.findByGovtId(govtId);
-        List<AcrResponseDto> dtoList = new ArrayList<>();
-        for(ACR acr : acrList)
-        {
-            dtoList.add(acrResponseMapper.map(acr));
+        List<AcrDTO> dtoList = new ArrayList<>();
+        for (ACR acr : acrList) {
+            dtoList.add(acrMapper.responseMapper(acr));
         }
         return dtoList;
     }
 
     @Override
-    public List<AcrResponseDto> getAcrByYear(String year) {
+    public List<AcrDTO> getAcrByYear(String year) {
         List<ACR> acrList = acrRepository.findByYearOrderByCreatedOnDesc(year);
-        List<AcrResponseDto> dtoList = new ArrayList<>();
-        for(ACR acr : acrList)
-        {
-            dtoList.add(acrResponseMapper.map(acr));
+        List<AcrDTO> dtoList = new ArrayList<>();
+        for (ACR acr : acrList) {
+            dtoList.add(acrMapper.responseMapper(acr));
         }
         return dtoList;
     }

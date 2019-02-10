@@ -1,6 +1,6 @@
 package com.sweetitech.ird.pageable;
 
-import com.sweetitech.ird.domain.dto.responseDto.UserResponseDto;
+import com.sweetitech.ird.domain.dto.UserDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -16,7 +16,7 @@ import java.util.function.Function;
  */
 public class UserResponsePage implements Page {
 
-    private List<UserResponseDto> content;
+    private List<UserDTO> content;
     private Pageable pageable;
     private boolean last;
     private Integer totalPages;
@@ -27,7 +27,7 @@ public class UserResponsePage implements Page {
     private boolean first;
     private Sort sort;
 
-    public UserResponsePage(List<UserResponseDto> content, Page page) {
+    public UserResponsePage(List<UserDTO> content, Page page) {
         this.content = content;
         this.pageable = page.getPageable();
         this.last = page.isLast();
@@ -40,7 +40,7 @@ public class UserResponsePage implements Page {
         this.sort = page.getSort();
     }
 
-    public void setContent(List<UserResponseDto> content) {
+    public void setContent(List<UserDTO> content) {
         this.content = content;
     }
 

@@ -19,6 +19,18 @@ public class ACR {
 
     private String govtId;
 
+    private String name;
+
+    @Lob
+    @Column(name = "comment1", columnDefinition = "text")
+    private String comment1;
+
+    @Lob
+    @Column(name = "comment2", columnDefinition = "text")
+    private String comment2;
+
+    private Double marks;
+
     private String year;
 
     private Date assigned_from;
@@ -100,14 +112,52 @@ public class ACR {
         isDeleted = deleted;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getComment1() {
+        return comment1;
+    }
+
+    public void setComment1(String comment1) {
+        this.comment1 = comment1;
+    }
+
+    public String getComment2() {
+        return comment2;
+    }
+
+    public void setComment2(String comment2) {
+        this.comment2 = comment2;
+    }
+
+    public Double getMarks() {
+        return marks;
+    }
+
+    public void setMarks(Double marks) {
+        this.marks = marks;
+    }
+
     @Override
     public String toString() {
         return "ACR{" +
                 "id=" + id +
                 ", govtId='" + govtId + '\'' +
+                ", name='" + name + '\'' +
+                ", comment1='" + comment1 + '\'' +
+                ", comment2='" + comment2 + '\'' +
+                ", marks=" + marks +
                 ", year='" + year + '\'' +
                 ", assigned_from=" + assigned_from +
                 ", assigned_to=" + assigned_to +
+                ", createdOn=" + createdOn +
+                ", isDeleted=" + isDeleted +
                 ", user=" + user +
                 '}';
     }

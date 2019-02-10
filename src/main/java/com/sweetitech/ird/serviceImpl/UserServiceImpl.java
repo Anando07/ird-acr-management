@@ -1,21 +1,15 @@
 package com.sweetitech.ird.serviceImpl;
 
 import com.sweetitech.ird.common.Exception.UserNotFoundException;
-import com.sweetitech.ird.common.Util.PageAttribute;
 import com.sweetitech.ird.common.Util.PasswordUtil;
 import com.sweetitech.ird.domain.Role;
 import com.sweetitech.ird.domain.User;
-import com.sweetitech.ird.domain.dto.requestDto.UserRequestDto;
-import com.sweetitech.ird.domain.dto.responseDto.UserResponseDto;
-import com.sweetitech.ird.mapper.requestMapper.UserRequestMapper;
-import com.sweetitech.ird.mapper.responseMapper.UserResponseMapper;
-import com.sweetitech.ird.pageable.UserResponsePage;
+import com.sweetitech.ird.domain.dto.UserDTO;
+import com.sweetitech.ird.mapper.UserMapper;
 import com.sweetitech.ird.repository.UserRepository;
 import com.sweetitech.ird.service.RoleService;
 import com.sweetitech.ird.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -25,10 +19,7 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    UserRequestMapper userRequestMapper;
-
-    @Autowired
-    UserResponseMapper responseMapper;
+    UserMapper userMapper;
 
     @Autowired
     RoleService roleService;
@@ -61,22 +52,21 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public User addUser(UserRequestDto userRequestDto) throws Exception {
-        return userRepository.save(userRequestMapper.map(userRequestDto));
+    public User addUser(UserDTO userRequestDto) throws Exception {
+        return userRepository.save(userMapper.requestMapper(userRequestDto));
     }
 
-    @Override
+/*    @Override
     public UserResponsePage getAllUsers(Integer page) {
         Page<User> userList = userRepository.findAll(new PageRequest(page, PageAttribute.PAGE_SIZE));
         List<UserResponseDto> userDtoList = new ArrayList<>();
-        for(User user : userList.getContent())
-        {
-            if(user.isDeleted() == false) {
-                userDtoList.add(responseMapper.map(user));
+        for (User user : userList.getContent()) {
+            if (user.isDeleted() == false) {
+                userDtoList.add(userMapper.responseMapper(user));
             }
         }
-        return new UserResponsePage(userDtoList,userList);
-    }
+        return new UserResponsePage(userDtoList, userList);
+    }*/
 
     @Override
     public User deleteUser(String userId) {
@@ -96,7 +86,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User updateUser(UserRequestDto dto) {
+    public User updateUser(UserDTO dto) {
         User user = findById(dto.getId());
         user.setName(dto.getName());
         user.setUserId(dto.getUserId());
@@ -108,18 +98,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserResponseDto> userList() {
-        List<User> userList =userRepository.findAll();
-        List<UserResponseDto> dtolist = new ArrayList<>();
-        for(User user : userList)
-        {
-            if(user.isDeleted() == false)
-            {
-                dtolist.add(responseMapper.map(user));
+    public List<UserDTO> userList() {
+        List<User> userList = userRepository.findAll();
+        List<UserDTO> dtolist = new ArrayList<>();
+        for (User user : userList) {
+            if (user.isDeleted() == false) {
+                dtolist.add(userMapper.responseMapper(user));
             }
         }
         return dtolist;
     }
-
-
 }

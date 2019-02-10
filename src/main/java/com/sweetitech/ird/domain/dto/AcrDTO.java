@@ -1,7 +1,5 @@
-package com.sweetitech.ird.domain.dto.requestDto;
+package com.sweetitech.ird.domain.dto;
 
-import com.sweetitech.ird.domain.AcrFile;
-import com.sweetitech.ird.domain.dto.responseDto.UserResponseDto;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.constraints.NotNull;
@@ -10,17 +8,24 @@ import java.util.List;
 
 /**
  * @author Avijit Barua
- * @created_on 12/26/18 at 1:32 PM
+ * @created_on 2/10/19 at 4:07 PM
  * @project ird
  */
-
 @Validated
-public class AcrRequestDto {
+public class AcrDTO {
 
     private Long id;
 
     @NotNull
     private String govtId;
+
+    private String name;
+
+    private String comment1;
+
+    private String comment2;
+
+    private Double marks;
 
     private String year;
 
@@ -30,18 +35,13 @@ public class AcrRequestDto {
     @NotNull
     private String assigned_to;
 
-    private UserResponseDto userResponseDto;
+    private UserDTO userResponseDto;
 
-    List<Long> fileList = new ArrayList<>();
+    private List<Long> fileList = new ArrayList<>();
 
-   /* List<AcrFile> acrFiles = new ArrayList<>();*/
+    private List<String> fileNameList;
 
-
-    public AcrRequestDto() {
-    }
-
-    public String getGovtId() {
-        return govtId;
+    public AcrDTO() {
     }
 
     public Long getId() {
@@ -52,8 +52,44 @@ public class AcrRequestDto {
         this.id = id;
     }
 
+    public String getGovtId() {
+        return govtId;
+    }
+
     public void setGovtId(String govtId) {
         this.govtId = govtId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getComment1() {
+        return comment1;
+    }
+
+    public void setComment1(String comment1) {
+        this.comment1 = comment1;
+    }
+
+    public String getComment2() {
+        return comment2;
+    }
+
+    public void setComment2(String comment2) {
+        this.comment2 = comment2;
+    }
+
+    public Double getMarks() {
+        return marks;
+    }
+
+    public void setMarks(Double marks) {
+        this.marks = marks;
     }
 
     public String getYear() {
@@ -80,11 +116,11 @@ public class AcrRequestDto {
         this.assigned_to = assigned_to;
     }
 
-    public UserResponseDto getUserResponseDto() {
+    public UserDTO getUserResponseDto() {
         return userResponseDto;
     }
 
-    public void setUserResponseDto(UserResponseDto userResponseDto) {
+    public void setUserResponseDto(UserDTO userResponseDto) {
         this.userResponseDto = userResponseDto;
     }
 
@@ -96,24 +132,29 @@ public class AcrRequestDto {
         this.fileList = fileList;
     }
 
-/*    public List<AcrFile> getAcrFiles() {
-        return acrFiles;
+    public List<String> getFileNameList() {
+        return fileNameList;
     }
 
-    public void setAcrFiles(List<AcrFile> acrFiles) {
-        this.acrFiles = acrFiles;
-    }*/
+    public void setFileNameList(List<String> fileNameList) {
+        this.fileNameList = fileNameList;
+    }
 
     @Override
     public String toString() {
-        return "AcrRequestDto{" +
+        return "AcrDTO{" +
                 "id=" + id +
                 ", govtId='" + govtId + '\'' +
+                ", name='" + name + '\'' +
+                ", comment1='" + comment1 + '\'' +
+                ", comment2='" + comment2 + '\'' +
+                ", marks=" + marks +
                 ", year='" + year + '\'' +
                 ", assigned_from='" + assigned_from + '\'' +
                 ", assigned_to='" + assigned_to + '\'' +
                 ", userResponseDto=" + userResponseDto +
                 ", fileList=" + fileList +
+                ", fileNames=" + fileNameList +
                 '}';
     }
 }

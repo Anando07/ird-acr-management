@@ -1,6 +1,6 @@
 package com.sweetitech.ird.validator;
 
-import com.sweetitech.ird.domain.dto.requestDto.AcrRequestDto;
+import com.sweetitech.ird.domain.dto.AcrDTO;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
@@ -21,13 +21,13 @@ public class AcrFormValidator implements Validator {
 
     @Override
     public boolean supports(Class<?> paramClass) {
-        return AcrRequestDto.class.equals(paramClass);
+        return AcrDTO.class.equals(paramClass);
     }
 
 
     @Override
     public void validate(Object o, Errors errors) {
-        AcrRequestDto obj = (AcrRequestDto) o;
+        AcrDTO obj = (AcrDTO) o;
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "govtId", "1","Can't be empty!");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "year", "1", "Can't be empty!");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "assigned_from", "1", "Can't be empty!");

@@ -80,7 +80,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/login")
                 .loginProcessingUrl("/login")
                 .failureUrl("/login?error")
-                .defaultSuccessUrl("/admin/acrlist",true)
+                .defaultSuccessUrl("/admin/acrList",true)
                 .permitAll();
 
         http

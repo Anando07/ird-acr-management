@@ -58,6 +58,10 @@
                     <thead>
                         <tr>
                             <th style="text-align: center;">Govt. ID</th>
+                            <th style="text-align: center;">Name</th>
+                            <!--<th style="text-align: center;">First Comment</th>
+                            <th style="text-align: center;">Second Comment</th>
+                            <th style="text-align: center;">Marks</th>-->
                             <th style="text-align: center;">Year</th>
                             <th style="text-align: center;">From</th>
                             <th style="text-align: center;">To</th>
@@ -68,12 +72,16 @@
                     <tbody>
                         <tr th:each="acr : ${list}" >
                             <td th:text="${acr.govtId}" align="center"></td>
+                            <td th:text="${acr.name}" align="center"></td>
+                            <!--<td th:text="${acr.comment1}" align="center"></td>
+                            <td th:text="${acr.comment2}" align="center"></td>
+                            <td th:text="${acr.marks}" align="center"></td>-->
                             <td th:text="${acr.year}" align="center"></td>
                             <td th:text="${acr.assigned_from}" align="center"></td>
                             <td th:text="${acr.assigned_to}" align="center"></td>
                             <td align="center">
                                 <div style="overflow-y:scroll; height:50px; display:block;">
-                                    <span th:each="fileName: ${acr.filelist}">
+                                    <span th:each="fileName: ${acr.fileNameList}">
                                         <a th:href="@{/file/download(fileName=${fileName})}" target="_blank"><img th:src="@{/images/pdf-icon.png}" width="15px" height="15px"/></a>
                                     </span>
                                 </div>

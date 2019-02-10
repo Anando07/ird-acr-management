@@ -1,10 +1,9 @@
 package com.sweetitech.ird.service;
 
-import com.sweetitech.ird.domain.dto.requestDto.AcrRequestDto;
+import com.sweetitech.ird.domain.dto.UserDTO;
 import com.sweetitech.ird.domain.dto.requestDto.UserRequestDto;
 import com.sweetitech.ird.domain.User;
 import com.sweetitech.ird.common.Exception.UserNotFoundException;
-import com.sweetitech.ird.domain.dto.responseDto.AcrResponseDto;
 import com.sweetitech.ird.domain.dto.responseDto.UserResponseDto;
 import com.sweetitech.ird.pageable.UserResponsePage;
 
@@ -16,9 +15,9 @@ public interface UserService {
 
     boolean isPasswordMatches(User user, String password) throws Exception;
 
-    User addUser(UserRequestDto userRequestDto) throws Exception;
+    User addUser(UserDTO userRequestDto) throws Exception;
 
-    UserResponsePage getAllUsers(Integer page);
+    //UserResponsePage getAllUsers(Integer page);
 
     User deleteUser(String userId);
 
@@ -26,9 +25,9 @@ public interface UserService {
 
     User findById(Long id);
 
-    User updateUser(UserRequestDto dto);
+    User updateUser(UserDTO dto);
 
-    List<UserResponseDto> userList();
+    List<UserDTO> userList();
 
 
 

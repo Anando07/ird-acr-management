@@ -1,7 +1,6 @@
 package com.sweetitech.ird.controller;
 
-import com.sweetitech.ird.configuration.MySessionInfo;
-import com.sweetitech.ird.domain.dto.responseDto.AcrResponseDto;
+import com.sweetitech.ird.domain.dto.AcrDTO;
 import com.sweetitech.ird.service.AcrService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,7 +34,7 @@ public class UserController {
     public ModelAndView acrOfGovtId(@RequestParam("govtId") String govtId)
     {
         ModelAndView mv = new ModelAndView("home::acrList");
-        List<AcrResponseDto> dtoList = acrService.getAcrOfGovtIdWithCurrentYear(govtId);
+        List<AcrDTO> dtoList = acrService.getAcrOfGovtIdWithCurrentYear(govtId);
         mv.addObject("list", dtoList);
 
         return mv;
@@ -45,7 +44,7 @@ public class UserController {
     public ModelAndView allAcrOfGovtId(@RequestParam("govtId") String govtId)
     {
         ModelAndView mv = new ModelAndView("home::allAcr");
-        List<AcrResponseDto> allAcr = acrService.getAllAcrByGovtId(govtId);
+        List<AcrDTO> allAcr = acrService.getAllAcrByGovtId(govtId);
         mv.addObject("oldAcr",allAcr);
         return mv;
     }

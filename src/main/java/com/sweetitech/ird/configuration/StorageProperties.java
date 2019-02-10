@@ -11,8 +11,10 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties("storage")
 public class StorageProperties {
 
-    private String location = "/opt/tomcat/webapps/abc"; //for droplet
-    //private String location = ""; //for mac
+    //private String location = "/opt/tomcat/webapps/abc"; //for ubuntu droplet
+    private String location = ""; //for mac
+
+
 
     public String getLocation() {
         return location;

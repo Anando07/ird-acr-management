@@ -1,11 +1,8 @@
 package com.sweetitech.ird.controller;
 
-import com.sweetitech.ird.domain.dto.requestDto.AcrRequestDto;
-import com.sweetitech.ird.domain.dto.requestDto.UserRequestDto;
-import com.sweetitech.ird.domain.dto.responseDto.AcrResponseDto;
-import com.sweetitech.ird.domain.dto.responseDto.UserResponseDto;
-import com.sweetitech.ird.mapper.responseMapper.UserResponseMapper;
-import com.sweetitech.ird.mapper.responseTorequest.AcrResponseToRequestMapper;
+import com.sweetitech.ird.domain.dto.AcrDTO;
+import com.sweetitech.ird.domain.dto.UserDTO;
+import com.sweetitech.ird.mapper.UserMapper;
 import com.sweetitech.ird.service.AcrFileService;
 import com.sweetitech.ird.service.AcrService;
 import com.sweetitech.ird.service.UserService;
@@ -48,14 +45,12 @@ public class AdminController {
     @Autowired
     UserFormValidator userFormValidator;
 
-    @Autowired
-    AcrResponseToRequestMapper mapper;
 
     @Autowired
     AcrFormValidator acrFormValidator;
 
     @Autowired
-    UserResponseMapper userResponseMapper;
+    UserMapper userMapper;
 
     @Autowired
     AsyncService asyncService;
@@ -75,12 +70,12 @@ public class AdminController {
 
     @GetMapping(value = "/addUser")
     public String addUser(Model model) {
-        model.addAttribute("userRequestDto", new UserRequestDto());
+        model.addAttribute("userRequestDto", new UserDTO());
         return "admin/addUser";
     }
 
     @PostMapping(value = "/addUser")
-    public String addUser(@Valid @ModelAttribute("userRequestDto") UserRequestDto userRequestDto, BindingResult result) throws Exception {
+    public String addUser(@Valid @ModelAttribute("userRequestDto") UserDTO userRequestDto, BindingResult result) throws Exception {
         if (result.hasErrors()) {
             return "admin/addUser";
         }
@@ -89,7 +84,7 @@ public class AdminController {
     }
 
     @PostMapping(value = "/doUpdate")
-    public String doUpdate(@Valid @ModelAttribute("userRequestDto") UserRequestDto userRequestDto, BindingResult result, Model model) throws Exception {
+    public String doUpdate(@Valid @ModelAttribute("userRequestDto") UserDTO userRequestDto, BindingResult result, Model model) throws Exception {
         if (result.hasErrors()) {
             model.addAttribute("user", userRequestDto);
             model.addAttribute("existRoll", "existRoll");
@@ -110,8 +105,8 @@ public class AdminController {
 
     @GetMapping(value = "/userList")
     public String getUserList(Model model) {
-        List<UserResponseDto> list = userService.userList();
-        model.addAttribute("user", new UserRequestDto());
+        List<UserDTO> list = userService.userList();
+        model.addAttribute("user", new UserDTO());
         model.addAttribute("userlist", list);
         return "admin/userList";
     }
@@ -119,23 +114,23 @@ public class AdminController {
 
     @GetMapping(value = "/createAcr")
     public String createAcr(Model model) {
-        model.addAttribute("acrDto", new AcrRequestDto());
+        model.addAttribute("acrDto", new AcrDTO());
         model.addAttribute("acrFiles", new ArrayList<>());
         return "admin/createAcr";
     }
 
 
     @PostMapping(value = "/createAcr")
-    public String doCreateAcr(@ModelAttribute("acrDto") AcrRequestDto acrDto, BindingResult result) throws ParseException {
+    public String doCreateAcr(@ModelAttribute("acrDto") AcrDTO acrDto, BindingResult result) throws ParseException {
         System.out.println(acrDto.toString());
         if (result.hasErrors()) {
             return "admin/createAcr";
         }
         acrService.saveAcr(acrDto);
-        return "redirect:/admin/acrlist";
+        return "redirect:/admin/acrList";
     }
 
-    @GetMapping(value = "/acrlist")
+    @GetMapping(value = "/acrList")
     public String findAllAcr(@RequestParam(value = "year", required = false) String year, Model model) {
 
         if (year == null) {
@@ -148,17 +143,17 @@ public class AdminController {
 
 
     @PostMapping(value = "/updateAcr")
-    public String updateAcr(@ModelAttribute("acr") AcrRequestDto acr, BindingResult result, Model model) throws ParseException {
+    public String updateAcr(@ModelAttribute("acr") AcrDTO acr, BindingResult result, Model model) throws ParseException {
         System.out.println(acr.toString());
         acrService.updateAcr(acr);
-        return "redirect:/admin/acrlist";
+        return "redirect:/admin/acrList";
     }
 
 
     @GetMapping(value = "/getacr")
     public String getAcr(@RequestParam("id") Long acrId, Model model) {
-        AcrResponseDto dto = acrService.getSingleAcr(acrId);
-        model.addAttribute("acrDto", mapper.map(dto));
+        AcrDTO dto = acrService.getSingleAcr(acrId);
+        model.addAttribute("acrDto", dto);
         model.addAttribute("acrFiles", acrFileService.filesOfSingleAcr(acrId));
         return "admin/createAcr";
     }
@@ -166,13 +161,13 @@ public class AdminController {
     @GetMapping(value = "/deleteAcr")
     public String deleteAcr(@RequestParam(name = "id") Long id) {
         acrService.deleteAcr(id);
-        return "redirect:/admin/acrlist";
+        return "redirect:/admin/acrList";
     }
 
     @GetMapping(value = "/getUser")
     public ModelAndView getUser(@RequestParam("id") Long id) {
         ModelAndView mv = new ModelAndView("admin/userList::updateForm");
-        mv.addObject("user", userResponseMapper.map(userService.findById(id)));
+        mv.addObject("user", userMapper.responseMapper(userService.findById(id)));
         return mv;
     }
 
@@ -186,8 +181,8 @@ public class AdminController {
 
         ModelAndView mv = new ModelAndView("admin/createAcr::fileList");
         mv.addObject("acrFiles", acrFileService.filesOfSingleAcr(acrId));
-        AcrResponseDto dto = acrService.getSingleAcr(acrId);
-        mv.addObject("acrDto", mapper.map(dto));
+        AcrDTO dto = acrService.getSingleAcr(acrId);
+        mv.addObject("acrDto", dto);
         return mv;
     }
 }

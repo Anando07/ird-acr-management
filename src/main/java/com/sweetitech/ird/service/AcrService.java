@@ -1,9 +1,7 @@
 package com.sweetitech.ird.service;
 
 import com.sweetitech.ird.domain.ACR;
-import com.sweetitech.ird.domain.dto.requestDto.AcrRequestDto;
-import com.sweetitech.ird.domain.dto.responseDto.AcrResponseDto;
-import com.sweetitech.ird.pageable.AcrResponsePage;
+import com.sweetitech.ird.domain.dto.AcrDTO;
 
 import java.text.ParseException;
 import java.util.List;
@@ -15,23 +13,21 @@ import java.util.List;
  */
 public interface AcrService {
 
-    ACR saveAcr(AcrRequestDto acrRequestDto) throws ParseException;
+    ACR saveAcr(AcrDTO acrDTO) throws ParseException;
 
-    AcrResponsePage acrOfCurrentYear(Integer page);
+    //AcrResponsePage acrOfCurrentYear(Integer page);
 
-    List<AcrResponseDto> acrOfCurrentYear();
+    List<AcrDTO> acrOfCurrentYear();
 
-    List<AcrResponseDto> acrOfOldYear();
+    AcrDTO updateAcr(AcrDTO acrDTO) throws ParseException;
 
-    AcrResponseDto updateAcr(AcrRequestDto acrRequestDto) throws ParseException;
-
-    AcrResponseDto getSingleAcr(Long id);
+    AcrDTO getSingleAcr(Long id);
 
     void deleteAcr(Long id);
 
-    List<AcrResponseDto> getAcrOfGovtIdWithCurrentYear(String govtId);
+    List<AcrDTO> getAcrOfGovtIdWithCurrentYear(String govtId);
 
-    List<AcrResponseDto> getAllAcrByGovtId(String govtId);
+    List<AcrDTO> getAllAcrByGovtId(String govtId);
 
-    List<AcrResponseDto> getAcrByYear(String year);
+    List<AcrDTO> getAcrByYear(String year);
 }

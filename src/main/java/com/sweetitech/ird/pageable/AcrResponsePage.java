@@ -1,6 +1,6 @@
 package com.sweetitech.ird.pageable;
 
-import com.sweetitech.ird.domain.dto.responseDto.AcrResponseDto;
+import com.sweetitech.ird.domain.dto.AcrDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -16,7 +16,7 @@ import java.util.function.Function;
  */
 public class AcrResponsePage implements Page {
 
-    private List<AcrResponseDto> content;
+    private List<AcrDTO> content;
     private Pageable pageable;
     private boolean last;
     private Integer totalPages;
@@ -27,7 +27,7 @@ public class AcrResponsePage implements Page {
     private boolean first;
     private Sort sort;
 
-    public AcrResponsePage(List<AcrResponseDto> content, Page page) {
+    public AcrResponsePage(List<AcrDTO> content, Page page) {
         this.content = content;
         this.pageable = page.getPageable();
         this.last = page.isLast();
@@ -40,7 +40,7 @@ public class AcrResponsePage implements Page {
         this.sort = page.getSort();
     }
 
-    public void setContent(List<AcrResponseDto> content) {
+    public void setContent(List<AcrDTO> content) {
         this.content = content;
     }
 

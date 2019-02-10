@@ -33,7 +33,6 @@ public class AcrFileRelImpl implements AcrFileRelService {
     @Override
     public AcrFileRelation saveRelation(ACR acr, Long fileId) {
         AcrFile file = acrFileRepository.getFirstById(fileId);
-        file.toString();
         AcrFileRelation obj = new AcrFileRelation();
         obj.setAcr(acr);
         obj.setAcrFile(file);

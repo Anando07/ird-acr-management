@@ -1,11 +1,17 @@
-package com.sweetitech.ird.domain.dto.responseDto;
+package com.sweetitech.ird.domain.dto;
+
+import org.springframework.validation.annotation.Validated;
+
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  * @author Avijit Barua
- * @created_on 12/25/18 at 11:20 AM
+ * @created_on 2/10/19 at 4:06 PM
  * @project ird
  */
-public class UserResponseDto {
+@Validated
+public class UserDTO {
 
     private Long id;
 
@@ -15,16 +21,19 @@ public class UserResponseDto {
 
     private String username;
 
+    @Size(min = 2, max = 100, message = "Username character must be between 2 to 100!")
     private String userId;
+
+    private String password;
 
     private String phone;
 
-    private String roleType;
-
+    @NotNull
     private Long roleId;
 
-    public UserResponseDto() {
+    private String roleType;
 
+    public UserDTO() {
     }
 
     public Long getId() {
@@ -59,28 +68,28 @@ public class UserResponseDto {
         this.username = username;
     }
 
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getRoleType() {
-        return roleType;
-    }
-
-    public void setRoleType(String roleType) {
-        this.roleType = roleType;
-    }
-
     public String getUserId() {
         return userId;
     }
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public Long getRoleId() {
@@ -91,17 +100,26 @@ public class UserResponseDto {
         this.roleId = roleId;
     }
 
+    public String getRoleType() {
+        return roleType;
+    }
+
+    public void setRoleType(String roleType) {
+        this.roleType = roleType;
+    }
+
     @Override
     public String toString() {
-        return "UserResponseDto{" +
+        return "UserDTO{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", designation='" + designation + '\'' +
                 ", username='" + username + '\'' +
                 ", userId='" + userId + '\'' +
+                ", password='" + password + '\'' +
                 ", phone='" + phone + '\'' +
-                ", roleType='" + roleType + '\'' +
                 ", roleId=" + roleId +
+                ", roleType='" + roleType + '\'' +
                 '}';
     }
 }
