@@ -87,7 +87,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User updateUser(UserDTO dto) {
-        User user = findById(dto.getId());
+        User user = userRepository.getOne(dto.getId());
         user.setName(dto.getName());
         user.setUserId(dto.getUserId());
         user.setDesignation(dto.getDesignation());
@@ -102,10 +102,11 @@ public class UserServiceImpl implements UserService {
         List<User> userList = userRepository.findAll();
         List<UserDTO> dtolist = new ArrayList<>();
         for (User user : userList) {
-            if (user.isDeleted() == false) {
+            if (!user.isDeleted()) {
                 dtolist.add(userMapper.responseMapper(user));
             }
         }
         return dtolist;
     }
+
 }

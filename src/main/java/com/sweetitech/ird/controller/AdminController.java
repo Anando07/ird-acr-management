@@ -127,6 +127,8 @@ public class AdminController {
             return "admin/createAcr";
         }
         acrService.saveAcr(acrDto);
+
+
         return "redirect:/admin/acrList";
     }
 
@@ -138,6 +140,7 @@ public class AdminController {
         } else {
             model.addAttribute("list", acrService.getAcrByYear(year));
         }
+        model.addAttribute("acr", new AcrDTO());
         return "admin/acrList";
     }
 
@@ -156,6 +159,16 @@ public class AdminController {
         model.addAttribute("acrDto", dto);
         model.addAttribute("acrFiles", acrFileService.filesOfSingleAcr(acrId));
         return "admin/createAcr";
+    }
+
+
+    @GetMapping(value = "/view/acr")
+    public ModelAndView getSingleAcr(@RequestParam("id") Long acrId) {
+        ModelAndView mv = new ModelAndView("admin/acrList::acrDetails");
+        AcrDTO dto = acrService.getSingleAcr(acrId);
+        mv.addObject("acr",dto);
+        mv.addObject("acrFiles", acrFileService.filesOfSingleAcr(acrId));
+       return mv;
     }
 
     @GetMapping(value = "/deleteAcr")

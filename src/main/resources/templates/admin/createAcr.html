@@ -98,13 +98,14 @@
                         </div>
 
 
+
                         <!-- Text Area-->
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="comment1">First Comment</label>
                             <div class="col-md-4">
                                 <textarea id="comment1" name="comment1" type="text" placeholder="First comment"
                                           class="form-control input-md"
-                                          th:field="*{comment1}"></textarea>
+                                          th:field="*{comment1}" required></textarea>
                             </div>
                         </div>
 
@@ -115,7 +116,7 @@
                             <div class="col-md-4">
                                 <textarea id="comment2" name="comment2" type="text" placeholder="Second comment"
                                           class="form-control input-md"
-                                          th:field="*{comment2}"> </textarea>
+                                          th:field="*{comment2}" required></textarea>
                             </div>
                         </div>
 
@@ -205,27 +206,9 @@
 </body>
 
 
-<script th:inline="javascript">
-    $("body").on("click", "#create", function (event) {
+<script th:inline ="javascript">
 
-        event.preventDefault();
-
-
-            var a = document.forms["acrForm"]["govtId"].value;
-            var b = document.forms["acrForm"]["year"].value;
-            var c = document.forms["acrForm"]["assigned_from"].value;
-            var d = document.forms["acrForm"]["assigned_to"].value;
-            var e = document.forms["acrForm"]["name"].value;
-            var f = document.forms["acrForm"]["comment1"].value;
-            var g = document.forms["acrForm"]["comment2"].value;
-            var h = document.forms["acrForm"]["marks"].value;
-            if (a == null || a == "", b == null || b == "", c == null || c == "", d == null || d == "", e == null || e == "", f == null || f == "", g == null || g == "", h == null || h == "") {
-                $("#myModal").modal();
-                return false;
-            }
-
-        //"/ird-0.0.1-SNAPSHOT/admin/createAcr"
-        //var id;
+    function uploadFile() {
         $.ajax({
             url: /*[[ @{'/file/upload'} ]]*/,
             type: "POST",
@@ -246,14 +229,29 @@
 
                         }));
                 });
-                $("#acrForm").attr("action",/*[[ @{'/admin/createAcr'} ]]*/).submit();
             },
             error: function () {
                 console.log("Error happening ");
             }
         });
 
+    }
+
+    $('#acrForm').submit(function(e) {
+        e.preventDefault();
+        uploadFile();
+        var $form = $(this);
+        $.ajax({
+            type: 'post',
+            url: /*[[ @{'/admin/createAcr'} ]]*/,
+            data:  $form.serialize(),
+            success: function(returnedData){
+                window.location = /*[[ @{'/admin/acrList'} ]]*/;
+            }
+        });
     });
+
+
 
     function loadFiles(fileId, acrId) {
         $.ajax({
@@ -270,6 +268,6 @@
         });
 
     }
-</script>
 
+</script>
 </html>
