@@ -1,13 +1,16 @@
+/*
 package com.sweetitech.ird.domain.authentication;
 
 import javax.persistence.*;
 import java.util.Arrays;
 
+*/
 /**
  * @author Avijit Barua
  * @created_on 12/24/18 at 12:42 PM
  * @project InternalResourcesDivision
- */
+ *//*
+
 
 @Entity
 @Table(name = "oauth_access_token")
@@ -102,4 +105,4 @@ public class OAuthAccessToken {
                 ", refreshToken='" + refreshToken + '\'' +
                 '}';
     }
-}
+}*/

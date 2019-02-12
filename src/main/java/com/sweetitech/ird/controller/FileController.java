@@ -135,7 +135,7 @@ public class FileController {
 
             System.out.println(fileo.getURL().toString());
 
-            String url = DOWNLOAD_FOLDER+"/"+fileo.getFilename().toString();
+            String url = DOWNLOAD_FOLDER+"/"+ fileo.getFilename();
             System.out.println("demo download url when u add the base url: " + url);
 
             System.out.println(fileo.getFilename());

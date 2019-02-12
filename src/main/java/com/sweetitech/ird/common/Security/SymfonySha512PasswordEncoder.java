@@ -5,6 +5,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.codec.digest.DigestUtils;
 
+import java.nio.charset.StandardCharsets;
+
 /**
  * @author Avijit Barua
  * @created_on 12/24/18 at 12:12 PM
@@ -42,11 +44,11 @@ public class SymfonySha512PasswordEncoder implements PasswordEncoder {
     }
 
     private String encodePassword(String raw, String salt) throws Exception {
-        String salted = this.mergePasswordAndSalt(raw.toString(), salt);
+        String salted = this.mergePasswordAndSalt(raw, salt);
         byte[] digest = DigestUtils.sha512(salted);
 
         for (int i = 1; i < 5000; i++)
-            digest = DigestUtils.sha512(ArrayUtils.addAll(digest, salted.getBytes("UTF-8")));
+            digest = DigestUtils.sha512(ArrayUtils.addAll(digest, salted.getBytes(StandardCharsets.UTF_8)));
 
         return Base64.encodeBase64String(digest);
     }

@@ -7,8 +7,8 @@ package com.sweetitech.ird.common.Util;
  */
 public interface PageAttribute {
 
-    public static String FIELD_ID = "id";
-    public static int PAGE_SIZE = 10;
-    public static int INITIAL_PAGE = 0;
-    public static String FIELD_CREATED = "createdOn";
+    String FIELD_ID = "id";
+    int PAGE_SIZE = 10;
+    int INITIAL_PAGE = 0;
+    String FIELD_CREATED = "createdOn";
 }

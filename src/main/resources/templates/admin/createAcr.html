@@ -10,7 +10,14 @@
     <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
     <link href="../css/jquery.dataTables.min.css" th:href="@{/css/jquery.dataTables.min.css}" rel="stylesheet"/>
     <script type="text/javascript" th:src="@{/js/jquery.dataTables.min.js}"></script>
-
+    <style>
+        #loading-indicator {
+            position: absolute;
+            left: 47%;
+            top: 60%;
+            z-index: 10001;
+        }
+    </style>
 </head>
 <body style="padding-top: 40px; padding-bottom: 3px;  background-repeat: no-repeat;
  background-size: cover;" background="../images/background4.jpg">
@@ -98,7 +105,6 @@
                         </div>
 
 
-
                         <!-- Text Area-->
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="comment1">First Comment</label>
@@ -175,6 +181,9 @@
                         </div>
 
 
+                        <img style="display:none" th:src="@{/images/loader.gif}" id="loading-indicator"/>
+
+
                         <div class="modal fade" id="myModal" role="dialog">
                             <div class="modal-dialog">
 
@@ -206,7 +215,23 @@
 </body>
 
 
-<script th:inline ="javascript">
+<script th:inline="javascript">
+
+
+    $.ajaxSetup({'global': true});
+    jQuery(function ($) {
+        $(document).on({
+            ajaxStart: function () {
+                console.log("show");
+                $('#loading-indicator').show();
+            },
+            ajaxStop: function () {
+                console.log("hide");
+                $('#loading-indicator').hide();
+            }
+        });
+    });
+
 
     function uploadFile() {
         $.ajax({
@@ -237,20 +262,19 @@
 
     }
 
-    $('#acrForm').submit(function(e) {
+    $('#acrForm').submit(function (e) {
         e.preventDefault();
         uploadFile();
         var $form = $(this);
         $.ajax({
             type: 'post',
             url: /*[[ @{'/admin/createAcr'} ]]*/,
-            data:  $form.serialize(),
-            success: function(returnedData){
+            data: $form.serialize(),
+            success: function (returnedData) {
                 window.location = /*[[ @{'/admin/acrList'} ]]*/;
             }
         });
     });
-
 
 
     function loadFiles(fileId, acrId) {

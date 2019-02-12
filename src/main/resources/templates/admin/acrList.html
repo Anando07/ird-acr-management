@@ -33,7 +33,7 @@
             <nav class="navbar navbar-default">
                 <div class="container-fluid">
                     <br/>
-                    <form id="searchForm" class="form-horizontal" th:action="@{/admin/acrlist}">
+                    <form id="searchForm" class="form-horizontal" th:action="@{/admin/acrList}">
                         <div class="input-group">
                             <input name="year" placeholder="Search ACR with year" class="form-control govtId"
                                    type="text">
@@ -53,6 +53,15 @@
         <div style="display: block; padding: 10px; margin-bottom: 40px;
                 text-align: justify; background-color: #F0F8FF">
             <h2 style="text-align: center; color: green">RECEIVED ACR</h2>
+
+
+
+            <button type="button"
+                    class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal2" style="margin-left: 86%;">
+                <img src="../images/print-icon.png" th:src="@{/images/print-icon.png}" style="height: 30px;width: 40px;">
+            </button>
+
+
             <div style="width: 90%" class="center">
                 <table id="currentAcrTable" class="table table-striped table-bordered">
                     <thead>
@@ -182,6 +191,37 @@
             }
         });
     }
+    
+    function printReport() {
+
+        $('#myModal2').modal('hide');
+
+        /*var govtId = $('#govtId').val();
+
+        $.ajax({
+            type: 'get',
+            url: /!*[[ @{'/admin/report/list'} ]]*!/,
+            data:  { govtId:govtId},
+            responseType: 'arraybuffer',
+            contentType: false,
+
+            success: function(data) {
+                var binaryString = window.atob(data);
+                var binaryLen = binaryString.length;
+                var bytes = new Uint8Array(binaryLen);
+                for (var i = 0; i < binaryLen; i++) {
+                    var ascii = binaryString.charCodeAt(i);
+                    bytes[i] = ascii;
+                }
+                var blob = new Blob([bytes], {type: "application/pdf"});
+                var link = document.createElement('a');
+                link.href = window.URL.createObjectURL(blob);
+                link.download = "report-monthlyPayrollUserSummary.pdf";
+                document.body.appendChild(link);
+                link.click();
+            }
+        });*/
+    }
 
 </script>
 
@@ -240,6 +280,54 @@
                     </span>
                 </div>
 
+            </div>
+            <br/>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+<div class="modal fade" id="myModal2" role="dialog">
+    <div class="modal-dialog" th:fragment="printReport">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-body">
+                <!-- Form Name -->
+                <legend style="text-align: center">Print Report of Government Person</legend>
+
+
+
+
+                <form class="form-horizontal" method="GET" th:action="@{/admin/report/list}" target="_blank">
+                    <fieldset>
+
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="govtId">Govt. ID</label>
+                            <div class="col-md-4">
+                                <input id="govtId" path="govtId" name="govtId"
+                                       type="text" placeholder="Government ID"
+                                       class="form-control input-md" required >
+                            </div>
+                        </div>
+                        <!-- Button -->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="print"></label>
+                            <div class="col-md-4">
+                                <button id="print" name="register" class="btn btn-primary" th:onClick="'printReport();'">
+                                    Print
+                                </button> <!--th:onClick="'printReport();'"-->
+                            </div>
+                        </div>
+
+                    </fieldset>
+                </form>
             </div>
             <br/>
 

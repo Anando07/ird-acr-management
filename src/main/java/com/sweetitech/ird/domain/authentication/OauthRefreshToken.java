@@ -1,3 +1,4 @@
+/*
 package com.sweetitech.ird.domain.authentication;
 
 import javax.persistence.Entity;
@@ -6,11 +7,13 @@ import javax.persistence.Lob;
 import javax.persistence.Table;
 import java.util.Arrays;
 
+*/
 /**
  * @author Avijit Barua
  * @created_on 12/24/18 at 12:44 PM
  * @project InternalResourcesDivision
- */
+ *//*
+
 
 @Entity
 @Table(name = "oauth_refresh_token")
@@ -60,4 +63,4 @@ public class OauthRefreshToken {
                 ", authentication=" + Arrays.toString(authentication) +
                 '}';
     }
-}
+}*/

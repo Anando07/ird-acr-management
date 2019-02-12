@@ -1,5 +1,6 @@
 package com.sweetitech.ird.controller;
 
+import com.sweetitech.ird.common.Exception.EntityNotFoundException;
 import com.sweetitech.ird.domain.dto.AcrDTO;
 import com.sweetitech.ird.domain.dto.UserDTO;
 import com.sweetitech.ird.mapper.UserMapper;
@@ -11,6 +12,11 @@ import com.sweetitech.ird.validator.AcrFormValidator;
 import com.sweetitech.ird.validator.UserFormValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,9 +25,16 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.sweetitech.ird.report.ReportService.generateAcrReportOfEmployee;
 
 /**
  * @author Avijit Barua
@@ -127,8 +140,6 @@ public class AdminController {
             return "admin/createAcr";
         }
         acrService.saveAcr(acrDto);
-
-
         return "redirect:/admin/acrList";
     }
 
@@ -198,4 +209,50 @@ public class AdminController {
         mv.addObject("acrDto", dto);
         return mv;
     }
+
+
+
+    @RequestMapping(value = "/report/list", method = RequestMethod.GET)
+    public ResponseEntity<Resource> getEmployeeList(@RequestParam String govtId) throws Exception {
+        if (govtId == null) {
+            throw new EntityNotFoundException("Null values found!");
+        }
+
+        System.out.println("govt id is "+ govtId);
+
+        String downloadFilePath =
+                generateAcrReportOfEmployee("/summary",
+                        govtId);
+        System.out.println("DL File Path: "+downloadFilePath);
+
+        if (downloadFilePath == null)
+            throw new NullPointerException("data missing");
+
+        if (downloadFilePath == null)
+            return ResponseEntity.badRequest()
+                    .contentType(MediaType.parseMediaType("application/pdf"))
+                    .body(null);
+
+        File file = new File(downloadFilePath);
+
+        Path path = Paths.get(file.getAbsolutePath());
+        ByteArrayResource resource = null;
+        try {
+            resource = new ByteArrayResource(Files.readAllBytes(path));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Disposition", "inline; filename=\"report-Summary" + ".pdf\"");
+
+        return ResponseEntity.ok()
+                .headers(headers)
+                .contentLength(file.length())
+                .contentType(MediaType.parseMediaType("application/pdf"))
+                .body(resource);
+    }
+
+
 }
+

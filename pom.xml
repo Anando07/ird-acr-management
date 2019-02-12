@@ -96,6 +96,11 @@
             <artifactId>commons-io</artifactId>
             <version>2.4</version>
         </dependency>
+        <dependency>
+            <groupId>com.ztomic</groupId>
+            <artifactId>wkhtmltopdf-java</artifactId>
+            <version>0.0.1</version>
+        </dependency>
     </dependencies>
 
     <repositories>
