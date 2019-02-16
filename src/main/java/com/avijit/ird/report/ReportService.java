@@ -22,8 +22,8 @@ import static com.ztomic.wkhtmltopdf.argument.Option.PageOption.EnableJavascript
  */
 public class ReportService {
 
-    public static final String DOWNLOAD_PATH = "/opt/tomcat/webapps/tmp/downloads/"; // for droplet
-    //public static final String DOWNLOAD_PATH = "tmp/downloads/"; // for mac
+    //public static final String DOWNLOAD_PATH = "/opt/tomcat/webapps/tmp/downloads/"; // for droplet
+    public static final String DOWNLOAD_PATH = "tmp/downloads/"; // for mac
     public static final String ZIP_PATH = "/tmp/zip_files";
     public static final String FILE_NAME = "report";
     public static final String SERVER_REPORT_URL = "/report/html";
@@ -35,8 +35,8 @@ public class ReportService {
 
     public static WkHtmlToPdf initialiseWkHtmlToPdf() {
         //WkHtmlToPdf pdf = new WkHtmlToPdf(); // for mac
-        WkHtmlToPdf pdf = new WkHtmlToPdf("/usr/local/bin/wkhtmltopdf"); // for server
-
+        //WkHtmlToPdf pdf = new WkHtmlToPdf("/usr/local/bin/wkhtmltopdf"); // for centos server
+        WkHtmlToPdf pdf = new WkHtmlToPdf("/usr/bin/wkhtmltopdf.sh"); // for ubuntu server
         return pdf;
     }
 

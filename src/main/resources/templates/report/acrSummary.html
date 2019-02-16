@@ -1,34 +1,51 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
+    <link rel="icon" type="image/png" href="../images/fav-icon.ico">
     <meta charset="UTF-8">
-    <title>Acr Summary</title>
+    <title>Internal Resource Division</title>
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <link href="../css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
     <script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
     <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
 </head>
 <body>
-<table class="table table-striped" border="1">
+<div class="container">
 
-    <thead>
-    <tr>
-        <th>Govt. ID</th>
-        <th>Name</th>
-        <th>Year</th>
-        <th>Assigned From</th>
-        <th>Assigned To</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="acr : ${summary}">
-        <td th:text="${acr.govtId}" align="center"></td>
-        <td th:text="${acr.name}" align="center"></td>
-        <td th:text="${acr.year}" align="center"></td>
-        <td th:text="${acr.assigned_from}" align="center"></td>
-        <td th:text="${acr.assigned_to}" align="center"></td>
-    </tr>
-    </tbody>
-</table>
+    <div style="display: flex; justify-content: center;">
+        <img th:src="@{/images/Seal.svg.png}" height="150px" width="150px">
+    </div>
+    <h2 style="text-align: center">Internal Resource Division</h2>
+    <h4 style="text-align: center">ACR Summary</h4>
+
+    <br/> <br/>
+    <table class="table table-striped" border="1">
+        <thead>
+        <tr>
+            <th style="text-align: center">Govt. ID</th>
+            <th style="text-align: center">Name</th>
+            <th style="text-align: center">Year</th>
+            <th style="text-align: center">Assigned From</th>
+            <th style="text-align: center">Assigned To</th>
+            <th style="text-align: center">Marks</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="acr : ${summary}">
+            <td th:text="${acr.govtId}" align="center"></td>
+            <td th:text="${acr.name}" align="center"></td>
+            <td th:text="${acr.year}" align="center"></td>
+            <td th:text="${acr.assigned_from}" align="center"></td>
+            <td th:text="${acr.assigned_to}" align="center"></td>
+            <td th:text="${acr.marks}" align="center"></td>
+        </tr>
+        </tbody>
+    </table>
+
+        <span th:if="${summary.size() lt 1}">
+            <p style="text-align: center">No data Available For this Id</p>
+        </span>
+
+</div>
 </body>
 </html>

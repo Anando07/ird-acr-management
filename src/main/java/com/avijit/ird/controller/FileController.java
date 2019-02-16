@@ -55,7 +55,6 @@ public class FileController {
     AcrFileService imageService;
 
 
-
     @GetMapping("/download")
     public ResponseEntity<ByteArrayResource> downloadFile2(
             @RequestParam(value = "fileName") String fileName) throws IOException {
@@ -78,16 +77,12 @@ public class FileController {
     }
 
 
-
-
-
-
     @PostMapping("/upload")
-    public ResponseEntity<List<AcrFile>> uploadFile(@RequestParam("file")MultipartFile[] files) {
+    public ResponseEntity<List<AcrFile>> uploadFile(@RequestParam("file") MultipartFile[] files) {
 
         List<AcrFile> list = new ArrayList<>();
 
-        if(!files[0].isEmpty()) {
+        if (!files[0].isEmpty()) {
             for (MultipartFile file : files) {
                 if (file.isEmpty()) {
                     return new ResponseEntity("please select a file!", HttpStatus.OK);
@@ -110,12 +105,9 @@ public class FileController {
                 }
             }
             return new ResponseEntity(list, new HttpHeaders(), HttpStatus.OK);
-        }
-        else
+        } else
             return new ResponseEntity<>(list, new HttpHeaders(), HttpStatus.OK);
     }
-
-
 
 
     // save file
@@ -135,13 +127,13 @@ public class FileController {
 
             System.out.println(fileo.getURL().toString());
 
-            String url = DOWNLOAD_FOLDER+"/"+ fileo.getFilename();
+            String url = DOWNLOAD_FOLDER + "/" + fileo.getFilename();
             System.out.println("demo download url when u add the base url: " + url);
 
             System.out.println(fileo.getFilename());
 
             AcrFile image = imageService.addImage(new AcrFile(fileo.getFilename()));
-            System.out.println("value of images is "+ image.toString());
+            System.out.println("value of images is " + image.toString());
 
             imagesToBeReturned.add(imageService.findByUrl(fileo.getFilename()));
 
