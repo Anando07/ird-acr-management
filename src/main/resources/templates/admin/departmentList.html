@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml" lang="en">
+
+<head>
+    <link rel="icon" type="image/png" href="../images/fav-icon.ico">
+    <meta charset="UTF-8">
+    <title>Internal Resource Division</title>
+
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
+    <script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+    <link href="../css/jquery.dataTables.min.css" th:href="@{/css/jquery.dataTables.min.css}" rel="stylesheet"/>
+    <script type="text/javascript" th:src="@{/js/jquery.dataTables.min.js}"></script>
+</head>
+<body style="padding-top: 40px; padding-bottom: 3px;  background-repeat: no-repeat;
+ background-size: cover;" background="../images/background4.jpg">
+<div class="container" style="width: 70%">
+
+    <div th:replace="fragment/menuBar :: menubar"></div>
+    <div th:replace="fragment/slider :: slider"></div>
+
+
+    <div class="deptListDiv" style=" display: block;
+                                    padding: 10px;margin-bottom: 40px;
+                                    text-align: justify; background-color: #F0F8FF" th:fragment="deptList">
+
+
+
+
+
+        <h2 style="text-align: center; color: green">All Departments</h2>
+
+        <button type="button"
+                class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal2" style="margin-left: 80.5%;">
+            Add Department
+        </button>
+
+
+
+
+        <div class="center" style="width: 90%">
+            <table class="table table-striped table-bordered" id="deptList">
+                <thead>
+                <tr>
+                    <th style="text-align:center;">S/N</th>
+                    <th style="text-align:center;">Name</th>
+                    <th style="text-align:center;">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="dept, itetator : ${list}">
+                    <td align="center" th:text="${itetator.index+1}"></td>
+                    <td align="center" th:text="${dept.name}"></td>
+                    <td align="center">
+
+
+                        <button type="button"
+                                class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal"
+                                th:onclick="'getDepartment(\'' + ${dept.id} + '\');'">Edit
+                        </button>
+
+
+                        <a th:href="@{/admin/department/remove(deptId=${dept.id})}"
+                           onclick="return confirm('Are you sure you want to delete this item?');">
+                        <button type="button"
+                                class="btn btn-info btn-sm">Delete
+                        </button>
+                    </a>
+
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <div th:replace="fragment/footer :: footer"></div>
+
+
+
+
+    <div class="modal fade" id="editDepartment" role="dialog" >
+        <div class="modal-dialog" th:fragment="updateDept">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-body">
+
+
+                    <!-- Form Name -->
+                    <legend>Update Department</legend>
+
+                    <form id="updateDept" class="form-horizontal" action="#" th:object="${department}">
+                        <fieldset >
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Department Name</label>
+                                <div class="col-md-4">
+
+                                    <input id="id" path="id" name="id" type="hidden" th:field="*{id}">
+                                    <input id="name" name="name" type="text"
+                                           class="form-control input-md" required th:field="*{name}">
+                                    <p id="error" style="display: none"><span style="color: red">This department Already Exists!</span></p>
+                                </div>
+                            </div>
+
+                            <!-- Button -->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="register"></label>
+                                <div class="col-md-4">
+                                    <button id="reset" name="reset" class="btn btn-primary" th:onClick="'update();'">
+                                        Reset
+                                    </button>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+
+    <div class="modal fade" id="myModal2" role="dialog">
+        <div class="modal-dialog" th:fragment="createDept">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-body">
+                    <!-- Form Name -->
+                    <legend style="text-align: center">New Department</legend>
+
+
+                    <form id="saveDepartment" class="form-horizontal" method="post" >
+                        <fieldset>
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="">Name</label>
+                                <div class="col-md-4">
+                                    <input id="deptName" path="deptName" name="deptName"
+                                           type="text" placeholder="Department Name"
+                                           class="form-control input-md" required>
+                                    <p id="error1" style="display: none"><span style="color: red">This department Already Exists!</span></p>
+                                </div>
+                            </div>
+                            <!-- Button -->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="print"></label>
+                                <div class="col-md-4">
+                                    <button id="print" name="register" class="btn btn-primary"
+                                            th:onClick="'saveDept();'">
+                                        Save
+                                    </button>
+                                </div>
+                            </div>
+
+                        </fieldset>
+                    </form>
+                </div>
+                <br/>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+</div>
+
+<script th:inline="javascript">
+
+    function saveDept() {
+        $('#saveDepartment').submit(function(e){
+            var name = $('#deptName').val();
+            e.preventDefault();
+            $.ajax({
+                type: 'post',
+                url: /*[[ @{'/admin/department/save'} ]]*/,
+                data: {deptName : name},
+                success: function(returnedData){
+                    window.location =/*[[ @{'/admin/department/all'} ]]*/
+                },
+
+                error: function(xhr, exception) {
+                    $("#error1").css({
+                        display: "block"
+                    })
+                }
+            });
+
+        });
+
+    }
+
+    function update() {
+        $('#updateDept').submit(function(e){
+            e.preventDefault();
+            $.ajax({
+                type: 'post',
+                url: /*[[ @{'/admin/department/update'} ]]*/,
+                data: $(this).serialize(),
+                success: function(returnedData){
+                    window.location =/*[[ @{'/admin/department/all'} ]]*/
+                },
+
+                error: function(xhr, exception) {
+                    $("#error").css({
+                        display: "block"
+                    })
+                }
+            });
+
+        });
+    }
+
+
+    function getDepartment(deptId) {
+        $.ajax({
+            type: 'get',
+            url: /*[[ @{'/admin/department/read'} ]]*/,
+            data: {deptId: deptId},
+            success: function (returnedData) {
+                console.log(returnedData);
+                $('#editDepartment').html(returnedData);
+
+                $('#editDepartment').modal('show');
+
+            },
+            error: function(xhr, exception) {
+                alert("error");
+            }
+        });
+    }
+</script>
+</body>
+<style>
+    .center {
+        margin: auto;
+        width: 60%;
+        padding: 10px;
+    }
+</style>
+</html>

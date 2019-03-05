@@ -9,6 +9,7 @@ import com.avijit.ird.domain.AcrFileRelation;
 import com.avijit.ird.domain.User;
 import com.avijit.ird.service.AcrFileRelService;
 import com.avijit.ird.service.AcrFileService;
+import com.avijit.ird.service.DepartmentService;
 import com.avijit.ird.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -31,6 +32,9 @@ public class AcrMapper {
 
     @Autowired
     AcrFileRelService fileRelService;
+
+    @Autowired
+    DepartmentService departmentService;
 
     @Autowired
     AcrFileService acrFileService;
@@ -61,6 +65,7 @@ public class AcrMapper {
         User user = sessionInfo.getCurrentUser();
         acr.setUser(user);
         acr.setCreatedOn(new Date());
+        acr.setDepartment(departmentService.readDepartment(dto.getDeptId()));
         return acr;
     }
 
@@ -88,6 +93,9 @@ public class AcrMapper {
             fileList.add(file.getUrl());
         }
         dto.setFileNameList(fileList);
+        if(acr.getDepartment() !=null) {
+            dto.setDeptId(acr.getDepartment().getId());
+        }
         return dto;
     }
 }

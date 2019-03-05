@@ -15,7 +15,6 @@ public class StorageProperties {
     private String location = ""; //for mac
 
 
-
     public String getLocation() {
         return location;
     }

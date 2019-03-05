@@ -99,7 +99,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserDTO> userList() {
-        List<User> userList = userRepository.findAll();
+        List<User> userList = userRepository.findAllByUsernameNotLike("admin");
         List<UserDTO> dtolist = new ArrayList<>();
         for (User user : userList) {
             if (!user.isDeleted()) {
@@ -109,4 +109,10 @@ public class UserServiceImpl implements UserService {
         return dtolist;
     }
 
+    @Override
+    public void resetPassword(Long userId, String password) throws Exception {
+        User user = userRepository.getOne(userId);
+        user.setPassword(PasswordUtil.encryptPassword(password, PasswordUtil.EncType.BCRYPT_ENCODER, null));
+        userRepository.save(user);
+    }
 }

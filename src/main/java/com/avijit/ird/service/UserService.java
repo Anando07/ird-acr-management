@@ -26,6 +26,8 @@ public interface UserService {
 
     List<UserDTO> userList();
 
+    void resetPassword(Long userId, String password) throws Exception;
+
 
 
 

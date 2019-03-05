@@ -30,6 +30,8 @@ public class AcrDTO {
 
     private String year;
 
+    private Long deptId;
+
     @NotNull
     private String assigned_from;
 
@@ -149,6 +151,14 @@ public class AcrDTO {
 
     public void setAcrFiles(List<AcrFile> acrFiles) {
         this.acrFiles = acrFiles;
+    }
+
+    public Long getDeptId() {
+        return deptId;
+    }
+
+    public void setDeptId(Long deptId) {
+        this.deptId = deptId;
     }
 
     @Override

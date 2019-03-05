@@ -1,12 +1,17 @@
 package com.avijit.ird.controller;
 
+import com.avijit.ird.common.Util.DateUtil;
+import com.avijit.ird.domain.ACR;
+import com.avijit.ird.domain.Department;
 import com.avijit.ird.domain.dto.AcrDTO;
 import com.avijit.ird.domain.dto.UserDTO;
 import com.avijit.ird.report.ReportService;
 import com.avijit.ird.common.Exception.EntityNotFoundException;
 import com.avijit.ird.mapper.UserMapper;
+import com.avijit.ird.repository.AcrRepository;
 import com.avijit.ird.service.AcrFileService;
 import com.avijit.ird.service.AcrService;
+import com.avijit.ird.service.DepartmentService;
 import com.avijit.ird.service.UserService;
 import com.avijit.ird.serviceImpl.async.AsyncService;
 import com.avijit.ird.validator.AcrFormValidator;
@@ -33,6 +38,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -56,6 +62,9 @@ public class AdminController {
 
     @Autowired
     UserFormValidator userFormValidator;
+
+    @Autowired
+    DepartmentService departmentService;
 
 
     @Autowired
@@ -128,6 +137,7 @@ public class AdminController {
     public String createAcr(Model model) {
         model.addAttribute("acrDto", new AcrDTO());
         model.addAttribute("acrFiles", new ArrayList<>());
+        model.addAttribute("deptList", departmentService.getDepartments());
         return "admin/createAcr";
     }
 
@@ -142,16 +152,41 @@ public class AdminController {
         return "redirect:/admin/acrList";
     }
 
-    @GetMapping(value = "/acrList")
-    public String findAllAcr(@RequestParam(value = "year", required = false) String year, Model model) {
-
-        if (year == null) {
-            model.addAttribute("list", acrService.acrOfCurrentYear());
-        } else {
-            model.addAttribute("list", acrService.getAcrByYear(year));
-        }
+/*    @GetMapping(value = "/acrList")
+    public String findAllAcr(Model model) {
+        List <Department> deptList=departmentService.getDepartments();
+        model.addAttribute("list", acrService.acrOfCurrentYear());
+        model.addAttribute("deptList",deptList);
         model.addAttribute("acr", new AcrDTO());
         return "admin/acrList";
+
+    }*/
+
+    @GetMapping(value = "/acrList")
+    public String findAcrByType(@RequestParam(name = "year", required = false) String year, @RequestParam(name = "deptId", required = false) Long deptId, Model model) {
+        List<Department> deptList = departmentService.getDepartments();
+        System.out.println("year "+year);
+        String[] date = DateUtil.getReadableDate(new Date()).split(" ");
+
+        if (deptList.size() < 1) {
+            if (year == null) {
+                model.addAttribute("list", acrService.acrOfCurrentYear());
+            } else {
+                model.addAttribute("list", acrService.getAcrByYear(year));
+            }
+        } else {
+            if (year == null && deptId == null) {
+                model.addAttribute("list", acrService.getAcrByYearAndDeptId(date[2],deptList.get(0).getId()));
+            } else if (year == null && deptId != null) {
+                model.addAttribute("list", acrService.getAcrByYearAndDeptId(date[2],deptId));
+            } else {
+                model.addAttribute("list", acrService.getAcrByYearAndDeptId(year, deptId));
+            }
+        }
+        model.addAttribute("deptList", deptList);
+        model.addAttribute("acr", new AcrDTO());
+        return "admin/acrList";
+
     }
 
 
@@ -167,6 +202,7 @@ public class AdminController {
     public String getAcr(@RequestParam("id") Long acrId, Model model) {
         AcrDTO dto = acrService.getSingleAcr(acrId);
         model.addAttribute("acrDto", dto);
+        model.addAttribute("deptList", departmentService.getDepartments());
         model.addAttribute("acrFiles", acrFileService.filesOfSingleAcr(acrId));
         return "admin/createAcr";
     }
@@ -176,9 +212,9 @@ public class AdminController {
     public ModelAndView getSingleAcr(@RequestParam("id") Long acrId) {
         ModelAndView mv = new ModelAndView("admin/acrList::acrDetails");
         AcrDTO dto = acrService.getSingleAcr(acrId);
-        mv.addObject("acr",dto);
+        mv.addObject("acr", dto);
         mv.addObject("acrFiles", acrFileService.filesOfSingleAcr(acrId));
-       return mv;
+        return mv;
     }
 
     @GetMapping(value = "/deleteAcr")
@@ -209,20 +245,27 @@ public class AdminController {
         return mv;
     }
 
+    @PostMapping(value = "/reset/password")
+    public String resetPassword(@RequestParam("user_Id") Long userId, @RequestParam("newPassword") String password) throws Exception {
+        System.out.println("userId is " + userId + " and password is " + password);
+        userService.resetPassword(userId, password);
+        return "redirect:/admin/userList";
+    }
 
 
+    //did not use because BCC server didn't support WkHtmlToPdf
     @RequestMapping(value = "/report/list", method = RequestMethod.GET)
     public ResponseEntity<Resource> getEmployeeList(@RequestParam String govtId) throws Exception {
         if (govtId == null) {
             throw new EntityNotFoundException("Null values found!");
         }
 
-        System.out.println("govt id is "+ govtId);
+        System.out.println("govt id is " + govtId);
 
         String downloadFilePath =
                 ReportService.generateAcrReportOfEmployee("/summary",
                         govtId);
-        System.out.println("DL File Path: "+downloadFilePath);
+        System.out.println("DL File Path: " + downloadFilePath);
 
         if (downloadFilePath == null)
             throw new NullPointerException("data missing");
@@ -251,6 +294,24 @@ public class AdminController {
                 .contentType(MediaType.parseMediaType("application/pdf"))
                 .body(resource);
     }
+
+
+    //this is secret method
+    @Autowired
+    AcrRepository acrRepository;
+  @GetMapping(value = "/assign/dept")
+  public void assignDept()
+  {
+      Department department = departmentService.save("Default");
+      List<ACR> acrs = acrRepository.findAll();
+      for(ACR acr : acrs)
+      {
+          acr.setDepartment(department);
+          acrRepository.save(acr);
+      }
+  }
+
+
 
 
 }

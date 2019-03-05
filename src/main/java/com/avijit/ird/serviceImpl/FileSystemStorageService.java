@@ -36,7 +36,8 @@ public class FileSystemStorageService implements StorageService {
 
     @Override
     public String store(MultipartFile file) {
-        String filename = StringUtils.cleanPath(file.getOriginalFilename());
+        String filename = StringUtils.cleanPath(file.getOriginalFilename()).replace(" ","-");
+
         filename = getSaltString() + filename;
         
         try {

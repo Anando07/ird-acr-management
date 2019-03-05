@@ -45,6 +45,9 @@ public class ACR {
     @OneToOne
     User user;
 
+    @OneToOne
+    private Department department;
+
     public ACR() {
     }
 
@@ -144,6 +147,14 @@ public class ACR {
         this.marks = marks;
     }
 
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+
     @Override
     public String toString() {
         return "ACR{" +
@@ -159,6 +170,7 @@ public class ACR {
                 ", createdOn=" + createdOn +
                 ", isDeleted=" + isDeleted +
                 ", user=" + user +
+                ", department=" + department +
                 '}';
     }
 }

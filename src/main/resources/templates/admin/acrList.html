@@ -35,14 +35,36 @@
                 <div class="container-fluid">
                     <br/>
                     <form id="searchForm" class="form-horizontal" th:action="@{/admin/acrList}">
-                        <div class="input-group">
-                            <input name="year" placeholder="Search ACR with year" class="form-control govtId"
-                                   type="text">
-                            <span class="input-group-btn">
+                        <div class=" form-group row">
+
+                            <div class="col-md-4">
+                                <input name="year" placeholder="Search ACR with year" class="form-control govtId"
+                                       type="text">
+                            </div>
+
+                            <!--<div class="form-group">-->
+                            <div class="col-md-2">
+                            <label>Department</label>
+                                </div>
+                                <div class="col-md-4">
+
+                                    <select
+                                            class="select2 form-control department"
+                                            >
+
+                                            <option th:each="dept : ${deptList}"
+                                                    th:value="${dept.id}" th:text="${dept.name}"></option>
+
+                                    </select>
+
+                            </div>
+
+<input type="hidden" id="deptId" name="deptId">
+                            <div class="input-group-btn col-md-2">
                                <button class="btn btn-default" type="submit">
                                    <span class="glyphicon glyphicon-search"></span>
                                </button>
-                             </span>
+                             </div>
                         </div>
                     </form>
                     <br/>
@@ -56,10 +78,10 @@
             <h2 style="text-align: center; color: green">RECEIVED ACR</h2>
 
 
-
             <button type="button"
                     class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal2" style="margin-left: 86%;">
-                <img src="../images/print-icon.png" th:src="@{/images/print-icon.png}" style="height: 30px;width: 40px;">
+                <img src="../images/print-icon.png" th:src="@{/images/print-icon.png}"
+                     style="height: 30px;width: 40px;">
             </button>
 
 
@@ -177,6 +199,17 @@
 </script>
 
 <script th:inline="javascript">
+
+    $(".department option:selected").each(function() {
+
+
+        $('#deptId').val($(this).val());
+
+
+
+    });
+
+
     $(".oldAcrDiv").hide();
 
 
@@ -192,7 +225,7 @@
             }
         });
     }
-    
+
     function printReport() {
 
         $('#myModal2').modal('hide');
@@ -223,6 +256,17 @@
             }
         });*/
     }
+
+
+    $(".department").change(function() {
+        $(".department option:selected").each(function() {
+
+
+            $('#deptId').val($(this).val());
+          //  alert($('#deptId').val());
+
+        });    });
+
 
 </script>
 
@@ -300,12 +344,12 @@
         <div class="modal-content">
             <div class="modal-body">
                 <!-- Form Name -->
-                <legend style="text-align: center">Print Report of Government Person</legend>
+                <legend style="text-align: center">View Report of Government Person</legend>
 
 
+                <!--/admin/report/list-->
 
-
-                <form class="form-horizontal" method="GET" th:action="@{/admin/report/list}" target="_blank">
+                <form class="form-horizontal" method="GET" th:action="@{/report/html/summary}" target="_blank">
                     <fieldset>
 
                         <!-- Text input-->
@@ -314,15 +358,16 @@
                             <div class="col-md-4">
                                 <input id="govtId" path="govtId" name="govtId"
                                        type="text" placeholder="Government ID"
-                                       class="form-control input-md" required >
+                                       class="form-control input-md" required>
                             </div>
                         </div>
                         <!-- Button -->
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="print"></label>
                             <div class="col-md-4">
-                                <button id="print" name="register" class="btn btn-primary" th:onClick="'printReport();'">
-                                    Print
+                                <button id="print" name="register" class="btn btn-primary"
+                                        th:onClick="'printReport();'">
+                                    View
                                 </button> <!--th:onClick="'printReport();'"-->
                             </div>
                         </div>

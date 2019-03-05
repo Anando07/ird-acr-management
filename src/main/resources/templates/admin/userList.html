@@ -65,7 +65,7 @@
 
                     <td align="center">
                         <button type="button"
-                                class="btn btn-info btn-md" data-toggle="modal" data-target="#myModal"
+                                class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal"
                                 th:onclick="'getUser(\'' + ${user.id} + '\');'">Edit
                         </button>
 
@@ -74,9 +74,15 @@
                         <a th:href="@{/admin/deleteUser(userId=${user.userId})}"
                            onclick="return confirm('Are you sure you want to delete this item?');">
                             <button type="button"
-                                    class="btn btn-info btn-md">Delete
+                                    class="btn btn-info btn-sm">Delete
                             </button>
                         </a>
+
+
+                        <button type="button"
+                                class="btn btn-info btn-sm"
+                                th:onclick="'resetPassword(\'' + ${user.id} + '\');'">Reset Pass
+                        </button>
 
                     </td>
 
@@ -191,7 +197,62 @@
 
 </div>
 
+
+<div class="modal fade" id="resetPassModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-body">
+
+
+                <!-- Form Name -->
+                <legend>Reset Password</legend>
+
+                <form class="form-horizontal" action="#" th:action="@{/admin/reset/password}" method="post">
+                    <fieldset>
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="name">New Password</label>
+                            <div class="col-md-4">
+
+                                <input id="user_Id" path="user_Id" name="user_Id" type="hidden" >
+
+                                <input id="newPassword" name="newPassword" type="password"
+                                      class="form-control input-md" required >
+                            </div>
+                        </div>
+
+                        <!-- Button -->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="register"></label>
+                            <div class="col-md-4">
+                                <button id="reset" name="reset" class="btn btn-primary">
+                                    Reset
+                                </button>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
 <script th:inline="javascript">
+
+    function resetPassword(userId) {
+        $('#user_Id').val(userId);
+        $('#newPassword').val("");
+        $('#resetPassModal').modal('show');
+    }
 
     function getUser(id) {
         $.ajax({
