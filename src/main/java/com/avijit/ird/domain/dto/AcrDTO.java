@@ -22,6 +22,8 @@ public class AcrDTO {
 
     private String name;
 
+    private String extraComment;
+
     private String comment1;
 
     private String comment2;
@@ -159,6 +161,14 @@ public class AcrDTO {
 
     public void setDeptId(Long deptId) {
         this.deptId = deptId;
+    }
+
+    public String getExtraComment() {
+        return extraComment;
+    }
+
+    public void setExtraComment(String extraComment) {
+        this.extraComment = extraComment;
     }
 
     @Override

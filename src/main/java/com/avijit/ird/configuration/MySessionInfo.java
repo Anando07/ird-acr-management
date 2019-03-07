@@ -13,10 +13,6 @@ public class MySessionInfo {
     private User user;
 
     public User getCurrentUser() {
-
-        /*if (user == null) {
-
-        }*/
         user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return user;
     }

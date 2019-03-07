@@ -2,7 +2,7 @@
 <html lang="bn" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <link rel="icon" type="image/png" href="../images/fav-icon.ico">
-    <title>Internal Resource Division</title>
+    <title>Internal Resources Division</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -17,55 +17,105 @@
 
 
     <script>
+        kendo.pdf.defineFont({
+            /*"DejaVu Sans":
+                "http://cdn.kendostatic.com/2019.1.220/styles/fonts/DejaVu/DejaVuSans.ttf",
+
+            "DejaVu Sans|Bold":
+                "http://cdn.kendostatic.com/2019.1.220/styles/fonts/DejaVu/DejaVuSans-Bold.ttf",
+
+            "DejaVu Sans|Bold|Italic":
+                "http://cdn.kendostatic.com/2019.1.220/styles/fonts/DejaVu/DejaVuSans-Oblique.ttf",
+
+            "DejaVu Sans|Italic":
+                "http://cdn.kendostatic.com/2019.1.220/styles/fonts/DejaVu/DejaVuSans-Oblique.ttf",*/
+            "Kalpurush":
+                "https://www.omicronlab.com/download/fonts/kalpurush.ttf",
+            "SiyamRupali":
+                "https://www.omicronlab.com/download/fonts/Siyamrupali.ttf",
+            "SolaimanLipi": "https://www.omicronlab.com/download/fonts/SolaimanLipi_20-04-07.ttf",
+            "Kalpurush ANSI":"https://www.omicronlab.com/download/fonts/kalpurush%20ANSI.ttf",
+            "Siyam Rupali ANSI":"https://www.omicronlab.com/download/fonts/Siyam%20Rupali%20ANSI.ttf",
+            "AponaLohit":"https://www.omicronlab.com/download/fonts/AponaLohit.ttf",
+            "Bangla":"https://www.omicronlab.com/download/fonts/Bangla.ttf",
+            "AdorshoLipi":"https://www.omicronlab.com/download/fonts/AdorshoLipi_20-07-2007.ttf",
+            "Bensen":"https://www.omicronlab.com/download/fonts/BenSen.ttf",
+            "BenSenHandwriting":"https://www.omicronlab.com/download/fonts/BenSenHandwriting.ttf",
+            "Nikosh":"https://www.omicronlab.com/download/fonts/Nikosh.ttf",
+            "NikoshBAN":"https://www.omicronlab.com/download/fonts/NikoshBAN.ttf",
+            "NikoshGrameen":"https://www.omicronlab.com/download/fonts/NikoshGrameen.ttf",
+            "NikoshLight":"https://www.omicronlab.com/download/fonts/NikoshLight.ttf",
+            "NikoshLightBan":"https://www.omicronlab.com/download/fonts/NikoshLightBan.ttf",
+            "Akaash":"https://www.omicronlab.com/download/fonts/akaashnormal.ttf",
+            "Mitra Mono":"https://www.omicronlab.com/download/fonts/mitra.ttf",
+            "Sagar":"https://www.omicronlab.com/download/fonts/sagarnormal.ttf",
+            "Mukti narrow":"https://www.omicronlab.com/download/fonts/muktinarrow.ttf",
+            "Mukti":"https://www.omicronlab.com/download/fonts/Mukti_1.99_PR.ttf",
+            "Lohit":"https://www.omicronlab.com/download/fonts/Lohit_14-04-2007.ttf"
+        });
+    </script>
+
+    <script>
         var generatePDF = function () {
             kendo.drawing.drawDOM($("#pdfReport"), {
                 avoidLinks: true,
-                paperSize: "A4"
+                paperSize: "A4",
+                landscape: true/*,
+                font: "14px, DejaVu Sans,DejaVu Sans|Bold,SiyamRupali,SolaimanLipi, Kalpurush"*/
+
+                /*'DejaVu Sans', 'Arial', 'sans-serif', 'Kalpurush', 'SiyamRupali',*/
             }).then(function (group) {
                 kendo.drawing.pdf.saveAs(group, "Acr-Summary.pdf");
             });
         }
     </script>
+
 </head>
+
 <body>
 <div class="container">
 
     <button class="btn btn-primary" onclick="generatePDF()"><i class="fa fa-save"></i> Save as PDF</button>
 
-    <div id="pdfReport" style="padding: 20px">
-        <p style="text-align:center;"><img th:src="@{/images/Seal.500.png}" height="100px" width="100px"/></p>
+    <div id="pdfReport">
 
-        <h2 style="text-align: center">Internal Resource Division</h2>
-        <h4 style="text-align: center">ACR Summary</h4>
+        <div style="margin: 15px">
+            <p style="text-align:center;"><img th:src="@{/images/Seal.500.png}" height="100px" width="100px"/></p>
+            <h2 style="text-align: center">Internal Resource Division</h2>
+            <h4 style="text-align: center">ACR Summary</h4>
+            <span style="text-align: center" th:if="${summary.size() gt 0}">
+                <h4 style="text-align: center">Personal Information</h4>
+                <h6><b>Full Name :</b> <span th:text="${summary[0].name}"></span></h6>
+                <h6><b>Govt. Id  :</b> <span th:text="${summary[0].govtId}"></span></h6>
+            </span>
+            <br/>
 
-        <br/> <br/>
-        <table class="table table-striped" border="1">
-            <thead>
-            <tr>
-                <th style="text-align: center">Govt. ID</th>
-                <th style="text-align: center">Name</th>
-                <th style="text-align: center">Year</th>
-                <th style="text-align: center">Assigned From</th>
-                <th style="text-align: center">Assigned To</th>
-                <th style="text-align: center">Marks</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="acr : ${summary}">
-                <td th:text="${acr.govtId}" align="center"></td>
-                <td th:text="${acr.name}" align="center"></td>
-                <td th:text="${acr.year}" align="center"></td>
-                <td th:text="${acr.assigned_from}" align="center"></td>
-                <td th:text="${acr.assigned_to}" align="center"></td>
-                <td th:text="${acr.marks}" align="center"></td>
-            </tr>
-            </tbody>
-        </table>
-
-        <span th:if="${summary.size() lt 1}">
+            <table class="table table-striped" border="1">
+                <thead>
+                <tr>
+                    <th style="text-align: center">Year</th>
+                    <th style="text-align: center">Assigned From</th>
+                    <th style="text-align: center">Assigned To</th>
+                    <th style="text-align: center">Marks</th>
+                    <th style="text-align: center">First Comment</th>
+                    <th style="text-align: center">Second Comment</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="acr : ${summary}">
+                    <td th:text="${acr.year}" align="center"></td>
+                    <td th:text="${acr.assigned_from}" align="center"></td>
+                    <td th:text="${acr.assigned_to}" align="center"></td>
+                    <td th:text="${acr.marks}" align="center"></td>
+                    <td th:text="${acr.comment1}" align="center"></td>
+                    <td th:text="${acr.comment2}" align="center"></td>
+                </tr>
+                </tbody>
+            </table>
+            <span th:if="${summary.size() lt 1}">
             <p style="text-align: center">No data Available For this Id</p>
         </span>
-
+        </div>
     </div>
 </div>
 </body>

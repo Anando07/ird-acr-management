@@ -49,13 +49,15 @@ public class AcrMapper {
     MySessionInfo sessionInfo;
 
     public ACR requestMapper(AcrDTO dto) throws ParseException {
-        ACR acr= new ACR();
-        if(dto.getId() !=null)
-        {
+        ACR acr = new ACR();
+        if (dto.getId() != null) {
             acr.setId(dto.getId());
         }
         acr.setGovtId(dto.getGovtId());
         acr.setName(dto.getName());
+        if (dto.getExtraComment() != null) {
+            acr.setExtraComment(dto.getExtraComment());
+        }
         acr.setComment1(dto.getComment1());
         acr.setComment2(dto.getComment2());
         acr.setMarks(dto.getMarks());
@@ -70,12 +72,14 @@ public class AcrMapper {
     }
 
 
-    public AcrDTO responseMapper(ACR acr)
-    {
+    public AcrDTO responseMapper(ACR acr) {
         AcrDTO dto = new AcrDTO();
         dto.setId(acr.getId());
         dto.setGovtId(acr.getGovtId());
         dto.setName(acr.getName());
+        if (acr.getExtraComment() != null) {
+            dto.setExtraComment(acr.getExtraComment());
+        }
         dto.setComment1(acr.getComment1());
         dto.setComment2(acr.getComment2());
         dto.setMarks(acr.getMarks());
@@ -87,13 +91,12 @@ public class AcrMapper {
 
         List<String> fileList = new ArrayList<>();
 
-        for(AcrFileRelation acrFile : list)
-        {
+        for (AcrFileRelation acrFile : list) {
             AcrFile file = acrFileService.findById(acrFile.getAcrFile().getId());
             fileList.add(file.getUrl());
         }
         dto.setFileNameList(fileList);
-        if(acr.getDepartment() !=null) {
+        if (acr.getDepartment() != null) {
             dto.setDeptId(acr.getDepartment().getId());
         }
         return dto;

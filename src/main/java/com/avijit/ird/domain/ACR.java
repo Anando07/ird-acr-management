@@ -22,6 +22,10 @@ public class ACR {
     private String name;
 
     @Lob
+    @Column(name = "extra_comment", columnDefinition = "text")
+    private String extraComment;
+
+    @Lob
     @Column(name = "comment1", columnDefinition = "text")
     private String comment1;
 
@@ -153,6 +157,14 @@ public class ACR {
 
     public void setDepartment(Department department) {
         this.department = department;
+    }
+
+    public String getExtraComment() {
+        return extraComment;
+    }
+
+    public void setExtraComment(String extraComment) {
+        this.extraComment = extraComment;
     }
 
     @Override

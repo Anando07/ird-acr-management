@@ -26,7 +26,6 @@ public class ReportController{
 
     @GetMapping(value = "/summary")
     public String generateAcrSummaryByGovtId(@RequestParam String govtId, Model model) throws NotFoundException {
-        List<AcrDTO> list = acrService.getAllAcrByGovtId(govtId);
         model.addAttribute("summary",acrService.getAllAcrByGovtId(govtId));
         return "report/acrSummary";
     }

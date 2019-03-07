@@ -1,6 +1,7 @@
 package com.avijit.ird.controller;
 
 import com.avijit.ird.common.Util.DateUtil;
+import com.avijit.ird.configuration.MySessionInfo;
 import com.avijit.ird.domain.ACR;
 import com.avijit.ird.domain.Department;
 import com.avijit.ird.domain.dto.AcrDTO;
@@ -76,6 +77,9 @@ public class AdminController {
     @Autowired
     AsyncService asyncService;
 
+    @Autowired
+    MySessionInfo sessionInfo;
+
 
     @InitBinder("userRequestDto")
     public void initBinder(WebDataBinder binder) {
@@ -129,6 +133,7 @@ public class AdminController {
         List<UserDTO> list = userService.userList();
         model.addAttribute("user", new UserDTO());
         model.addAttribute("userlist", list);
+        model.addAttribute("userId",sessionInfo.getCurrentUser().getId());
         return "admin/userList";
     }
 

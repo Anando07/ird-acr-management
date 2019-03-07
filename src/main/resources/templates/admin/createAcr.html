@@ -3,7 +3,7 @@
 <head>
     <link rel="icon" type="image/png" href="../images/fav-icon.ico">
     <meta charset="UTF-8">
-    <title>Internal Resource Division</title>
+    <title>Internal Resources Division</title>
 
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <link href="../css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
@@ -116,6 +116,17 @@
                                                 th:value="${dept.id}" th:text="${dept.name}"></option>
                                     </optgroup>
                                 </select>
+                            </div>
+                        </div>
+
+
+                        <!-- Text Area-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="comment1">Additional Comment</label>
+                            <div class="col-md-4">
+                                <textarea id="extraComment" name="extraComment" type="text" placeholder="Additional Comment"
+                                          class="form-control input-md"
+                                          th:field="*{extraComment}"></textarea>
                             </div>
                         </div>
 
