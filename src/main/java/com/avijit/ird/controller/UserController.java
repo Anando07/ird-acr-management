@@ -44,8 +44,20 @@ public class UserController {
     public ModelAndView allAcrOfGovtId(@RequestParam("govtId") String govtId)
     {
         ModelAndView mv = new ModelAndView("home::allAcr");
-        List<AcrDTO> allAcr = acrService.getAllAcrByGovtId(govtId);
+        List<AcrDTO> allAcr = acrService.getAllRequiredAcrByGovtId(govtId);
         mv.addObject("oldAcr",allAcr);
         return mv;
     }
+
+
+    @GetMapping(value = "/user/notRequired/acr")
+    public ModelAndView allNotRequiredAcrOfGovtId(@RequestParam("govtId") String govtId)
+    {
+        ModelAndView mv = new ModelAndView("home::notRequired");
+        List<AcrDTO> allAcr = acrService.getAllNotRequiredAcrByGovtId(govtId);
+        mv.addObject("notRequiredList",allAcr);
+        return mv;
+    }
+
+
 }

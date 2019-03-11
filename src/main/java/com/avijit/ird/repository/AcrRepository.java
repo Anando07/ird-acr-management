@@ -25,9 +25,24 @@ public interface AcrRepository extends JpaRepository<ACR, Long> {
 
     List<ACR> findByGovtIdOrderByCreatedOnDesc(String govtId);
 
-    List<ACR> findByGovtIdAndYearOrderByYearDesc(String govtId, String year);
+
+
+
+    /*List<ACR> findByGovtIdAndYearOrderByYearDesc(String govtId, String year);*/
+
+    @Query(value = "SELECT * FROM acr WHERE govt_id =:govtId AND year =:year AND (acr_required_type IS TRUE OR acr_required_type IS NULL) ORDER BY year DESC", nativeQuery = true)
+    List<ACR> findRequiredACRbyGovtIdAndYear(@Param("govtId")String govtId, @Param("year") String year);
 
     List<ACR> findByGovtIdOrderByYearDesc(String govtId);
+
+
+
+
+    @Query(value = "SELECT * FROM acr WHERE govt_id =:govtId AND (acr_required_type IS TRUE OR acr_required_type IS NULL) ORDER BY year DESC", nativeQuery = true)
+    List<ACR> findAllRequiredACRbyGovtId(String govtId);
+
+    List<ACR> findAllByGovtIdAndAcrRequiredTypeFalseOrderByYearDesc(String govtId);
+
 
     List<ACR> findAllByDepartmentIdOrderByYearDesc(Long deptId);
 

@@ -44,27 +44,27 @@
 
                             <!--<div class="form-group">-->
                             <div class="col-md-2">
-                            <label>Department</label>
-                                </div>
-                                <div class="col-md-4">
+                                <label>Department</label>
+                            </div>
+                            <div class="col-md-4">
 
-                                    <select
-                                            class="select2 form-control department"
-                                            >
+                                <select
+                                        class="select2 form-control department"
+                                >
 
-                                            <option th:each="dept : ${deptList}"
-                                                    th:value="${dept.id}" th:text="${dept.name}"></option>
+                                    <option th:each="dept : ${deptList}"
+                                            th:value="${dept.id}" th:text="${dept.name}"></option>
 
-                                    </select>
+                                </select>
 
                             </div>
 
-            <input type="hidden" id="deptId" name="deptId">
+                            <input type="hidden" id="deptId" name="deptId">
                             <div class="input-group-btn col-md-2">
-                               <button class="btn btn-default" type="submit">
-                                   <span class="glyphicon glyphicon-search"></span>
-                               </button>
-                             </div>
+                                <button class="btn btn-default" type="submit">
+                                    <span class="glyphicon glyphicon-search"></span>
+                                </button>
+                            </div>
                         </div>
                     </form>
                     <br/>
@@ -200,13 +200,8 @@
 
 <script th:inline="javascript">
 
-    $(".department option:selected").each(function() {
-
-
+    $(".department option:selected").each(function () {
         $('#deptId').val($(this).val());
-
-
-
     });
 
 
@@ -258,14 +253,11 @@
     }
 
 
-    $(".department").change(function() {
-        $(".department option:selected").each(function() {
-
-
+    $(".department").change(function () {
+        $(".department option:selected").each(function () {
             $('#deptId').val($(this).val());
-          //  alert($('#deptId').val());
-
-        });    });
+        });
+    });
 
 
 </script>
@@ -307,14 +299,6 @@
                     <label class="col-md-4 control-label">Marks</label>
                     <span th:text="${acr.marks}"/>
                 </div>
-
-
-                    <div th:if="${acr.extraComment != ''}" class="form-group">
-                        <label class="col-md-4 control-label">Additional Comment</label>
-                        <span th:text="${acr.extraComment}"/>
-                    </div>
-
-
                 <div class="form-group">
                     <label class="col-md-4 control-label">First Comment</label>
                     <span th:text="${acr.comment1}"/>
@@ -322,6 +306,11 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label">Second Comment</label>
                     <span th:text="${acr.comment2}"/>
+                </div>
+
+                <div th:if="${acr.remarks != '' && acr.remarks != null}" class="form-group">
+                    <label class="col-md-4 control-label">Remarks</label>
+                    <span th:text="${acr.remarks}"/>
                 </div>
                 <div class="form-group">
                     <label class="col-md-4 control-label">Files</label>

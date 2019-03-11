@@ -55,12 +55,14 @@ public class AcrMapper {
         }
         acr.setGovtId(dto.getGovtId());
         acr.setName(dto.getName());
-        if (dto.getExtraComment() != null) {
-            acr.setExtraComment(dto.getExtraComment());
+        acr.setAcrRequiredType(dto.getAcrRequiredType());
+        if (dto.getRemarks() != null) {
+            acr.setRemarks(dto.getRemarks());
         }
         acr.setComment1(dto.getComment1());
         acr.setComment2(dto.getComment2());
         acr.setMarks(dto.getMarks());
+        acr.setMarksComment(dto.getMarksComment());
         acr.setYear(dto.getYear());
         acr.setAssigned_from(DateTimeUtils.toDate(dto.getAssigned_from()));
         acr.setAssigned_to(DateTimeUtils.toDate(dto.getAssigned_to()));
@@ -77,12 +79,14 @@ public class AcrMapper {
         dto.setId(acr.getId());
         dto.setGovtId(acr.getGovtId());
         dto.setName(acr.getName());
-        if (acr.getExtraComment() != null) {
-            dto.setExtraComment(acr.getExtraComment());
+        if (acr.getRemarks() != null) {
+            dto.setRemarks(acr.getRemarks());
         }
         dto.setComment1(acr.getComment1());
         dto.setComment2(acr.getComment2());
+        dto.setAcrRequiredType(acr.getAcrRequiredType());
         dto.setMarks(acr.getMarks());
+        dto.setMarksComment(acr.getMarksComment());
         dto.setYear(acr.getYear());
         dto.setAssigned_from(DateTimeUtils.toDateString(acr.getAssigned_from()));
         dto.setAssigned_to(DateTimeUtils.toDateString(acr.getAssigned_to()));

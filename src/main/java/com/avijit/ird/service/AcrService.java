@@ -29,6 +29,8 @@ public interface AcrService {
 
     List<AcrDTO> getAllAcrByGovtId(String govtId);
 
+    List<AcrDTO> getAllRequiredAcrByGovtId(String govtId);
+
     List<AcrDTO> getAcrByYear(String year);
 
     List<AcrDTO> getAcrList(String year, String deptId);
@@ -36,4 +38,6 @@ public interface AcrService {
     List<AcrDTO> getAcrByDeptId(Long deptId);
 
     List<AcrDTO> getAcrByYearAndDeptId(String year, Long deptId);
+
+    List<AcrDTO> getAllNotRequiredAcrByGovtId(String govtId);
 }

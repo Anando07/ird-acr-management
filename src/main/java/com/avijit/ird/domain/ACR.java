@@ -21,9 +21,11 @@ public class ACR {
 
     private String name;
 
+    private Boolean acrRequiredType = true;
+
     @Lob
-    @Column(name = "extra_comment", columnDefinition = "text")
-    private String extraComment;
+    @Column(name = "remarks", columnDefinition = "text")
+    private String remarks;
 
     @Lob
     @Column(name = "comment1", columnDefinition = "text")
@@ -34,6 +36,8 @@ public class ACR {
     private String comment2;
 
     private Double marks;
+
+    private String marksComment;
 
     private String year;
 
@@ -159,12 +163,28 @@ public class ACR {
         this.department = department;
     }
 
-    public String getExtraComment() {
-        return extraComment;
+    public String getRemarks() {
+        return remarks;
     }
 
-    public void setExtraComment(String extraComment) {
-        this.extraComment = extraComment;
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
+    }
+
+    public String getMarksComment() {
+        return marksComment;
+    }
+
+    public void setMarksComment(String marksComment) {
+        this.marksComment = marksComment;
+    }
+
+    public Boolean getAcrRequiredType() {
+        return acrRequiredType;
+    }
+
+    public void setAcrRequiredType(Boolean acrRequiredType) {
+        this.acrRequiredType = acrRequiredType;
     }
 
     @Override

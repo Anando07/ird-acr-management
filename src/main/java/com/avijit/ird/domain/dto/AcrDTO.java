@@ -22,13 +22,17 @@ public class AcrDTO {
 
     private String name;
 
-    private String extraComment;
+    private Boolean acrRequiredType = true;
+
+    private String remarks;
 
     private String comment1;
 
     private String comment2;
 
     private Double marks;
+
+    private String marksComment;
 
     private String year;
 
@@ -73,6 +77,14 @@ public class AcrDTO {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Boolean getAcrRequiredType() {
+        return acrRequiredType;
+    }
+
+    public void setAcrRequiredType(Boolean acrRequiredType) {
+        this.acrRequiredType = acrRequiredType;
     }
 
     public String getComment1() {
@@ -163,12 +175,20 @@ public class AcrDTO {
         this.deptId = deptId;
     }
 
-    public String getExtraComment() {
-        return extraComment;
+    public String getRemarks() {
+        return remarks;
     }
 
-    public void setExtraComment(String extraComment) {
-        this.extraComment = extraComment;
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
+    }
+
+    public String getMarksComment() {
+        return marksComment;
+    }
+
+    public void setMarksComment(String marksComment) {
+        this.marksComment = marksComment;
     }
 
     @Override

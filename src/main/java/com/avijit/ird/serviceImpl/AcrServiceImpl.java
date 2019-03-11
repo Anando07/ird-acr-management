@@ -106,7 +106,7 @@ public class AcrServiceImpl implements AcrService {
     @Override
     public List<AcrDTO> getAcrOfGovtIdWithCurrentYear(String govtId) {
         String[] date = DateUtil.getReadableDate(new Date()).split(" ");
-        List<ACR> acrList = acrRepository.findByGovtIdAndYearOrderByYearDesc(govtId, date[2]);
+        List<ACR> acrList = acrRepository.findRequiredACRbyGovtIdAndYear(govtId, date[2]);
         List<AcrDTO> dtoList = new ArrayList<>();
         for (ACR acr : acrList) {
             dtoList.add(acrMapper.responseMapper(acr));
@@ -150,9 +150,33 @@ public class AcrServiceImpl implements AcrService {
         return dtoList;
     }
 
+
+    @Override
+    public List<AcrDTO> getAllNotRequiredAcrByGovtId(String govtId) {
+        List<ACR> acrList = acrRepository.findAllByGovtIdAndAcrRequiredTypeFalseOrderByYearDesc(govtId);
+        List<AcrDTO> dtoList = new ArrayList<>();
+        for (ACR acr : acrList) {
+            if (!acr.getDeleted()) {
+                dtoList.add(acrMapper.responseMapper(acr));
+            }
+        }
+        return dtoList;
+    }
+
     @Override
     public List<AcrDTO> getAllAcrByGovtId(String govtId) {
         List<ACR> acrList = acrRepository.findByGovtIdOrderByYearDesc(govtId);
+        List<AcrDTO> dtoList = new ArrayList<>();
+        for (ACR acr : acrList) {
+            dtoList.add(acrMapper.responseMapper(acr));
+        }
+        return dtoList;
+    }
+
+
+    @Override
+    public List<AcrDTO> getAllRequiredAcrByGovtId(String govtId) {
+        List<ACR> acrList = acrRepository.findAllRequiredACRbyGovtId(govtId);
         List<AcrDTO> dtoList = new ArrayList<>();
         for (ACR acr : acrList) {
             dtoList.add(acrMapper.responseMapper(acr));

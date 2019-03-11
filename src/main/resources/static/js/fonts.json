@@ -1,0 +1,22 @@
+[
+    {
+        "fontFamily": "Lohit",
+        "fontWeight": "normal",
+        "fontStyle": "normal",
+        "src": "./Lohit.ttf"
+    },
+    {
+        "fontFamily": "SolaimanLipi",
+        "fontWeight": "normal",
+        "fontStyle": "normal",
+        "src": "./SolaimanLipi.ttf"
+    },
+
+    {
+        "fontFamily": "Siyamrupali",
+        "fontWeight": "normal",
+        "fontStyle": "normal",
+        "src": "./Siyamrupali.ttf"
+    }
+
+]

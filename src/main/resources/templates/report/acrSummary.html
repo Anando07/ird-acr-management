@@ -6,72 +6,101 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
     <script src="//kendo.cdn.telerik.com/2016.3.914/js/kendo.all.min.js"></script>
+    <script th:src="@{/js/fonts.js}" type="text/javascript"></script>
 
-
+<!--
     <script>
         kendo.pdf.defineFont({
-            /*"DejaVu Sans":
+            "DejaVu Sans":
                 "http://cdn.kendostatic.com/2019.1.220/styles/fonts/DejaVu/DejaVuSans.ttf",
-
             "DejaVu Sans|Bold":
                 "http://cdn.kendostatic.com/2019.1.220/styles/fonts/DejaVu/DejaVuSans-Bold.ttf",
-
             "DejaVu Sans|Bold|Italic":
                 "http://cdn.kendostatic.com/2019.1.220/styles/fonts/DejaVu/DejaVuSans-Oblique.ttf",
-
             "DejaVu Sans|Italic":
-                "http://cdn.kendostatic.com/2019.1.220/styles/fonts/DejaVu/DejaVuSans-Oblique.ttf",*/
+                "http://cdn.kendostatic.com/2019.1.220/styles/fonts/DejaVu/DejaVuSans-Oblique.ttf",
             "Kalpurush":
                 "https://www.omicronlab.com/download/fonts/kalpurush.ttf",
             "SiyamRupali":
                 "https://www.omicronlab.com/download/fonts/Siyamrupali.ttf",
-            "SolaimanLipi": "https://www.omicronlab.com/download/fonts/SolaimanLipi_20-04-07.ttf",
-            "Kalpurush ANSI":"https://www.omicronlab.com/download/fonts/kalpurush%20ANSI.ttf",
-            "Siyam Rupali ANSI":"https://www.omicronlab.com/download/fonts/Siyam%20Rupali%20ANSI.ttf",
-            "AponaLohit":"https://www.omicronlab.com/download/fonts/AponaLohit.ttf",
-            "Bangla":"https://www.omicronlab.com/download/fonts/Bangla.ttf",
-            "AdorshoLipi":"https://www.omicronlab.com/download/fonts/AdorshoLipi_20-07-2007.ttf",
-            "Bensen":"https://www.omicronlab.com/download/fonts/BenSen.ttf",
-            "BenSenHandwriting":"https://www.omicronlab.com/download/fonts/BenSenHandwriting.ttf",
-            "Nikosh":"https://www.omicronlab.com/download/fonts/Nikosh.ttf",
-            "NikoshBAN":"https://www.omicronlab.com/download/fonts/NikoshBAN.ttf",
-            "NikoshGrameen":"https://www.omicronlab.com/download/fonts/NikoshGrameen.ttf",
-            "NikoshLight":"https://www.omicronlab.com/download/fonts/NikoshLight.ttf",
-            "NikoshLightBan":"https://www.omicronlab.com/download/fonts/NikoshLightBan.ttf",
-            "Akaash":"https://www.omicronlab.com/download/fonts/akaashnormal.ttf",
-            "Mitra Mono":"https://www.omicronlab.com/download/fonts/mitra.ttf",
-            "Sagar":"https://www.omicronlab.com/download/fonts/sagarnormal.ttf",
-            "Mukti narrow":"https://www.omicronlab.com/download/fonts/muktinarrow.ttf",
-            "Mukti":"https://www.omicronlab.com/download/fonts/Mukti_1.99_PR.ttf",
-            "Lohit":"https://www.omicronlab.com/download/fonts/Lohit_14-04-2007.ttf"
+            "SolaimanLipi":
+                "https://www.omicronlab.com/download/fonts/SolaimanLipi_20-04-07.ttf",
+            "Kalpurush ANSI":
+                "https://www.omicronlab.com/download/fonts/kalpurush%20ANSI.ttf",
+            "Siyam Rupali ANSI":
+                "https://www.omicronlab.com/download/fonts/Siyam%20Rupali%20ANSI.ttf",
+            "AponaLohit":
+                "https://www.omicronlab.com/download/fonts/AponaLohit.ttf",
+            "Bangla":
+                "https://www.omicronlab.com/download/fonts/Bangla.ttf",
+            "AdorshoLipi":
+                "https://www.omicronlab.com/download/fonts/AdorshoLipi_20-07-2007.ttf",
+            "Bensen":
+                "https://www.omicronlab.com/download/fonts/BenSen.ttf",
+            "BenSenHandwriting":
+                "https://www.omicronlab.com/download/fonts/BenSenHandwriting.ttf",
+            "Nikosh":
+                "https://www.omicronlab.com/download/fonts/Nikosh.ttf",
+            "NikoshBAN":
+                "https://www.omicronlab.com/download/fonts/NikoshBAN.ttf",
+            "NikoshGrameen":
+                "https://www.omicronlab.com/download/fonts/NikoshGrameen.ttf",
+            "NikoshLight":
+                "https://www.omicronlab.com/download/fonts/NikoshLight.ttf",
+            "NikoshLightBan":
+                "https://www.omicronlab.com/download/fonts/NikoshLightBan.ttf",
+            "Akaash":
+                "https://www.omicronlab.com/download/fonts/akaashnormal.ttf",
+            "Mitra Mono":
+                "https://www.omicronlab.com/download/fonts/mitra.ttf",
+            "Sagar":
+                "https://www.omicronlab.com/download/fonts/sagarnormal.ttf",
+            "Mukti narrow":
+                "https://www.omicronlab.com/download/fonts/muktinarrow.ttf",
+            "Mukti":
+                "https://www.omicronlab.com/download/fonts/Mukti_1.99_PR.ttf",
+            "Lohit":
+                "https://www.omicronlab.com/download/fonts/Lohit_14-04-2007.ttf"
+
         });
-    </script>
+    </script>-->
+
 
     <script>
-        var generatePDF = function () {
+        function generatePDF() {
             kendo.drawing.drawDOM($("#pdfReport"), {
-                avoidLinks: true,
                 paperSize: "A4",
-                landscape: true/*,
-                font: "14px, DejaVu Sans,DejaVu Sans|Bold,SiyamRupali,SolaimanLipi, Kalpurush"*/
-
-                /*'DejaVu Sans', 'Arial', 'sans-serif', 'Kalpurush', 'SiyamRupali',*/
+                landscape: true
             }).then(function (group) {
                 kendo.drawing.pdf.saveAs(group, "Acr-Summary.pdf");
             });
+
+          /*  var draw = kendo.drawing;
+            var geom = kendo.geometry;
+
+            var text = new draw.Text(
+                "Lorem ípsum dolor sit amét,pro éu facilis vulputáte témporibus. আমার নাম",
+                [20, 20], {
+                    font: "14px 'Lohit', Arial"
+                });
+
+            var root = new draw.Group();
+            root.append(text);
+            draw.exportPDF(root, {paperSize: "A4", landscape: true}).done(function (data) {
+                kendo.saveAs({
+                    dataURI: data,
+                    fileName: "dejavu.pdf"
+                });
+            });*/
         }
     </script>
-
 </head>
-
 <body>
 <div class="container">
 
@@ -81,7 +110,7 @@
 
         <div style="margin: 15px">
             <p style="text-align:center;"><img th:src="@{/images/Seal.500.png}" height="100px" width="100px"/></p>
-            <h2 style="text-align: center">Internal Resource Division</h2>
+            <h2 style="text-align: center">Internal Resources Division</h2>
             <h4 style="text-align: center">ACR Summary</h4>
             <span style="text-align: center" th:if="${summary.size() gt 0}">
                 <h4 style="text-align: center">Personal Information</h4>
@@ -99,6 +128,7 @@
                     <th style="text-align: center">Marks</th>
                     <th style="text-align: center">First Comment</th>
                     <th style="text-align: center">Second Comment</th>
+                    <th style="text-align: center">Remarks</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -106,9 +136,11 @@
                     <td th:text="${acr.year}" align="center"></td>
                     <td th:text="${acr.assigned_from}" align="center"></td>
                     <td th:text="${acr.assigned_to}" align="center"></td>
-                    <td th:text="${acr.marks}" align="center"></td>
+                    <td th:text="${acr.marks != null && acr.marks !=''? acr.marks:acr.marksComment}"
+                        align="center"></td>
                     <td th:text="${acr.comment1}" align="center"></td>
                     <td th:text="${acr.comment2}" align="center"></td>
+                    <td th:text="${acr.remarks}" align="center"></td>
                 </tr>
                 </tbody>
             </table>
