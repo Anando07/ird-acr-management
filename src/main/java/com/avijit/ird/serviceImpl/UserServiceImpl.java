@@ -1,11 +1,15 @@
 package com.avijit.ird.serviceImpl;
 
+import com.avijit.ird.common.LogStatus;
 import com.avijit.ird.common.Util.PasswordUtil;
+import com.avijit.ird.configuration.MySessionInfo;
+import com.avijit.ird.domain.AuditLog;
 import com.avijit.ird.domain.dto.UserDTO;
 import com.avijit.ird.mapper.UserMapper;
 import com.avijit.ird.common.Exception.UserNotFoundException;
 import com.avijit.ird.domain.Role;
 import com.avijit.ird.domain.User;
+import com.avijit.ird.repository.AuditLogRepository;
 import com.avijit.ird.repository.UserRepository;
 import com.avijit.ird.service.RoleService;
 import com.avijit.ird.service.UserService;
@@ -13,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -23,8 +28,12 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     RoleService roleService;
+    @Autowired
+    MySessionInfo sessionInfo;
 
     private UserRepository userRepository;
+    @Autowired
+    AuditLogRepository logRepository;
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository) {
@@ -53,20 +62,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User addUser(UserDTO userRequestDto) throws Exception {
-        return userRepository.save(userMapper.requestMapper(userRequestDto));
+        User user = userRepository.save(userMapper.requestMapper(userRequestDto));
+        //saving log
+        logRepository.save(new AuditLog(sessionInfo.getCurrentUser().getName() + LogStatus.createUser + new Date()));
+        return user;
     }
-
-/*    @Override
-    public UserResponsePage getAllUsers(Integer page) {
-        Page<User> userList = userRepository.findAll(new PageRequest(page, PageAttribute.PAGE_SIZE));
-        List<UserResponseDto> userDtoList = new ArrayList<>();
-        for (User user : userList.getContent()) {
-            if (user.isDeleted() == false) {
-                userDtoList.add(userMapper.responseMapper(user));
-            }
-        }
-        return new UserResponsePage(userDtoList, userList);
-    }*/
 
     @Override
     public User deleteUser(String userId) {
@@ -94,7 +94,9 @@ public class UserServiceImpl implements UserService {
         user.setPhone(dto.getPhone());
         Role role = roleService.findRoleById(dto.getRoleId());
         user.setRole(role);
-        return userRepository.save(user);
+        User temp = userRepository.save(user);
+        logRepository.save(new AuditLog(sessionInfo.getCurrentUser().getName() + LogStatus.updateUser + new Date()));
+        return temp;
     }
 
     @Override
@@ -114,5 +116,6 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.getOne(userId);
         user.setPassword(PasswordUtil.encryptPassword(password, PasswordUtil.EncType.BCRYPT_ENCODER, null));
         userRepository.save(user);
+        logRepository.save(new AuditLog(sessionInfo.getCurrentUser().getName() + LogStatus.resetPass + new Date()));
     }
 }

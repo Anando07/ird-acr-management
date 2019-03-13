@@ -34,8 +34,8 @@ public class AcrFileServiceImpl implements AcrFileService {
     @Override
     public AcrFile addImage(AcrFile image) {
 
-        AcrFile i =findByUrl(image.getUrl());
-        if(i==null) {
+        AcrFile i = findByUrl(image.getUrl());
+        if (i == null) {
             return acrFileRepository.save(image);
         }
         return i;
@@ -70,8 +70,7 @@ public class AcrFileServiceImpl implements AcrFileService {
         List<AcrFileRelation> relationList = acrFileRelService.findListByAcrId(acrId);
 
         List<AcrFile> files = new ArrayList<>();
-        for(AcrFileRelation relation : relationList)
-        {
+        for (AcrFileRelation relation : relationList) {
             files.add(acrFileService.findById(relation.getAcrFile().getId()));
         }
         return files;

@@ -13,9 +13,9 @@ import java.util.List;
 @Service
 public interface DepartmentService {
 
-    Department delete(Long deptId);
+    void delete(Long deptId);
 
-    Department update(Department department);
+    void update(Department department);
 
     Department save(String name);
 

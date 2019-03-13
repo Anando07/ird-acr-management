@@ -25,7 +25,13 @@ public class UserMapper {
         if (role == null) {
             throw new EntityNotFoundException("Role does not exist");
         }
+
         User entity = new User();
+
+        if (dto.getId() != null) {
+            entity.setId(dto.getId());
+        }
+
         entity.setName(dto.getName());
         entity.setDesignation(dto.getDesignation());
         entity.setUsername(dto.getUsername());

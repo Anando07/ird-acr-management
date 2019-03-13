@@ -14,8 +14,6 @@ public interface UserService {
 
     User addUser(UserDTO userRequestDto) throws Exception;
 
-    //UserResponsePage getAllUsers(Integer page);
-
     User deleteUser(String userId);
 
     User findByUserId(String userID);

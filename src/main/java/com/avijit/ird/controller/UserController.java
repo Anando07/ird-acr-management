@@ -25,14 +25,12 @@ public class UserController {
 
 
     @GetMapping(value = "/")
-    public String home(Model model)
-    {
+    public String home(Model model) {
         return "home";
     }
 
     @GetMapping(value = "/user/govtId")
-    public ModelAndView acrOfGovtId(@RequestParam("govtId") String govtId)
-    {
+    public ModelAndView acrOfGovtId(@RequestParam("govtId") String govtId) {
         ModelAndView mv = new ModelAndView("home::acrList");
         List<AcrDTO> dtoList = acrService.getAcrOfGovtIdWithCurrentYear(govtId);
         mv.addObject("list", dtoList);
@@ -41,23 +39,19 @@ public class UserController {
     }
 
     @GetMapping(value = "/user/allAcr")
-    public ModelAndView allAcrOfGovtId(@RequestParam("govtId") String govtId)
-    {
+    public ModelAndView allAcrOfGovtId(@RequestParam("govtId") String govtId) {
         ModelAndView mv = new ModelAndView("home::allAcr");
         List<AcrDTO> allAcr = acrService.getAllRequiredAcrByGovtId(govtId);
-        mv.addObject("oldAcr",allAcr);
+        mv.addObject("oldAcr", allAcr);
         return mv;
     }
 
 
     @GetMapping(value = "/user/notRequired/acr")
-    public ModelAndView allNotRequiredAcrOfGovtId(@RequestParam("govtId") String govtId)
-    {
+    public ModelAndView allNotRequiredAcrOfGovtId(@RequestParam("govtId") String govtId) {
         ModelAndView mv = new ModelAndView("home::notRequired");
         List<AcrDTO> allAcr = acrService.getAllNotRequiredAcrByGovtId(govtId);
-        mv.addObject("notRequiredList",allAcr);
+        mv.addObject("notRequiredList", allAcr);
         return mv;
     }
-
-
 }

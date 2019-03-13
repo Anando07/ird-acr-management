@@ -80,24 +80,6 @@
             }).then(function (group) {
                 kendo.drawing.pdf.saveAs(group, "Acr-Summary.pdf");
             });
-
-          /*  var draw = kendo.drawing;
-            var geom = kendo.geometry;
-
-            var text = new draw.Text(
-                "Lorem ípsum dolor sit amét,pro éu facilis vulputáte témporibus. আমার নাম",
-                [20, 20], {
-                    font: "14px 'Lohit', Arial"
-                });
-
-            var root = new draw.Group();
-            root.append(text);
-            draw.exportPDF(root, {paperSize: "A4", landscape: true}).done(function (data) {
-                kendo.saveAs({
-                    dataURI: data,
-                    fileName: "dejavu.pdf"
-                });
-            });*/
         }
     </script>
 </head>

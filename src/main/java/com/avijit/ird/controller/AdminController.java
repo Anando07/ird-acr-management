@@ -191,16 +191,17 @@ public class AdminController {
         model.addAttribute("deptList", deptList);
         model.addAttribute("acr", new AcrDTO());
         return "admin/acrList";
-
     }
 
 
+/*
     @PostMapping(value = "/updateAcr")
-    public String updateAcr(@ModelAttribute("acr") AcrDTO acr, BindingResult result, Model model) throws ParseException {
+    public String updateAcr(@ModelAttribute("acr") AcrDTO acr) throws ParseException {
         System.out.println(acr.toString());
         acrService.updateAcr(acr);
         return "redirect:/admin/acrList";
     }
+*/
 
 
     @GetMapping(value = "/getacr")
@@ -299,24 +300,6 @@ public class AdminController {
                 .contentType(MediaType.parseMediaType("application/pdf"))
                 .body(resource);
     }
-
-
-    //this is secret method
-    @Autowired
-    AcrRepository acrRepository;
-  @GetMapping(value = "/assign/dept")
-  public void assignDept()
-  {
-      Department department = departmentService.save("Default");
-      List<ACR> acrs = acrRepository.findAll();
-      for(ACR acr : acrs)
-      {
-          acr.setDepartment(department);
-          acrRepository.save(acr);
-      }
-  }
-
-
 
 
 }
