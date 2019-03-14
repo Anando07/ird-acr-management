@@ -9,10 +9,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-
     <script src="//kendo.cdn.telerik.com/2016.3.914/js/kendo.all.min.js"></script>
     <script th:src="@{/js/fonts.js}" type="text/javascript"></script>
+
+
 
 <!--
     <script>
@@ -27,7 +27,7 @@
                 "http://cdn.kendostatic.com/2019.1.220/styles/fonts/DejaVu/DejaVuSans-Oblique.ttf",
             "Kalpurush":
                 "https://www.omicronlab.com/download/fonts/kalpurush.ttf",
-            "SiyamRupali":
+            "Siyamrupali":
                 "https://www.omicronlab.com/download/fonts/Siyamrupali.ttf",
             "SolaimanLipi":
                 "https://www.omicronlab.com/download/fonts/SolaimanLipi_20-04-07.ttf",
@@ -69,22 +69,52 @@
                 "https://www.omicronlab.com/download/fonts/Lohit_14-04-2007.ttf"
 
         });
-    </script>-->
+    </script>
+
+-->
 
 
+    <style>
+        /*@font-face {
+            font-family: "Siyamrupali";
+            src: url("./static/fonts/bangla/Siyamrupali.ttf") format("truetype");
+        }*/
+        .k-grid {
+            font-size: 10px;
+            font-family: "Siyamrupali","SolaimanLipi","Lohit","DejaVu Sans", "Arial", sans-serif;
+        }
+        .pdfReport {
+            font-family: "Siyamrupali","SolaimanLipi","Lohit","DejaVu Sans", "Arial", sans-serif;
+        }
+        .k-widget {
+            font-family: "Siyamrupali","SolaimanLipi","Lohit";
+        }
+    </style>
     <script>
         function generatePDF() {
+
+            $("#pdfReport").kendoEditor({
+                messages: {
+                    font:"Siyamrupali"
+                }
+            });
+
+
+
             kendo.drawing.drawDOM($("#pdfReport"), {
                 paperSize: "A4",
-                landscape: true
+                landscape: true,
+                font : "10px"
             }).then(function (group) {
                 kendo.drawing.pdf.saveAs(group, "Acr-Summary.pdf");
             });
         }
     </script>
 </head>
+
 <body>
 <div class="container">
+
 
     <button class="btn btn-primary" onclick="generatePDF()"><i class="fa fa-save"></i> Save as PDF</button>
 
