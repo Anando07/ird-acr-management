@@ -25,7 +25,6 @@ import java.util.List;
  * @created_on 12/27/18 at 10:29 AM
  * @project ird
  */
-//VARCHAR(255)
 @Service
 public class AcrServiceImpl implements AcrService {
 
