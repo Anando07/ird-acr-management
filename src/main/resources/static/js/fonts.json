@@ -1,20 +1,26 @@
 [
-
-    {
-        "fontFamily": "Siyamrupali",
-        "fontWeight": "normal",
-        "fontStyle": "normal",
-        "src": "../fonts/bangla/Siyamrupali.ttf"
-    }, {
-        "fontFamily": "Lohit",
-        "fontWeight": "normal",
-        "fontStyle": "normal",
-        "src": "../fonts/bangla/Lohit.ttf"
-    },{
-        "fontFamily": "SolaimanLipi",
-        "fontWeight": "normal",
-        "fontStyle": "normal",
-        "src": "../fonts/bangla/SolaimanLipi.ttf"
-    }
-
+  {
+    "fontFamily": "Siyamrupali",
+    "fontWeight": "normal",
+    "fontStyle": "normal",
+    "src": "../fonts/bangla/Siyamrupali.ttf"
+  },
+  {
+    "fontFamily": "Shonar",
+    "fontWeight": "bold",
+    "fontStyle": "bold",
+    "src": "../fonts/bangla/Shonar.ttf"
+  },
+  {
+    "fontFamily": "SolaimanLipi",
+    "fontWeight": "normal",
+    "fontStyle": "normal",
+    "src": "../fonts/bangla/SolaimanLipi.ttf"
+  },
+  {
+    "fontFamily": "Lohit",
+    "fontWeight": "normal",
+    "fontStyle": "normal",
+    "src": "../fonts/bangla/Lohit.ttf"
+  }
 ]

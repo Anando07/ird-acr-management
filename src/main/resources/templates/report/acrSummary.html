@@ -77,17 +77,18 @@
     <style>
         /*@font-face {
             font-family: "Siyamrupali";
-            src: url("./static/fonts/bangla/Siyamrupali.ttf") format("truetype");
+            src: url('./static/fonts/bangla/Siyamrupali.ttf') format('truetype');
         }*/
+
         .k-grid {
             font-size: 10px;
-            font-family: "Siyamrupali","SolaimanLipi","Lohit","DejaVu Sans", "Arial", sans-serif;
+            font-family:"SolaimanLipi","Siyamrupali","Lohit","DejaVu Sans", "Arial", sans-serif ;
         }
         .pdfReport {
-            font-family: "Siyamrupali","SolaimanLipi","Lohit","DejaVu Sans", "Arial", sans-serif;
+            font-family: "SolaimanLipi","Siyamrupali","Lohit","DejaVu Sans", "Arial", sans-serif;
         }
         .k-widget {
-            font-family: "Siyamrupali","SolaimanLipi","Lohit";
+            font-family: "SolaimanLipi","Siyamrupali","Lohit","DejaVu Sans", "Arial", sans-serif;
         }
     </style>
     <script>
@@ -95,16 +96,14 @@
 
             $("#pdfReport").kendoEditor({
                 messages: {
-                    font:"Siyamrupali"
+                    font: "Siyamrupali,SolaimanLipi"
                 }
             });
 
 
-
             kendo.drawing.drawDOM($("#pdfReport"), {
                 paperSize: "A4",
-                landscape: true,
-                font : "10px"
+                landscape: true
             }).then(function (group) {
                 kendo.drawing.pdf.saveAs(group, "Acr-Summary.pdf");
             });
