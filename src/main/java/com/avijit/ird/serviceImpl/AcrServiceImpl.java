@@ -150,7 +150,7 @@ public class AcrServiceImpl implements AcrService {
 
     @Override
     public List<AcrDTO> getAllNotRequiredAcrByGovtId(String govtId) {
-        List<ACR> acrList = acrRepository.findAllByGovtIdAndAcrRequiredTypeFalseOrderByYearDesc(govtId);
+        List<ACR> acrList = acrRepository.findAllByGovtIdAndAcrRequiredTypeFalseAndIsDeletedFalseOrderByYearDesc(govtId);
 /*        List<AcrDTO> dtoList = new ArrayList<>();
         for (ACR acr : acrList) {
             if (!acr.getDeleted()) {
