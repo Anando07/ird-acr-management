@@ -22,8 +22,8 @@ import static com.ztomic.wkhtmltopdf.argument.Option.PageOption.EnableJavascript
  */
 public class ReportService {
 
-    public static final String DOWNLOAD_PATH = "/opt/tomcat/webapps/tmp/downloads/"; // for droplet
-    //public static final String DOWNLOAD_PATH = "tmp/downloads/"; // for mac
+    //public static final String DOWNLOAD_PATH = "/opt/tomcat/webapps/tmp/downloads/"; // for droplet
+    public static final String DOWNLOAD_PATH = "tmp/downloads/"; // for mac
 
     public static final String ZIP_PATH = "/tmp/zip_files";
     public static final String FILE_NAME = "report";
@@ -36,8 +36,8 @@ public class ReportService {
 
     public static WkHtmlToPdf initialiseWkHtmlToPdf() {
         //WkHtmlToPdf pdf = new WkHtmlToPdf(); // for mac
-        WkHtmlToPdf pdf = new WkHtmlToPdf("/usr/local/bin/wkhtmltopdf.sh"); // for centos server
-        //WkHtmlToPdf pdf = new WkHtmlToPdf("/usr/bin/wkhtmltopdf.sh"); // for ubuntu server
+        //WkHtmlToPdf pdf = new WkHtmlToPdf("/usr/local/bin/wkhtmltopdf.sh"); // for centos server
+        WkHtmlToPdf pdf = new WkHtmlToPdf("/usr/bin/wkhtmltopdf.sh"); // for ubuntu server
         return pdf;
     }
 
@@ -48,7 +48,7 @@ public class ReportService {
 
     public static String getServerAbsolutePath(String requestPath) throws MalformedURLException {
         String URL = getBaseURL() + requestPath;
-        //System.out.println(URL);
+        System.out.println("URL is "+ URL);
         return URL;
     }
     public static String getBaseURL() throws MalformedURLException {

@@ -15,33 +15,10 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     <script th:src="@{/js/Siyamrupali-normal.js}" type="text/javascript"></script>
 
-
-    <script>
-        function generatePDF() {
-
-            var pdf = new jsPDF(
-                'landscape',
-                'in',
-                [4, 2]
-            );
-            /*pdf.addFileToVFS('Siyamrupali.ttf', '[Base64-encoded string of your font]');
-            pdf.addFont("Siyamrupali.ttf", "Siyamrupali", "normal");
-            pdf.setFont("Siyamrupali");
-            pdf.setFontSize(28);
-            pdf.internal.scaleFactor = 1;*/
-            pdf.addHTML($('#pdfReport'), function () {
-                pdf.save('div.pdf');
-            });
-        }
-    </script>
 </head>
 
 <body>
 <div class="container">
-
-
-    <button class="btn btn-primary" id="cmd" onclick="generatePDF()"><i class="fa fa-save"></i> Save as PDF</button>
-
     <div id="editor"></div>
 
     <div id="pdfReport" style="background-color: white; padding: 20px">
