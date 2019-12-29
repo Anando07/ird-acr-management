@@ -118,4 +118,11 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
         logRepository.save(new AuditLog(sessionInfo.getCurrentUser().getName() + LogStatus.resetPass + new Date()));
     }
+
+    @Override
+    public void resetPasswordManually(String username, String password) throws Exception {
+        User user = userRepository.findByUsername(username);
+        user.setPassword(PasswordUtil.encryptPassword(password, PasswordUtil.EncType.BCRYPT_ENCODER, null));
+        userRepository.save(user);
+    }
 }

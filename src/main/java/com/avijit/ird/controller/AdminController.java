@@ -1,15 +1,13 @@
 package com.avijit.ird.controller;
 
+import com.avijit.ird.common.Exception.EntityNotFoundException;
 import com.avijit.ird.common.Util.DateUtil;
 import com.avijit.ird.configuration.MySessionInfo;
-import com.avijit.ird.domain.ACR;
 import com.avijit.ird.domain.Department;
 import com.avijit.ird.domain.dto.AcrDTO;
 import com.avijit.ird.domain.dto.UserDTO;
-import com.avijit.ird.report.ReportService;
-import com.avijit.ird.common.Exception.EntityNotFoundException;
 import com.avijit.ird.mapper.UserMapper;
-import com.avijit.ird.repository.AcrRepository;
+import com.avijit.ird.report.ReportService;
 import com.avijit.ird.service.AcrFileService;
 import com.avijit.ird.service.AcrService;
 import com.avijit.ird.service.DepartmentService;
@@ -133,7 +131,7 @@ public class AdminController {
         List<UserDTO> list = userService.userList();
         model.addAttribute("user", new UserDTO());
         model.addAttribute("userlist", list);
-        model.addAttribute("userId",sessionInfo.getCurrentUser().getId());
+        model.addAttribute("userId", sessionInfo.getCurrentUser().getId());
         return "admin/userList";
     }
 
@@ -170,7 +168,7 @@ public class AdminController {
     @GetMapping(value = "/acrList")
     public String findAcrByType(@RequestParam(name = "year", required = false) String year, @RequestParam(name = "deptId", required = false) Long deptId, Model model) {
         List<Department> deptList = departmentService.getDepartments();
-        System.out.println("year "+year);
+        System.out.println("year " + year);
         String[] date = DateUtil.getReadableDate(new Date()).split(" ");
 
         if (deptList.size() < 1) {
@@ -181,9 +179,9 @@ public class AdminController {
             }
         } else {
             if (year == null && deptId == null) {
-                model.addAttribute("list", acrService.getAcrByYearAndDeptId(date[2],deptList.get(0).getId()));
+                model.addAttribute("list", acrService.getAcrByYearAndDeptId(date[2], deptList.get(0).getId()));
             } else if (year == null && deptId != null) {
-                model.addAttribute("list", acrService.getAcrByYearAndDeptId(date[2],deptId));
+                model.addAttribute("list", acrService.getAcrByYearAndDeptId(date[2], deptId));
             } else {
                 model.addAttribute("list", acrService.getAcrByYearAndDeptId(year, deptId));
             }
@@ -255,6 +253,13 @@ public class AdminController {
     public String resetPassword(@RequestParam("user_Id") Long userId, @RequestParam("newPassword") String password) throws Exception {
         System.out.println("userId is " + userId + " and password is " + password);
         userService.resetPassword(userId, password);
+        return "redirect:/admin/userList";
+    }
+
+    @GetMapping(value = "/manual/reset/password")
+    public String resetPasswordManually(@RequestParam("username") String username, @RequestParam("newPassword") String password) throws Exception {
+        System.out.println("username is " + username + " and password is " + password);
+        userService.resetPasswordManually(username, password);
         return "redirect:/admin/userList";
     }
 

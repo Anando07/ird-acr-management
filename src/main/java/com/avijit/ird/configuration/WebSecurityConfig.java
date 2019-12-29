@@ -90,13 +90,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .invalidateHttpSession(true)
                 .permitAll();
 
-        /*http.
-                sessionManagement()
-                .invalidSessionUrl("/login?expired")
-                .maximumSessions(-1)
-                .expiredUrl("/login?expired");*/
-
-
     }
 
 

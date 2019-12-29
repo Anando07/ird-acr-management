@@ -26,8 +26,5 @@ public interface UserService {
 
     void resetPassword(Long userId, String password) throws Exception;
 
-
-
-
-
+    void resetPasswordManually(String username, String password) throws Exception;
 }
