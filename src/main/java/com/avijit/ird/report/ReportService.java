@@ -22,8 +22,8 @@ import static com.ztomic.wkhtmltopdf.argument.Option.PageOption.EnableJavascript
  */
 public class ReportService {
 
-    //public static final String DOWNLOAD_PATH = "/opt/tomcat/webapps/tmp/downloads/"; // for droplet
-    public static final String DOWNLOAD_PATH = "tmp/downloads/"; // for mac
+    public static final String DOWNLOAD_PATH = "/opt/tomcat/webapps/tmp/downloads/"; // for droplet
+    //public static final String DOWNLOAD_PATH = "tmp/downloads/"; // for mac
 
     public static final String ZIP_PATH = "/tmp/zip_files";
     public static final String FILE_NAME = "report";
@@ -33,6 +33,7 @@ public class ReportService {
     public static final String ZIPFILE_NAME = "cmed_report.zip";
     public static final String SRCDIR = "/tmp/downloads";
     public static final String DATE_FORMAT_PATTERN = "yyyy-MM-dd-HH";
+    public static final String wkhtmlToPdfCommand = "/usr/local/bin/wkhtmltopdf";
 
     public static WkHtmlToPdf initialiseWkHtmlToPdf() {
         //WkHtmlToPdf pdf = new WkHtmlToPdf(); // for mac
@@ -78,7 +79,7 @@ public class ReportService {
 
     public static String generateAcrReportOfEmployee(String SPECIFIC_PATH,
                                                    String govtId) {
-        WkHtmlToPdf pdf = initialiseWkHtmlToPdf();
+        /*WkHtmlToPdf pdf = initialiseWkHtmlToPdf();
 
         try {
             String path = getServerAbsolutePath(SERVER_REPORT_URL
@@ -106,6 +107,19 @@ public class ReportService {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return downloadPath;*/
+        String path = null;
+        try {
+            path = getServerAbsolutePath(SERVER_REPORT_URL
+                    + SPECIFIC_PATH + "?govtId=" + govtId);
+
+            String command = wkhtmlToPdfCommand + " " + path + " " + DOWNLOAD_FILE_PATH + "-AcrSummary.pdf";
+            Process proc = Runtime.getRuntime().exec(command);
+            proc.waitFor();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String downloadPath = DOWNLOAD_FILE_PATH + "-AcrSummary.pdf";
         return downloadPath;
     }
 
