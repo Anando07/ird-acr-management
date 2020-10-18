@@ -1,5 +1,6 @@
 package com.avijit.ird.report;
 
+import com.github.jhonnymertz.wkhtmltopdf.wrapper.Pdf;
 import com.ztomic.wkhtmltopdf.WkHtmlToPdf;
 import com.ztomic.wkhtmltopdf.argument.Argument;
 import com.ztomic.wkhtmltopdf.source.Source;
@@ -37,8 +38,8 @@ public class ReportService {
 
     public static WkHtmlToPdf initialiseWkHtmlToPdf() {
         //WkHtmlToPdf pdf = new WkHtmlToPdf(); // for mac
-        //WkHtmlToPdf pdf = new WkHtmlToPdf("/usr/local/bin/wkhtmltopdf.sh"); // for centos server
-        WkHtmlToPdf pdf = new WkHtmlToPdf("/usr/bin/wkhtmltopdf.sh"); // for ubuntu server
+        WkHtmlToPdf pdf = new WkHtmlToPdf("/usr/local/bin/wkhtmltopdf.sh"); // for centos server
+        //WkHtmlToPdf pdf = new WkHtmlToPdf("/usr/bin/wkhtmltopdf.sh"); // for ubuntu server
         return pdf;
     }
 
@@ -79,7 +80,7 @@ public class ReportService {
 
     public static String generateAcrReportOfEmployee(String SPECIFIC_PATH,
                                                    String govtId) {
-        /*WkHtmlToPdf pdf = initialiseWkHtmlToPdf();
+        WkHtmlToPdf pdf = initialiseWkHtmlToPdf();
 
         try {
             String path = getServerAbsolutePath(SERVER_REPORT_URL
@@ -107,8 +108,8 @@ public class ReportService {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return downloadPath;*/
-        String path = null;
+        return downloadPath;
+        /*String path = null;
         try {
             path = getServerAbsolutePath(SERVER_REPORT_URL
                     + SPECIFIC_PATH + "?govtId=" + govtId);
@@ -120,7 +121,136 @@ public class ReportService {
             e.printStackTrace();
         }
         String downloadPath = DOWNLOAD_FILE_PATH + "-AcrSummary.pdf";
-        return downloadPath;
+        return downloadPath;*/
     }
+
+
+
+  /*  public static String generateAcrReportOfEmployee(String SPECIFIC_PATH,
+
+                                                     String govtId) {
+
+        WkHtmlToPdf pdf = initialiseWkHtmlToPdf();
+
+//        try {
+
+//            String path = getServerAbsolutePath(SERVER_REPORT_URL
+
+//                    + SPECIFIC_PATH + "?govtId=" + govtId);
+
+//            pdf.addSources(Source.fromUrl(path));
+
+//        } catch (Exception e) {
+
+//            e.printStackTrace();
+
+//        }
+
+//
+
+//        String downloadPath = DOWNLOAD_FILE_PATH + "-AcrSummary" + ".pdf";
+
+//
+
+//        pdf.addArguments(
+
+//                Argument.from(EnableJavascript));
+
+//
+
+//
+
+//
+
+//        // Save the PDF
+
+//        File file = new File(downloadPath);
+
+//
+
+//        System.out.println("Directory status: " + file.exists() + " " + file.isDirectory());
+
+//        System.out.println(downloadPath);
+
+//
+
+//        try {
+
+//            pdf.save(Paths.get(downloadPath));
+
+//        } catch (IOException e) {
+
+//            e.printStackTrace();
+
+//        }
+
+//        return downloadPath;
+
+//        String path = null;
+
+//        try {
+
+//            path = getServerAbsolutePath(SERVER_REPORT_URL
+
+//                    + SPECIFIC_PATH + "?govtId=" + govtId);
+
+//
+
+//            String command = wkhtmlToPdfCommand + " " + path + " " + DOWNLOAD_FILE_PATH + "-AcrSummary.pdf";
+
+//            Process proc = Runtime.getRuntime().exec(command);
+
+//            proc.waitFor();
+
+//        } catch (Exception e) {
+
+//            e.printStackTrace();
+
+//        }
+
+//        String downloadPath = DOWNLOAD_FILE_PATH + "-AcrSummary.pdf";
+
+//        return downloadPath;
+
+        try {
+
+            String path = getServerAbsolutePath(SERVER_REPORT_URL
+
+                    + SPECIFIC_PATH + "?govtId=" + govtId);
+
+            return save(path);
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+
+        }
+
+
+
+        return "No path";
+
+    }
+
+    public static String save(String url) throws IOException, InterruptedException{
+
+        Pdf pdf = new Pdf();
+
+        pdf.addPageFromUrl(url);
+
+        return mockSaveS3(pdf);
+
+    }
+
+    private static String mockSaveS3(Pdf pdf) throws IOException, InterruptedException{
+
+        File fileTemp = File.createTempFile("pdf-", "");
+
+        File file = pdf.saveAs("apps/" + fileTemp.getName());
+
+        return file.getAbsolutePath();
+
+    }
+*/
 
 }
